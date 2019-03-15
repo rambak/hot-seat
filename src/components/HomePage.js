@@ -90,7 +90,13 @@ export class HomePage extends Component {
         >
           Start a new Game
         </Button>
-        <Button>Enter a Game</Button>
+        <Button
+          onClick={() => {
+            this.props.history.push('/login');
+          }}
+        >
+          Enter a Game
+        </Button>
       </Container>
     );
   }

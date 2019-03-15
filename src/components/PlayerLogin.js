@@ -1,5 +1,7 @@
 import React from 'react';
 import { Container, Form, Button, Message } from 'semantic-ui-react';
+import { getUser } from '../store/reducers/user';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { db } from '../config/fbConfig';
 
@@ -53,6 +55,8 @@ class PlayerLogin extends React.Component {
           .add({
             name: enteredName,
           });
+        this.props.getUser(enteredName, enteredPin);
+        this.props.history.push(`/game/${enteredPin}`);
       }
     } else {
       this.setState({
@@ -62,8 +66,6 @@ class PlayerLogin extends React.Component {
         ],
       });
     }
-
-    this.props.history.push(`/game/${enteredPin}`);
   };
 
   render() {
@@ -95,4 +97,11 @@ class PlayerLogin extends React.Component {
   }
 }
 
-export default withRouter(PlayerLogin);
+const mapDispatch = dispatch => ({
+  getUser: (name, pin) => dispatch(getUser(name, pin)),
+});
+
+export default connect(
+  null,
+  mapDispatch
+)(withRouter(PlayerLogin));

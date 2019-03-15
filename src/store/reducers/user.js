@@ -1,6 +1,6 @@
 import { db } from '../../config/fbConfig';
 
-const initialState = {};
+const initialState = { isBoard: true };
 
 //ACTION TYPES
 const SET_USER = 'SET_USER';
