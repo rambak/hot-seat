@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import {HomePage} from './components/HomePage'
 import GameContainer from './components/GameContainer';
 
-
 class App extends Component {
   render() {
     return (
