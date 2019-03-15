@@ -3,7 +3,6 @@ import { Header } from 'semantic-ui-react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import GameContainer from './components/GameContainer';
 
-
 class App extends Component {
   render() {
     return (
