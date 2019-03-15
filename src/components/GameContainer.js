@@ -3,6 +3,8 @@ import { db } from '../config/fbConfig';
 import { connect } from 'react-redux';
 import Board00WaitingForPlayers from './00_WaitingForPlayers/Board00WaitingForPlayers';
 import Player00WaitingForPlayers from './00_WaitingForPlayers/Player00WaitingForPlayers';
+import Board01UpNow from './01_UpNow/Board01UpNow';
+import Player01UpNow from './01_UpNow/Player01UpNow';
 
 //REMEMBER TO TAKE OFF OF APP.JS!!!
 
@@ -35,30 +37,23 @@ export class GameContainer extends Component {
   }
 
   determineComponent(isBoard, currentStage) {
-    if (isBoard) {
-      switch (currentStage) {
-        default:
-          return; //????
-      }
+    switch (currentStage) {
+      case 'Waiting For Players':
+        return isBoard ? (
+          <Board00WaitingForPlayers players={this.state.players} />
+        ) : (
+          <Player00WaitingForPlayers />
+        );
+      case 'Up Now':
+        return isBoard ? <Board01UpNow /> : <Player01UpNow />;
+      default:
+        return; //????
     }
   }
 
   render() {
     const { currentStage } = this.state.game;
-    return (
-      <div>
-        {/* Board controller */}
-        {this.props.isBoard && currentStage === 'Waiting For Players' && (
-          <Board00WaitingForPlayers players={this.state.players} />
-        )}
-        {this.props.isBoard}
-
-        {/* Player controller */}
-        {!this.props.isBoard && currentStage === 'Waiting For Players' && (
-          <Player00WaitingForPlayers />
-        )}
-      </div>
-    );
+    return this.determineComponent(this.props.isBoard, currentStage);
   }
 }
 
