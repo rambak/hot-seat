@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Board00WaitingForPlayers from './00_WaitingForPlayers/Board00WaitingForPlayers';
 import Player00WaitingForPlayers from './00_WaitingForPlayers/Player00WaitingForPlayers';
 
+
 //REMEMBER TO TAKE OFF OF APP.JS!!!
 
 export class GameContainer extends Component {
@@ -46,6 +47,7 @@ export class GameContainer extends Component {
   render() {
     const { currentStage } = this.state.game;
     return (
+
       <div>
         {/* Board controller */}
         {this.props.isBoard && currentStage === 'Waiting For Players' && (
@@ -58,6 +60,7 @@ export class GameContainer extends Component {
           <Player00WaitingForPlayers />
         )}
       </div>
+
     );
   }
 }
