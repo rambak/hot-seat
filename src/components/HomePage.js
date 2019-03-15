@@ -81,7 +81,7 @@ export class HomePage extends Component {
 
   render() {
     return (
-      <Container textAlign="center">
+      <Container textAlign="center" style={{ paddingTop: '40vh' }}>
         <Header>Welcome, to Hot Seat Game!</Header>
         <Button
           onClick={() => {
