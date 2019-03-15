@@ -10,8 +10,8 @@ const hardcodedPlayers = [
 ];
 
 const Board00WaitingForPlayers = props => {
-  const pin = hardcodedPin;
-  const players = hardcodedPlayers;
+  const pin = props.pin;
+  const players = props.players;
 
   return (
     <Container textAlign="center">
