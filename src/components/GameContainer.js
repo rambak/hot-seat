@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { db } from '../config/fbConfig';
 import { connect } from 'react-redux';
-import Board00WaitingForPlayers from './00_WaitingForPlayers/Board00WaitingForPlayers';
-import Player00WaitingForPlayers from './00_WaitingForPlayers/Player00WaitingForPlayers';
+// import Board00WaitingForPlayers from './00_WaitingForPlayers/Board00WaitingForPlayers';
+// import Player00WaitingForPlayers from './00_WaitingForPlayers/Player00WaitingForPlayers';
 
 //REMEMBER TO TAKE OFF OF APP.JS!!!
 
@@ -46,18 +46,19 @@ export class GameContainer extends Component {
   render() {
     const { currentStage } = this.state.game;
     return (
-      <div>
-        {/* Board controller */}
-        {this.props.isBoard && currentStage === 'Waiting For Players' && (
-          <Board00WaitingForPlayers players={this.state.players} />
-        )}
-        {this.props.isBoard}
+      <div>hello</div>
+      // <div>
+      //   {/* Board controller */}
+      //   {this.props.isBoard && currentStage === 'Waiting For Players' && (
+      //     <Board00WaitingForPlayers players={this.state.players} />
+      //   )}
+      //   {this.props.isBoard}
 
-        {/* Player controller */}
-        {!this.props.isBoard && currentStage === 'Waiting For Players' && (
-          <Player00WaitingForPlayers />
-        )}
-      </div>
+      //   {/* Player controller */}
+      //   {!this.props.isBoard && currentStage === 'Waiting For Players' && (
+      //     <Player00WaitingForPlayers />
+      //   )}
+      // </div>
     );
   }
 }
