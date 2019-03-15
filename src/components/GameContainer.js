@@ -61,7 +61,6 @@ export class GameContainer extends Component {
 }
 
 const mapState = state => ({
-  gamePin: '010101',
   isBoard: true,
 });
 
