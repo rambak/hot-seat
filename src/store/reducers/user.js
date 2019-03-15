@@ -1,3 +1,5 @@
+import { db } from '../../config/fbConfig';
+
 const initialState = {};
 
 //ACTION TYPES
@@ -15,6 +17,19 @@ export const setBoard = () => ({
 });
 
 //THUNK CREATOR
+export const getUser = (name, gamePin) => async dispatch => {
+  try {
+    db.collection('games')
+      .doc(gamePin)
+      .collection('players')
+      .where('name', '==', name)
+      .onSnapshot(function(querySnapshot) {
+        dispatch(setUser(querySnapshot[0]));
+      });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 //REDUCER
 const userReducer = (state = initialState, action) => {
