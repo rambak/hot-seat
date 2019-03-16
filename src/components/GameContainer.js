@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { db } from '../config/fbConfig';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import Board00WaitingForPlayers from './00_WaitingForPlayers/Board00WaitingForPlayers';
 import Player00WaitingForPlayers from './00_WaitingForPlayers/Player00WaitingForPlayers';
 // import Board01UpNow from './01_UpNow/Board01UpNow';
@@ -20,7 +22,7 @@ export class GameContainer extends Component {
     const gamePin = this.props.match.params.pincode;
     this.gameRef = db.collection('games').doc(gamePin);
     this.gameCallback = doc => {
-      this.setState({ game: doc.data() });
+      doc.data() && this.setState({ game: doc.data() });
     };
     this.gameRef.onSnapshot(this.gameCallback);
 
@@ -55,13 +57,18 @@ export class GameContainer extends Component {
     return currentStage ? (
       this.determineComponent(this.props.isBoard, currentStage)
     ) : (
-      <h1>Loading</h1>
+      <>
+        <h1>Game does not exist</h1>
+        <Button as={Link} to="/">
+          Return to Home Page
+        </Button>
+      </>
     );
   }
 }
 
 const mapState = state => ({
-  isBoard: true,
+  isBoard: state.user.isBoard,
 });
 
 export default connect(mapState)(GameContainer);
