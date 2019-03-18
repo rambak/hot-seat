@@ -52,7 +52,8 @@ class PlayerLogin extends React.Component {
         db.collection('games')
           .doc(enteredPin)
           .collection('players')
-          .add({
+          .doc(enteredName)
+          .set({
             name: enteredName,
           });
         this.props.getUser(enteredName, enteredPin);

@@ -22,9 +22,9 @@ export const getUser = (name, gamePin) => async dispatch => {
     db.collection('games')
       .doc(gamePin)
       .collection('players')
-      .where('name', '==', name)
+      .doc(name)
       .onSnapshot(function(querySnapshot) {
-        dispatch(setUser(querySnapshot[0]));
+        dispatch(setUser(querySnapshot.data()));
       });
   } catch (err) {
     console.error(err);

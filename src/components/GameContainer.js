@@ -17,11 +17,12 @@ export class GameContainer extends Component {
     };
 
     this.pin = this.props.match.params.pincode;
+    this.gameRef = db.collection('games').doc(this.pin);
     this.determineComponent = this.determineComponent.bind(this);
+    this.updateStage = this.updateStage.bind(this);
   }
 
   componentDidMount() {
-    this.gameRef = db.collection('games').doc(this.pin);
     this.gameCallback = doc => {
       doc.data() && this.setState({ game: doc.data() });
     };
@@ -46,15 +47,37 @@ export class GameContainer extends Component {
             players={this.state.players}
             pin={this.pin}
             gameRef={this.gameRef}
+            updateStage={this.updateStage}
           />
         ) : (
           <Player00WaitingForPlayers />
         );
-      // case 'Up Now':
+      case 'upNow':
+        return <h1>Up Now Component</h1>;
       //   return isBoard ? <Board01UpNow /> : <Player01UpNow />;
       default:
         return; //????
     }
+  }
+
+  updateStage() {
+    const stages = [
+      'waitingForPlayers',
+      'upNow',
+      'question',
+      'voting',
+      'scores',
+    ]; //make sure to continue updating as we add the rest
+    const { currentStage, inHotSeat } = this.state.game;
+    const newStage = stages[stages.indexOf(currentStage) + 1];
+    const newHotSeat =
+      currentStage === 'waitingForPlayers'
+        ? 0
+        : currentStage === 'scores'
+        ? inHotSeat + 1
+        : inHotSeat;
+
+    this.gameRef.update({ currentStage: newStage, inHotSeat: newHotSeat });
   }
 
   render() {
