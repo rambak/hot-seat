@@ -2,14 +2,6 @@ import React from 'react';
 import { Header, Button, List, Container } from 'semantic-ui-react';
 import { db } from '../../config/fbConfig';
 
-// const hardcodedPin = 'ABCD';
-
-// const hardcodedPlayers = [
-//   { name: 'Matti' },
-//   { name: 'Rimma' },
-//   { name: 'Anna' },
-// ];
-
 const Board00WaitingForPlayers = props => {
   const pin = props.pin;
   const players = props.players;

@@ -5,8 +5,8 @@ import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Board00WaitingForPlayers from './00_WaitingForPlayers/Board00WaitingForPlayers';
 import Player00WaitingForPlayers from './00_WaitingForPlayers/Player00WaitingForPlayers';
-// import Board01UpNow from './01_UpNow/Board01UpNow';
-// import Player01UpNow from './01_UpNow/Player01UpNow';
+import Board01UpNow from './01_UpNow/Board01UpNow';
+import Player01UpNow from './01_UpNow/Player01UpNow';
 
 export class GameContainer extends Component {
   constructor(props) {
@@ -50,8 +50,8 @@ export class GameContainer extends Component {
         ) : (
           <Player00WaitingForPlayers />
         );
-      // case 'Up Now':
-      //   return isBoard ? <Board01UpNow /> : <Player01UpNow />;
+      case 'upNow':
+        return isBoard ? <Board01UpNow /> : <Player01UpNow />;
       default:
         return; //????
     }
