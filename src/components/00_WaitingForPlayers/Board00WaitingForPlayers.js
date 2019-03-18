@@ -21,13 +21,10 @@ const Board00WaitingForPlayers = props => {
           });
         });
 
-        batch.update(gameRef, {
-          inHotSeat: 0,
-          currentStage: 'upNow',
-        });
-
         batch.commit();
       });
+
+    props.updateStage();
   };
 
   return (
