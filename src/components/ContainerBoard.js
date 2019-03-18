@@ -6,7 +6,7 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 export const ContainerBoard = props => {
   const pin = props.match.params.pin;
   const gameRef = db.collection('games').doc(pin);
-  const { error, loading, value } = useDocument(gameRef);
+  const { loading, value } = useDocument(gameRef);
 
   return loading ? (
     <div>loading</div>

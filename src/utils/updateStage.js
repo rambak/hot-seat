@@ -6,9 +6,9 @@ const updateStage = (gameRef, currentStage, inHotSeat) => {
                    : inHotSeat;
 
   const newStage =
-    newHotSeat === this.state.players.length
-      ? 'gameOver'
-      : stages[(stages.indexOf(currentStage) + 1) % stages.length];
+    //   newHotSeat === this.state.players.length
+    //     ? 'gameOver' :
+    stages[(stages.indexOf(currentStage) + 1) % stages.length];
 
   gameRef.update({ currentStage: newStage, inHotSeat: newHotSeat });
 };

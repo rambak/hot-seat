@@ -57,7 +57,7 @@ class PlayerLogin extends React.Component {
             name: enteredName,
           });
         this.props.setUser(enteredName);
-        this.props.history.push(`/game/${enteredPin}`);
+        this.props.history.push(`/${enteredPin}`);
       }
     } else {
       this.setState({
