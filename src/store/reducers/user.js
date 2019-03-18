@@ -1,8 +1,7 @@
-const initialState = { isBoard: true };
+const initialState = {};
 
 //ACTION TYPES
 const SET_USER = 'SET_USER';
-const SET_BOARD = 'SET_BOARD';
 
 //ACTION CREATORS
 export const setUser = name => ({
@@ -10,17 +9,11 @@ export const setUser = name => ({
   name,
 });
 
-export const setBoard = () => ({
-  type: SET_BOARD,
-});
-
 //REDUCER
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      return { ...action.name, isBoard: false };
-    case SET_BOARD:
-      return { isBoard: true };
+      return { name: action.name };
     default:
       return state;
   }
