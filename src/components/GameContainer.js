@@ -45,6 +45,7 @@ export class GameContainer extends Component {
           <Board00WaitingForPlayers
             players={this.state.players}
             pin={this.pin}
+            gameRef={this.gameRef}
           />
         ) : (
           <Player00WaitingForPlayers />
