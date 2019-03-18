@@ -18,7 +18,7 @@ const Board00WaitingForPlayers = props => {
       <Header as="h1" textAlign="center">
         Game PIN: {pin}
       </Header>
-      <p>Go to {window.location.href} to join!</p>
+      <p>Go to {window.location.hostname}/login to join!</p>
       <List bulleted>
         <List.Description>Players who are already here:</List.Description>
         {players.map(player => (

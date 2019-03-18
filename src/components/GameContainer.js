@@ -15,12 +15,13 @@ export class GameContainer extends Component {
       game: {},
       players: [],
     };
+
+    this.pin = this.props.match.params.pincode;
     this.determineComponent = this.determineComponent.bind(this);
   }
 
   componentDidMount() {
-    const gamePin = this.props.match.params.pincode;
-    this.gameRef = db.collection('games').doc(gamePin);
+    this.gameRef = db.collection('games').doc(this.pin);
     this.gameCallback = doc => {
       doc.data() && this.setState({ game: doc.data() });
     };
@@ -41,7 +42,10 @@ export class GameContainer extends Component {
     switch (currentStage) {
       case 'waitingForPlayers':
         return isBoard ? (
-          <Board00WaitingForPlayers players={this.state.players} />
+          <Board00WaitingForPlayers
+            players={this.state.players}
+            pin={this.pin}
+          />
         ) : (
           <Player00WaitingForPlayers />
         );
