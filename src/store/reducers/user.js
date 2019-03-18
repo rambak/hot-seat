@@ -1,43 +1,19 @@
-import { db } from '../../config/fbConfig';
-
-const initialState = { isBoard: true };
+const initialState = {};
 
 //ACTION TYPES
 const SET_USER = 'SET_USER';
-const SET_BOARD = 'SET_BOARD';
 
 //ACTION CREATORS
-const setUser = user => ({
+export const setUser = name => ({
   type: SET_USER,
-  user,
+  name,
 });
-
-export const setBoard = () => ({
-  type: SET_BOARD,
-});
-
-//THUNK CREATOR
-export const getUser = (name, gamePin) => async dispatch => {
-  try {
-    db.collection('games')
-      .doc(gamePin)
-      .collection('players')
-      .doc(name)
-      .onSnapshot(function(querySnapshot) {
-        dispatch(setUser(querySnapshot.data()));
-      });
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 //REDUCER
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      return { ...action.user, isBoard: false };
-    case SET_BOARD:
-      return { isBoard: true };
+      return { name: action.name };
     default:
       return state;
   }
