@@ -2,8 +2,9 @@ import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 import { updateStage } from './../../../utils/';
 
-export const BoardUpNow = () => {
-  // const gameRef = this.props.gameRef;
+export const BoardUpNow = props => {
+  // const pin = props.match.params.pin;
+  // const gameRef = db.collection('games').doc(pin);
   // const game = await gameRef.get();
   // const players = await gameRef
   //   .collection('players')
