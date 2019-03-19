@@ -48,7 +48,7 @@ export const ContainerPlayer = props => {
           />
         );
       case 'question':
-        return <PlayerQuestion />;
+        return <PlayerQuestion name={props.self.name} gameRef={gameRef} />;
       case 'voting':
         return <PlayerVoting />;
       case 'results':
