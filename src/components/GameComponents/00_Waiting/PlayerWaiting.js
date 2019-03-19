@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
 
-const Player00WaitingForPlayers = props => {
+export const PlayerWaiting = () => {
   return (
     <Container textAlign="center">
       <p>Waiting for the game to start!</p>
@@ -9,4 +9,4 @@ const Player00WaitingForPlayers = props => {
   );
 };
 
-export default Player00WaitingForPlayers;
+export default PlayerWaiting;
