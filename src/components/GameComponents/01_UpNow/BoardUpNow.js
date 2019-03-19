@@ -1,18 +1,17 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
-import { updateStage } from './../../../utils/';
 
-export const BoardUpNow = () => {
-  // const gameRef = this.props.gameRef;
-  // const game = await gameRef.get();
-  // const players = await gameRef
-  //   .collection('players')
-  //   .where('turnOrder', '==', game.data().inHotSeat)
-  //   .get();
-  //   this.setState({ hotSeatName: players.docs[0].data().name });
-  // window.setTimeout(updateStage, 30000);
+export const BoardUpNow = props => {
+  if (props.players[0].turnOrder === undefined) {
+    return <div>loading</div>;
+  }
 
-  const name = 'Anna';
+  const player = props.players.find(player => {
+    return player.turnOrder === props.inHotSeat;
+  });
+
+  const name = player.name;
+  window.setTimeout(() => props.updateStage(), 10000);
 
   return (
     <Container textAlign="center">
