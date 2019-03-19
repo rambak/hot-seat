@@ -1,29 +1,25 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Container, Header } from 'semantic-ui-react';
 
 export const PlayerUpNow = props => {
-  // const player = props.players.find(player => {
-  //   return player.data().order === props.inHotSeat;
-  // });
+  if (props.players[0].turnOrder === undefined) {
+    return <div>loading</div>;
+  }
 
-  // const name = player.data().name;
-  const name = 'PLACEHOLDER';
+  const player = props.players.find(player => {
+    return player.turnOrder === props.inHotSeat;
+  });
+
+  const name = player.name;
   return (
     <Container textAlign="center">
-      {/* {name === props.myName ? (
+      {name === props.self.name ? (
         <Header>You are in the hot seat!</Header>
-      ) : ( */}
-      <Header>{name} is in the hot seat!</Header>
-      {/* )} */}
+      ) : (
+        <Header>{name} is in the hot seat!</Header>
+      )}
     </Container>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    myName: state.user.name,
-  };
-};
-
-export default connect(mapStateToProps)(PlayerUpNow);
+export default PlayerUpNow;

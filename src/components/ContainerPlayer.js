@@ -10,6 +10,7 @@ import {
   PlayerScores,
   PlayerGameOver,
 } from '../components/GameComponents';
+import { connect } from 'react-redux';
 
 export const ContainerPlayer = props => {
   const pin = props.match.params.pin;
@@ -39,7 +40,13 @@ export const ContainerPlayer = props => {
       case 'waitingForPlayers':
         return <PlayerWaiting />;
       case 'upNow':
-        return <PlayerUpNow players={players} inHotSeat={inHotSeat} />;
+        return (
+          <PlayerUpNow
+            self={props.self}
+            players={players}
+            inHotSeat={inHotSeat}
+          />
+        );
       case 'question':
         return <PlayerQuestion />;
       case 'voting':
@@ -62,4 +69,8 @@ export const ContainerPlayer = props => {
   );
 };
 
-export default ContainerPlayer;
+const mapState = state => ({
+  self: state.user,
+});
+
+export default connect(mapState)(ContainerPlayer);

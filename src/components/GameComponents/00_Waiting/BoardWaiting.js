@@ -1,8 +1,28 @@
 import React from 'react';
 import { Header, Button, List, Container } from 'semantic-ui-react';
-import { startGame } from '../../../utils/';
+import { db } from '../../../config/fbConfig';
 
 export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
+  const startGame = gameRef => {
+    gameRef
+      .collection('players')
+      .get()
+      .then(function(players) {
+        const batch = db.batch();
+
+        players.docs.forEach(function(player, idx) {
+          batch.update(player.ref, {
+            score: 0,
+            turnOrder: idx,
+          });
+        });
+
+        batch.commit();
+      });
+
+    updateStage(gameRef, 'waitingForPlayers');
+  };
+
   return (
     <Container textAlign="center">
       <Header as="h1" textAlign="center">
