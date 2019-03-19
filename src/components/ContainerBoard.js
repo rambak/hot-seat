@@ -76,7 +76,7 @@ export const ContainerBoard = props => {
       case 'results':
         return <BoardResults />;
       case 'scores':
-        return <BoardScores />;
+        return <BoardScores players={players} inHotSeat={inHotSeat} />;
       case 'gameOver':
         return <BoardGameOver />;
       default:
