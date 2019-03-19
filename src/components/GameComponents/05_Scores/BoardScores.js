@@ -1,22 +1,15 @@
 import React from 'react';
 import { Table, Icon } from 'semantic-ui-react';
 
-const hardCodedPlayers = [
-  { name: 'Rimma', score: 5, turnOrder: 0 },
-  { name: 'Anna', score: 5, turnOrder: 1 },
-  { name: 'Matti', score: 5, turnOrder: 2 },
-  { name: 'Mark', score: 10, turnOrder: 3 },
-];
-
 export const BoardScores = props => {
   const players = props.players;
 
-  const inHotSeatName = hardCodedPlayers.find(player => {
+  const inHotSeatName = players.find(player => {
     return player.turnOrder === props.inHotSeat;
   }).name;
 
   let highScore = 0;
-  hardCodedPlayers.forEach(player => {
+  players.forEach(player => {
     if (player.score > highScore) {
       highScore = player.score;
     }
