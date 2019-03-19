@@ -35,6 +35,10 @@ export const ContainerBoard = props => {
     });
   }
 
+  //Questions
+
+  const prevQuestions = {}
+
   const updateStage = () => {
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
     //prettier-ignore
@@ -70,7 +74,9 @@ export const ContainerBoard = props => {
           />
         );
       case 'question':
-        return <BoardQuestion />;
+        return <BoardQuestion
+               prevQuestions={prevQuestions}
+               />;
       case 'voting':
         return <BoardVoting />;
       case 'results':
