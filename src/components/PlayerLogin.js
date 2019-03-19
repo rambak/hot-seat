@@ -38,8 +38,6 @@ class PlayerLogin extends React.Component {
           return querySnapshot.docs.length > 0;
         });
 
-      console.log(playerNameExists);
-
       if (playerNameExists) {
         this.setState({
           errors: [
@@ -48,7 +46,6 @@ class PlayerLogin extends React.Component {
           ],
         });
       } else {
-        console.log('Entering the game :)');
         db.collection('games')
           .doc(enteredPin)
           .collection('players')
