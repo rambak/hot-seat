@@ -18,12 +18,13 @@ export const styles = {
   }
 }
 
-export  const setTimer = () => {
-  const [timeRemainingInSeconds, decrementTime] = useState(5)
+export  const setTimer = (sec) => {
+  const [timeRemainingInSeconds, decrementTime] = useState(sec)
   useEffect(() => {
     const timer = setInterval(() => {
       decrementTime(timeRemainingInSeconds-1);
     }, 1000);
+
     if (timeRemainingInSeconds === 0) {
       return () => {
       clearInterval(timer)
