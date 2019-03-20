@@ -1,5 +1,7 @@
 import React from 'react';
 import { db } from '../../../config/fbConfig';
+import { Header, Container } from 'semantic-ui-react'
+import { Timer } from '../../../utils/timer'
 
 export class BoardQuestion extends React.Component {
   constructor() {
@@ -23,10 +25,16 @@ export class BoardQuestion extends React.Component {
     this.props.prevQuestions[randomIdx] = true;
   }
 
+
+
   render() {
-    window.setTimeout(() => this.props.updateStage(), 30000);
-    if (this.state.question) return <div>{this.state.question}</div>;
-    else return <div>loading</div>;
+    if (!this.state.question) return <div>loading</div>
+    return (
+      <Container>
+        <Header>{this.state.question}</Header>
+        <Timer updateStage={this.props.updateStage} time={20}/>
+      </Container>
+    )
   }
 }
 
