@@ -36,8 +36,10 @@ export const ContainerBoard = props => {
   }
 
   //Questions
-
   const prevQuestions = {}
+
+  //is everybody gave answers before timeout
+  const isEverybodyAnswered = false;
 
   const updateStage = () => {
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
@@ -76,9 +78,16 @@ export const ContainerBoard = props => {
       case 'question':
         return <BoardQuestion
                prevQuestions={prevQuestions}
+               updateStage={updateStage}
+               isEverybodyAnswered={isEverybodyAnswered}
                />;
       case 'voting':
-        return <BoardVoting />;
+        return <BoardVoting
+                gameRef={gameRef}
+                updateStage={updateStage}
+                players={players}
+                isEverybodyAnswered={isEverybodyAnswered}
+               />;
       case 'results':
         return <BoardResults />;
       case 'scores':
