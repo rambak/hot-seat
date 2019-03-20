@@ -35,21 +35,26 @@ export const ContainerPlayer = props => {
     });
   }
 
-  console.log('self', props.self)
+  console.log('self', props.self);
 
   const determinePlayerComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayers':
         return <PlayerWaiting />;
       case 'upNow':
-        return <PlayerUpNow self={props.self} inHotSeatName={inHotSeat.name} />;
+        return (
+          <PlayerUpNow self={props.self.name} inHotSeatName={inHotSeat.name} />
+        );
       case 'question':
         return <PlayerQuestion name={props.self.name} gameRef={gameRef} />;
       case 'voting':
-        return <PlayerVoting name={props.self.name}
-                             gameRef={gameRef}
-                             players={players}
-                             />;
+        return (
+          <PlayerVoting
+            selfName={props.self.name}
+            gameRef={gameRef}
+            inHotSeatName={inHotSeat.name}
+          />
+        );
       case 'results':
         return <PlayerResults />;
       case 'scores':

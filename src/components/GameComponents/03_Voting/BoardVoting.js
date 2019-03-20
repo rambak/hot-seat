@@ -1,9 +1,9 @@
 import React from 'react';
-import { Header, Container } from 'semantic-ui-react'
+import { Header, Container } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
-export const BoardVoting = (props) => {
-  const answersRef = props.gameRef.collection('answers')
+export const BoardVoting = props => {
+  const answersRef = props.gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
   let answers = [];
   if (answersCol.value) {
@@ -15,15 +15,14 @@ export const BoardVoting = (props) => {
     });
   }
 
-return (
-  <Container>
-    <Header>All Answers</Header>
-    {answers.map((answer) => {
-      return (
-        <Header>{answer}</Header>
-      )
-    })}
-  </Container>
-)}
+  return (
+    <Container>
+      <Header>All Answers</Header>
+      {answers.map((answer, idx) => {
+        return <Header key={idx}>{answer}</Header>;
+      })}
+    </Container>
+  );
+};
 
 export default BoardVoting;

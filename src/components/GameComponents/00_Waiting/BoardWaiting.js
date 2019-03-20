@@ -7,7 +7,7 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
     await gameRef
       .collection('players')
       .get()
-      .then(function(players) {
+      .then(async function(players) {
         const batch = db.batch();
 
         for (let i = 0; i < players.docs.length; i++) {
@@ -35,7 +35,7 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
           }
         }
 
-        batch.commit();
+        await batch.commit();
       });
 
     updateStage();

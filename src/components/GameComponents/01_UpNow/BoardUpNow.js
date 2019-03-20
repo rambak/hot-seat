@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 import { styles, setTimer } from '../../../utils/timer';
 
 export const BoardUpNow = ({ inHotSeatName, updateStage }) => {
-  let timeRemainingInSeconds = useEffect(() => setTimer(10));
+  let timeRemainingInSeconds = setTimer(5);
 
   if (timeRemainingInSeconds === 0) updateStage();
 
