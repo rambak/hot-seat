@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react'
+import { Header, Container } from 'semantic-ui-react'
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 export const BoardVoting = (props) => {
@@ -19,14 +19,14 @@ export const BoardVoting = (props) => {
   let finalAnswers;
   if (props.players.length === answers.length) {
     finalAnswers = [...answers];
-    return <div>Answers:
+    return <Container>Answers:
     { finalAnswers.map((answer, idx) => {
       return (
         <Header>{answer.answer}</Header>
       )
     })
     }
-  </div>;
+  </Container>;
   }
   else return <div>Wait for answers..</div>
 };

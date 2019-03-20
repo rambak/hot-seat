@@ -22,7 +22,7 @@ export class BoardQuestion extends React.Component {
   }
 
   render() {
-    window.setTimeout(() => this.props.updateStage(), 10000);
+    window.setTimeout(() => this.props.updateStage(), 30000);
     if (this.state.question) return <div>{this.state.question}</div>
     else return <div>loading</div>
   }
