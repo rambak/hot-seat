@@ -42,13 +42,7 @@ export const ContainerPlayer = props => {
       case 'waitingForPlayers':
         return <PlayerWaiting />;
       case 'upNow':
-        return (
-          <PlayerUpNow
-            self={props.self}
-            players={players}
-            inHotSeat={inHotSeat}
-          />
-        );
+        return <PlayerUpNow self={props.self} inHotSeatName={inHotSeat.name} />;
       case 'question':
         return <PlayerQuestion name={props.self.name} gameRef={gameRef} />;
       case 'voting':
