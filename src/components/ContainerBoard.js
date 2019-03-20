@@ -74,7 +74,7 @@ export const ContainerBoard = props => {
       updateGameObj.inHotSeat = newHotSeat;
     }
 
-    await gameRef.update(updateGameObj);
+    gameRef.update(updateGameObj);
   };
 
   const determineBoardComponent = currentStage => {
@@ -98,6 +98,7 @@ export const ContainerBoard = props => {
       case 'question':
         return (
           <BoardQuestion
+            inHotSeatName={inHotSeat.name}
             prevQuestions={prevQuestions}
             updateStage={updateStage}
           />

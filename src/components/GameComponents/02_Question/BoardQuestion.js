@@ -18,7 +18,10 @@ export class BoardQuestion extends React.Component {
       .collection('questions')
       .doc(randomIdx)
       .get();
-    const question = curQuestion.data().question;
+    const question = curQuestion
+      .data()
+      .question.split('**name**')
+      .join(this.props.inHotSeatName);
     this.setState({ question });
     this.props.prevQuestions[randomIdx] = true;
   }
