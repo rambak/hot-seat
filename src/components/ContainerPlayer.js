@@ -35,6 +35,8 @@ export const ContainerPlayer = props => {
     });
   }
 
+  console.log('self', props.self)
+
   const determinePlayerComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayers':
@@ -50,7 +52,10 @@ export const ContainerPlayer = props => {
       case 'question':
         return <PlayerQuestion name={props.self.name} gameRef={gameRef} />;
       case 'voting':
-        return <PlayerVoting />;
+        return <PlayerVoting name={props.self.name}
+                             gameRef={gameRef}
+                             players={players}
+                             />;
       case 'results':
         return <PlayerResults />;
       case 'scores':

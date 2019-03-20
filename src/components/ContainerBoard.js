@@ -76,9 +76,14 @@ export const ContainerBoard = props => {
       case 'question':
         return <BoardQuestion
                prevQuestions={prevQuestions}
+               updateStage={updateStage}
                />;
       case 'voting':
-        return <BoardVoting />;
+        return <BoardVoting
+                gameRef={gameRef}
+                updateStage={updateStage}
+                players={players}
+               />;
       case 'results':
         return <BoardResults />;
       case 'scores':
