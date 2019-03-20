@@ -36,7 +36,6 @@ export const ContainerBoard = props => {
   }
 
   //Questions
-
   const prevQuestions = {};
 
   const updateStage = async () => {
@@ -112,7 +111,7 @@ export const ContainerBoard = props => {
           />
         );
       case 'results':
-        return <BoardResults />;
+        return <BoardResults gameRef={gameRef} />;
       case 'scores':
         return <BoardScores players={players} inHotSeatName={inHotSeat.name} />;
       case 'gameOver':
