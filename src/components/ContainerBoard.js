@@ -36,19 +36,10 @@ export const ContainerBoard = props => {
   }
 
   //Questions
-<<<<<<< HEAD
 
   const prevQuestions = {};
 
   const updateStage = async () => {
-=======
-  const prevQuestions = {}
-
-  //is everybody gave answers before timeout
-  const isEverybodyAnswered = false;
-
-  const updateStage = () => {
->>>>>>> 93089e40709260645e0041d4a721de97e58bb9cb
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
     //prettier-ignore
 
@@ -105,16 +96,20 @@ export const ContainerBoard = props => {
           />
         );
       case 'question':
-        return <BoardQuestion
-               prevQuestions={prevQuestions}
-               updateStage={updateStage}
-               />;
+        return (
+          <BoardQuestion
+            prevQuestions={prevQuestions}
+            updateStage={updateStage}
+          />
+        );
       case 'voting':
-        return <BoardVoting
-                gameRef={gameRef}
-                updateStage={updateStage}
-                players={players}
-               />;
+        return (
+          <BoardVoting
+            gameRef={gameRef}
+            updateStage={updateStage}
+            players={players}
+          />
+        );
       case 'results':
         return <BoardResults />;
       case 'scores':
