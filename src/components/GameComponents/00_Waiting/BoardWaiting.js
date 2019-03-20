@@ -3,24 +3,42 @@ import { Header, Button, List, Container } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
 
 export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
-  const startGame = gameRef => {
-    gameRef
+  const startGame = async gameRef => {
+    await gameRef
       .collection('players')
       .get()
       .then(function(players) {
         const batch = db.batch();
 
-        players.docs.forEach(function(player, idx) {
+        for (let i = 0; i < players.docs.length; i++) {
+          const player = players.docs[i];
+          let nextPlayerName;
+          if (i + 1 < players.docs.length) {
+            nextPlayerName = players.docs[i + 1].data().name;
+          } else {
+            nextPlayerName = null;
+          }
+
           batch.update(player.ref, {
             score: 0,
-            turnOrder: idx,
+            turnOrder: i,
+            nextPlayer: nextPlayerName,
           });
-        });
+
+          if (i === 0) {
+            batch.update(gameRef, {
+              inHotSeat: {
+                name: player.data().name,
+                nextPlayer: nextPlayerName,
+              },
+            });
+          }
+        }
 
         batch.commit();
       });
 
-    updateStage(gameRef, 'waitingForPlayers');
+    updateStage();
   };
 
   return (

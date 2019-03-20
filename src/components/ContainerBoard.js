@@ -36,21 +36,45 @@ export const ContainerBoard = props => {
   }
 
   //Questions
-  const prevQuestions = {}
 
-  const updateStage = () => {
+  const prevQuestions = {};
+
+  const updateStage = async () => {
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
     //prettier-ignore
-    const newHotSeat = currentStage === 'waitingForPlayers' ? 0
-                     : currentStage === 'scores' ? inHotSeat + 1
-                     : inHotSeat;
+
+    if(inHotSeat === undefined) {
+      const gameDoc = await gameRef.get()
+      inHotSeat = await gameDoc.data().inHotSeat
+    }
 
     const newStage =
-      newHotSeat === players.length
+      currentStage === 'scores' && !inHotSeat.nextPlayer
         ? 'gameOver'
         : stages[(stages.indexOf(currentStage) + 1) % stages.length];
 
-    gameRef.update({ currentStage: newStage, inHotSeat: newHotSeat });
+    let newHotSeat;
+    if (currentStage === 'gameOver') {
+      newHotSeat = null;
+    } else if (currentStage !== 'scores') {
+      newHotSeat = inHotSeat;
+    } else {
+      const newHotSeatName = inHotSeat.nextPlayer;
+
+      const nextPlayerDoc = await playersRef.doc(newHotSeatName).get();
+      const nextPlayer = nextPlayerDoc.data().nextPlayer;
+      newHotSeat = {
+        name: newHotSeatName,
+        nextPlayer: nextPlayer,
+      };
+    }
+
+    const updateGameObj = { currentStage: newStage };
+    if (newHotSeat !== undefined) {
+      updateGameObj.inHotSeat = newHotSeat;
+    }
+
+    await gameRef.update(updateGameObj);
   };
 
   const determineBoardComponent = currentStage => {
@@ -67,26 +91,29 @@ export const ContainerBoard = props => {
       case 'upNow':
         return (
           <BoardUpNow
-            players={players}
-            inHotSeat={inHotSeat}
+            inHotSeatName={inHotSeat.name}
             updateStage={updateStage}
           />
         );
       case 'question':
-        return <BoardQuestion
-               prevQuestions={prevQuestions}
-               updateStage={updateStage}
-               />;
+        return (
+          <BoardQuestion
+            prevQuestions={prevQuestions}
+            updateStage={updateStage}
+          />
+        );
       case 'voting':
-        return <BoardVoting
-                gameRef={gameRef}
-                updateStage={updateStage}
-                players={players}
-               />;
+        return (
+          <BoardVoting
+            gameRef={gameRef}
+            updateStage={updateStage}
+            players={players}
+          />
+        );
       case 'results':
         return <BoardResults />;
       case 'scores':
-        return <BoardScores players={players} inHotSeat={inHotSeat} />;
+        return <BoardScores players={players} inHotSeatName={inHotSeat.name} />;
       case 'gameOver':
         return <BoardGameOver />;
       default:
