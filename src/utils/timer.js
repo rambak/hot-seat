@@ -1,36 +1,56 @@
-import { useEffect, useState }from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 export const styles = {
   count: {
     color: 'white',
-    fontSize: '8em',
-    position: 'absolute',
-    top: '40%',
-    left: '28%'
+    fontSize: '15vw',
+
   },
   circle: {
-    content: "",
-    position: 'absolute',
     borderRadius: '50%',
-    width: '10em',
-    height: '10em',
+    width: '20vw',
+    height: '20vw',
     background: '#81CE97',
+    textAlign: 'center',
+    border: '3px solid #81CE40',
+
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    position:'absolute',
+    bottom:'3vw',
+    left:'40%',
   }
 }
 
-export  const setTimer = (sec) => {
+export const setTimer = (sec) => {
   const [timeRemainingInSeconds, decrementTime] = useState(sec)
-  useEffect(() => {
+  const r = useRef(null);
+  r.current = { timeRemainingInSeconds, decrementTime };
+    useEffect(() => {
     const timer = setInterval(() => {
-      decrementTime(timeRemainingInSeconds-1);
+      r.current.decrementTime(r.current.timeRemainingInSeconds-1);
+      if (r.current.timeRemainingInSeconds === 0) {
+        clearInterval(timer)
+      }
     }, 1000);
 
-    if (timeRemainingInSeconds === 0) {
-      return () => {
-      clearInterval(timer)
-    }
-    }
-  }, [timeRemainingInSeconds]);
+  }, []);
 
-  return timeRemainingInSeconds
-  }
+  return r.current.timeRemainingInSeconds
+}
+
+export const Timer = ({  updateStage, time }) => {
+
+  let timeRemainingInSeconds = setTimer(time)
+  if (timeRemainingInSeconds === 0) updateStage()
+
+  return (
+      <div style={styles.circle}>
+      <div style={styles.count}>{timeRemainingInSeconds}</div>
+      </div>
+  );
+};
+
