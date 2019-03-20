@@ -3,9 +3,8 @@ import { Container, Header } from 'semantic-ui-react';
 import { styles, setTimer } from '../../../utils/timer'
 
 export const BoardUpNow = ({ inHotSeatName, updateStage }) => {
-  window.setTimeout(() => updateStage(), 0);
 
-  let timeRemainingInSeconds = setTimer()
+  let timeRemainingInSeconds = setTimer(10)
   if (timeRemainingInSeconds === 0) updateStage()
 
   return (
