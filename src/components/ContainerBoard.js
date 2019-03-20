@@ -36,6 +36,10 @@ export const ContainerBoard = props => {
   }
 
   //Questions
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9ab19d6810d96099e78185b9433ce40316089433
   const prevQuestions = {};
 
   const updateStage = async () => {
