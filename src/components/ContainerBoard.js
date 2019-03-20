@@ -36,12 +36,7 @@ export const ContainerBoard = props => {
   }
 
   //Questions
-<<<<<<< HEAD
-
   const prevQuestions = {};
-=======
-  const prevQuestions = {}
->>>>>>> 93089e40709260645e0041d4a721de97e58bb9cb
 
   //is everybody gave answers before timeout
   const isEverybodyAnswered = false;
@@ -81,22 +76,22 @@ export const ContainerBoard = props => {
           />
         );
       case 'question':
-<<<<<<< HEAD
-        return <BoardQuestion prevQuestions={prevQuestions} />;
-=======
-        return <BoardQuestion
-               prevQuestions={prevQuestions}
-               updateStage={updateStage}
-               isEverybodyAnswered={isEverybodyAnswered}
-               />;
->>>>>>> 93089e40709260645e0041d4a721de97e58bb9cb
+        return (
+          <BoardQuestion
+            prevQuestions={prevQuestions}
+            updateStage={updateStage}
+            isEverybodyAnswered={isEverybodyAnswered}
+          />
+        );
       case 'voting':
-        return <BoardVoting
-                gameRef={gameRef}
-                updateStage={updateStage}
-                players={players}
-                isEverybodyAnswered={isEverybodyAnswered}
-               />;
+        return (
+          <BoardVoting
+            gameRef={gameRef}
+            updateStage={updateStage}
+            players={players}
+            isEverybodyAnswered={isEverybodyAnswered}
+          />
+        );
       case 'results':
         return <BoardResults gameRef={gameRef} />;
       case 'scores':
