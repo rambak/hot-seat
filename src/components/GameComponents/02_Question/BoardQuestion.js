@@ -12,7 +12,7 @@ export class BoardQuestion extends React.Component {
   async componentDidMount() {
     let randomIdx;
     do {
-      randomIdx = Math.floor(Math.random() * 9 + 0).toString();
+      randomIdx = Math.floor(Math.random() * 15 + 1).toString();
     } while (this.props.prevQuestions.randomIdx);
     const curQuestion = await db
       .collection('questions')
@@ -24,7 +24,7 @@ export class BoardQuestion extends React.Component {
   }
 
   render() {
-    console.log('this.props.prevQuestions', this.props.prevQuestions);
+    window.setTimeout(() => this.props.updateStage(), 30000);
     if (this.state.question) return <div>{this.state.question}</div>;
     else return <div>loading</div>;
   }
