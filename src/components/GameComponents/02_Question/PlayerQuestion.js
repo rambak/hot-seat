@@ -14,7 +14,7 @@ export const PlayerQuestion = ({ name, gameRef }) => {
     gameRef
       .collection('answers')
       .doc(name)
-      .set({ answer, playersVote: [] }, { merge: true });
+      .set({ answer: answer.toUpperCase(), playersVote: [] }, { merge: true });
     setAnswer('');
   };
 
