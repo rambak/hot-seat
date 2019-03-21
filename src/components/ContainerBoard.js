@@ -1,6 +1,6 @@
 // import { determineBoardComponent } from '../utils';
 import { db } from '../config/fbConfig';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
 import {
   BoardWaiting,
@@ -18,9 +18,14 @@ export const ContainerBoard = props => {
   //Game Information
   let currentStage = '';
   let inHotSeat = null;
+  let answerCount = 0;
+  let voteCount = 0;
+
   const gameRef = db.collection('games').doc(pin);
   const gameDoc = useDocument(gameRef);
   if (gameDoc.value) {
+    voteCount = gameDoc.value.data().voteCount;
+    answerCount = gameDoc.value.data().answerCount;
     currentStage = gameDoc.value.data().currentStage;
     inHotSeat = gameDoc.value.data().inHotSeat;
   }
@@ -36,8 +41,10 @@ export const ContainerBoard = props => {
   }
 
   //Questions
-
-  const prevQuestions = {};
+  const [questions, setQuestions] = useState({
+    currentQuestion: null,
+    prevQuestions: {},
+  });
 
   const updateStage = async () => {
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
@@ -76,7 +83,7 @@ export const ContainerBoard = props => {
     }
     console.log(updateGameObj);
 
-    await gameRef.update(updateGameObj);
+    gameRef.update(updateGameObj);
   };
 
   const determineBoardComponent = currentStage => {
@@ -100,16 +107,21 @@ export const ContainerBoard = props => {
       case 'question':
         return (
           <BoardQuestion
-            prevQuestions={prevQuestions}
+            inHotSeatName={inHotSeat.name}
+            questions={questions}
+            setQuestions={setQuestions}
             updateStage={updateStage}
+            areAnswersIn={answerCount === players.length}
           />
         );
       case 'voting':
         return (
           <BoardVoting
             gameRef={gameRef}
+            currentQuestion={questions.currentQuestion}
             updateStage={updateStage}
             players={players}
+            areVotesIn={voteCount === players.length - 1}
           />
         );
       case 'results':
