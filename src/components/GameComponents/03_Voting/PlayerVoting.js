@@ -71,9 +71,9 @@ export const PlayerVoting = props => {
                       const curAnswerRef = answersRef.doc(name);
                       const newName = props.selfName;
                       return db
-                        .runTransaction(t => {
-                          const doc = t.get(curAnswerRef);
-                          const gameDoc = t.get(this.props.gameRef);
+                        .runTransaction(async t => {
+                          const doc = await t.get(curAnswerRef);
+                          const gameDoc = await t.get(props.gameRef);
                           // doc doesn't exist; can't update
                           if (!doc.exists) return;
                           // update the users array after getting it from Firestore.
@@ -89,7 +89,7 @@ export const PlayerVoting = props => {
                           const newVoteCount = currentVoteCount
                             ? currentVoteCount + 1
                             : 1;
-                          t.update(this.props.gameRef, {
+                          t.update(props.gameRef, {
                             voteCount: newVoteCount,
                           });
                         })
