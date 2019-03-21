@@ -3,8 +3,8 @@ import { Header, Container } from 'semantic-ui-react'
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Timer } from '../../../utils/timer'
 
-export const BoardVoting = (props) => {
-  const answersRef = props.gameRef.collection('answers')
+export const BoardVoting = ({ gameRef, updateStage }) => {
+  const answersRef = gameRef.collection('answers')
   const answersCol = useCollection(answersRef);
   let answers = [];
   if (answersCol.value) {
@@ -24,7 +24,7 @@ return (
         <Header>{answer}</Header>
       )
     })}
-    <Timer updateStage={props.updateStage} time={20}/>
+    <Timer updateStage={updateStage} time={20}/>
   </Container>
 )}
 
