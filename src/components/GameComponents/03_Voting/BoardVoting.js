@@ -41,7 +41,7 @@ export const BoardVoting = ({
 
   return (
     <Container textAlign="center">
-      <Header>All Answers</Header>
+      <Header style={{ fontSize: '5em' }}>All Answers</Header>
       {answers.map(answer => {
         return <Header>{answer}</Header>;
       })}

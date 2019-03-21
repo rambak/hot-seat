@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Grid } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
 
 export const PlayerQuestion = ({ name, gameRef }) => {
@@ -31,22 +31,49 @@ export const PlayerQuestion = ({ name, gameRef }) => {
     setAnswer('');
   };
 
-  if (disabled) return <div>wait for everybody..</div>;
+  if (disabled)
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '0',
+          paddingBottom: '66%',
+          position: 'relative',
+        }}
+      >
+        <iframe
+          src="https://giphy.com/embed/tXL4FHPSnVJ0A"
+          width="100%"
+          height="100%"
+          style={{ position: 'absolute' }}
+          frameBorder="0"
+          class="giphy-embed"
+          allowFullScreen
+          title="question waiting gif"
+        />
+      </div>
+    );
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Input
-          placeholder="Answer..."
-          onChange={handleChange}
-          value={answer}
-        />
+    <Grid centered>
+      <Form
+        textAlign="center"
+        style={{ paddingTop: '2em' }}
+        onSubmit={handleSubmit}
+      >
+        <Form.Group>
+          <Form.Input
+            placeholder="Answer..."
+            onChange={handleChange}
+            value={answer}
+          />
 
-        <Button type="submit" disabled={disabled}>
-          Submit
-        </Button>
-      </Form.Group>
-    </Form>
+          <Button type="submit" disabled={disabled}>
+            Submit
+          </Button>
+        </Form.Group>
+      </Form>
+    </Grid>
   );
 };
 
