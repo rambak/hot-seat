@@ -111,7 +111,13 @@ export const ContainerBoard = props => {
           />
         );
       case 'results':
-        return <BoardResults />;
+        return (
+          <BoardResults
+            gameRef={gameRef}
+            inHotSeat={inHotSeat.name}
+            updateStage={updateStage}
+          />
+        );
       case 'scores':
         return <BoardScores players={players} inHotSeatName={inHotSeat.name} />;
       case 'gameOver':
