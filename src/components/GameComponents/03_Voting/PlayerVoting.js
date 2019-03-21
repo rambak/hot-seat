@@ -58,7 +58,7 @@ export const PlayerVoting = props => {
                           const newVoteArray = [...oldArrVote, newName];
                           t.set(
                             curAnswerRef,
-                            { playersVote: newVoteArray },
+                            { playersVotes: newVoteArray },
                             { merge: true }
                           );
 

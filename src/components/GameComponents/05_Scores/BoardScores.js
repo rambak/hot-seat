@@ -8,6 +8,7 @@ export const BoardScores = ({
   updateStage,
   gameRef,
 }) => {
+
   let highScore = 0;
   players.forEach(player => {
     if (player.score > highScore) {
