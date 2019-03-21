@@ -31,8 +31,11 @@ export const ResultCard = props => {
           <Card.Header textAlign="center">{props.answer.answer}</Card.Header>
         </Card.Content>
         <Card.Content textAlign="center">
-          {props.answer.voters &&
-            props.answer.voters.map(vote => vote).join(' ')}
+          {props.answer.voters.length ? (
+            props.answer.voters.map(vote => vote).join(' ')
+          ) : (
+            <>No one figured it out!</>
+          )}
         </Card.Content>
       </Card>
     );

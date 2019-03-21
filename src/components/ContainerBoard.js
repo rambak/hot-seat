@@ -138,6 +138,7 @@ export const ContainerBoard = props => {
             players={players}
             inHotSeatName={inHotSeat.name}
             updateStage={updateStage}
+            gameRef={gameRef}
           />
         );
       case 'gameOver':
