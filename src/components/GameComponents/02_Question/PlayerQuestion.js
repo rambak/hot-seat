@@ -14,11 +14,11 @@ export const PlayerQuestion = ({ name, gameRef }) => {
     gameRef
       .collection('answers')
       .doc(name)
-      .set({ answer: answer.toUpperCase(), playersVote: [] }, { merge: true });
+      .set({ answer: answer.toUpperCase(), playersVotes: [] }, { merge: true });
     setAnswer('');
   };
 
-  if (disabled) return <div>wait for everybody..</div>
+  if (disabled) return <div>wait for everybody..</div>;
 
   return (
     <Form onSubmit={handleSubmit}>

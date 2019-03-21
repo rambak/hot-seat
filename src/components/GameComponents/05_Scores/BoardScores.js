@@ -1,13 +1,16 @@
 import React from 'react';
 import { Table, Icon } from 'semantic-ui-react';
+import useTimeout from '../../../utils/useTimeout';
 
-export const BoardScores = ({ players, inHotSeatName }) => {
+export const BoardScores = ({ players, inHotSeatName, updateStage }) => {
   let highScore = 0;
   players.forEach(player => {
     if (player.score > highScore) {
       highScore = player.score;
     }
   });
+
+  useTimeout(updateStage, 10000);
 
   return (
     <Table basic="very" celled collapsing>

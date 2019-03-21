@@ -42,10 +42,9 @@ export const ContainerBoard = props => {
   const updateStage = async () => {
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
     //prettier-ignore
-
-    if(inHotSeat === undefined) {
-      const gameDoc = await gameRef.get()
-      inHotSeat = await gameDoc.data().inHotSeat
+    if (inHotSeat === undefined) {
+      const gameDoc = await gameRef.get();
+      inHotSeat = await gameDoc.data().inHotSeat;
     }
 
     const newStage =
@@ -61,18 +60,21 @@ export const ContainerBoard = props => {
     } else {
       const newHotSeatName = inHotSeat.nextPlayer;
 
-      const nextPlayerDoc = await playersRef.doc(newHotSeatName).get();
-      const nextPlayer = nextPlayerDoc.data().nextPlayer;
-      newHotSeat = {
-        name: newHotSeatName,
-        nextPlayer: nextPlayer,
-      };
+      if (newHotSeatName !== null) {
+        const nextPlayerDoc = await playersRef.doc(newHotSeatName).get();
+        const nextPlayer = nextPlayerDoc.data().nextPlayer;
+        newHotSeat = {
+          name: newHotSeatName,
+          nextPlayer: nextPlayer,
+        };
+      }
     }
 
     const updateGameObj = { currentStage: newStage };
     if (newHotSeat !== undefined) {
       updateGameObj.inHotSeat = newHotSeat;
     }
+    console.log(updateGameObj);
 
     await gameRef.update(updateGameObj);
   };
@@ -119,9 +121,15 @@ export const ContainerBoard = props => {
           />
         );
       case 'scores':
-        return <BoardScores players={players} inHotSeatName={inHotSeat.name} />;
+        return (
+          <BoardScores
+            players={players}
+            inHotSeatName={inHotSeat.name}
+            updateStage={updateStage}
+          />
+        );
       case 'gameOver':
-        return <BoardGameOver players={players}  gameRef={gameRef}/>;
+        return <BoardGameOver players={players} gameRef={gameRef} />;
       default:
         return <></>;
     }
@@ -130,7 +138,7 @@ export const ContainerBoard = props => {
   return gameDoc.loading || playersCol.loading ? (
     <div>loading</div>
   ) : (
-      determineBoardComponent(currentStage)
+    determineBoardComponent(currentStage)
   );
 };
 
