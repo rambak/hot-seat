@@ -1,6 +1,8 @@
 import React from 'react';
 import { Header, Container } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { Timer } from '../../../utils/timer'
+
 
 export const BoardVoting = ({
   gameRef,
@@ -9,6 +11,7 @@ export const BoardVoting = ({
   inHotSeatName,
 }) => {
   const answersRef = gameRef.collection('answers');
+
   const answersCol = useCollection(answersRef);
   let answers = [];
   if (answersCol.value) {

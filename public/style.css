@@ -1,0 +1,20 @@
+
+body {
+  background: url("background.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
+.image.hotseat {
+/* place it in bottom right corner */
+position:absolute;
+float:right;
+right:0px;
+bottom:0px;
+z-index:2;
+/* make it responsive */
+height: 30vw;
+width: auto
+}
+
+
+
