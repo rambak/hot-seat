@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Icon } from 'semantic-ui-react';
+import { Timer } from '../../../utils/timer';
 
-export const BoardScores = ({ players, inHotSeatName }) => {
+export const BoardScores = ({
+  players,
+  inHotSeatName,
+  updateStage,
+  gameRef,
+}) => {
+
   let highScore = 0;
   players.forEach(player => {
     if (player.score > highScore) {
@@ -9,29 +16,36 @@ export const BoardScores = ({ players, inHotSeatName }) => {
     }
   });
 
-  return (
-    <Table basic="very" celled collapsing>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell />
-          <Table.HeaderCell>Player</Table.HeaderCell>
-          <Table.HeaderCell>Score</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
+  useEffect(() => {
+    gameRef.update({ answerCount: 0 });
+  }, []);
 
-      <Table.Body>
-        {players.map(player => (
-          <Table.Row key={player.name}>
-            <Table.Cell>
-              {player.name === inHotSeatName && <Icon name="fire" />}
-              {player.score === highScore && <Icon name="winner" />}
-            </Table.Cell>
-            <Table.Cell>{player.name}</Table.Cell>
-            <Table.Cell>{player.score}</Table.Cell>
+  return (
+    <>
+      <Table basic="very" celled collapsing>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell>Player</Table.HeaderCell>
+            <Table.HeaderCell>Score</Table.HeaderCell>
           </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
+        </Table.Header>
+
+        <Table.Body>
+          {players.map(player => (
+            <Table.Row key={player.name}>
+              <Table.Cell>
+                {player.name === inHotSeatName && <Icon name="fire" />}
+                {player.score === highScore && <Icon name="winner" />}
+              </Table.Cell>
+              <Table.Cell>{player.name}</Table.Cell>
+              <Table.Cell>{player.score}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+      <Timer updateStage={updateStage} time={5} />
+    </>
   );
 };
 

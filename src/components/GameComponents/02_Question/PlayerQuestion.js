@@ -23,7 +23,7 @@ export const PlayerQuestion = ({ name, gameRef }) => {
         transaction.update(gameRef, { answerCount: newAnswerCount });
 
         const myAnswerRef = gameRef.collection('answers').doc(name);
-        const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
+        const myAnswer = { answer: answer.toUpperCase(), playersVotes: [] };
         transaction.set(myAnswerRef, myAnswer);
       });
     });
@@ -31,7 +31,7 @@ export const PlayerQuestion = ({ name, gameRef }) => {
     setAnswer('');
   };
 
-  if (disabled) return <div>wait for everybody..</div>
+  if (disabled) return <div>wait for everybody..</div>;
 
   return (
     <Form onSubmit={handleSubmit}>
