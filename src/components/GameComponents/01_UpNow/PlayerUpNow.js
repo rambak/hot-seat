@@ -6,12 +6,12 @@ export const PlayerUpNow = ({ selfName, inHotSeatName }) => {
     <Container textAlign="center">
       {inHotSeatName === selfName ? (
         <>
-          <Header>YOU</Header>
+          <Header style={{ fontSize: '6em' }}>YOU</Header>
           <Header>are in the hot seat!</Header>
         </>
       ) : (
         <>
-          <Header>{inHotSeatName}</Header>
+          <Header style={{ fontSize: '6em' }}>{inHotSeatName}</Header>
           <Header>is in the hot seat!</Header>
         </>
       )}

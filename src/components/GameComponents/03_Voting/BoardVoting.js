@@ -121,9 +121,9 @@ export const BoardVoting = ({
 
   return (
     <Container textAlign="center">
-      <Header>All Answers</Header>
-      {answers.map((answer, idx) => {
-        return <Header key={idx}>{answer}</Header>;
+      <Header style={{ fontSize: '5em' }}>All Answers</Header>
+      {answers.map(answer => {
+        return <Header>{answer}</Header>;
       })}
       {/* <Timer updateStage={calculateScores} time={20} /> */}
     </Container>

@@ -5,7 +5,7 @@ import { Timer } from '../../../utils/timer';
 export const BoardUpNow = ({ inHotSeatName, updateStage }) => {
   return (
     <Container textAlign="center">
-      <Header>{inHotSeatName}</Header>
+      <Header style={{ fontSize: '6em' }}>{inHotSeatName}</Header>
       <Header>is in the hot seat!</Header>
       <Timer updateStage={updateStage} time={3} />
     </Container>

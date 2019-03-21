@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Header } from 'semantic-ui-react';
+import { Button, Grid, Header } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../../config/fbConfig';
 
@@ -29,58 +29,80 @@ export const PlayerVoting = props => {
     });
   }
   const [isAnswered, setisAnswered] = useState(false);
-  if (isAnswered) return <div>wait for everybody..</div>;
+  if (isAnswered)
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '0',
+          paddingBottom: '69%',
+          position: 'relative',
+        }}
+      >
+        <iframe
+          src="https://giphy.com/embed/l0HlBO7eyXzSZkJri"
+          width="100%"
+          height="100%"
+          style={{ position: 'absolute' }}
+          frameBorder="0"
+          class="giphy-embed"
+          allowFullScreen
+          title="voting waiting gif"
+        />
+      </div>
+    );
   return (
     <>
       {props.selfName === props.inHotSeatName ? (
-        <Container>
+        <Grid centered style={{ paddingTop: '2em' }}>
           Please wait for the other players to guess your answer.
-        </Container>
+        </Grid>
       ) : (
-        <Container>
-          <Header>What do you think {props.inHotSeatName}'s answer?</Header>
+        <Grid centered style={{ paddingTop: '2em' }}>
+          <Header>What did {props.inHotSeatName} answer?</Header>
           {answers.map((answer, idx) => {
             return (
-              <Button
-                key={idx}
-                onClick={() => {
-                  setisAnswered(!isAnswered);
-                  answer.name.forEach(name => {
-                    const curAnswerRef = answersRef.doc(name);
-                    const newName = props.selfName;
-                    console.log('ANSWER');
-                    return db
-                      .runTransaction(t => {
-                        return t.get(curAnswerRef).then(doc => {
-                          // doc doesn't exist; can't update
-                          if (!doc.exists) return;
-                          // update the users array after getting it from Firestore.
-                          const oldArrVote = doc.get('playersVote');
-                          const newVoteArray = [...oldArrVote, newName];
-                          t.set(
-                            curAnswerRef,
-                            { playersVote: newVoteArray },
-                            { merge: true }
-                          );
+              <Grid.Row>
+                <Button
+                  key={idx}
+                  onClick={() => {
+                    setisAnswered(!isAnswered);
+                    answer.name.forEach(name => {
+                      const curAnswerRef = answersRef.doc(name);
+                      const newName = props.selfName;
+                      return db
+                        .runTransaction(t => {
+                          return t.get(curAnswerRef).then(doc => {
+                            // doc doesn't exist; can't update
+                            if (!doc.exists) return;
+                            // update the users array after getting it from Firestore.
+                            const oldArrVote = doc.get('playersVote');
+                            const newVoteArray = [...oldArrVote, newName];
+                            t.set(
+                              curAnswerRef,
+                              { playersVotes: newVoteArray },
+                              { merge: true }
+                            );
 
-                          // const currentVoteCount = gameDoc.data().voteCount;
-                          // const newVoteCount = currentVoteCount
-                          //   ? currentVoteCount + 1
-                          //   : 1;
-                          // t.update(this.props.gameRef, {
-                          //   voteCount: newVoteCount,
-                          //});
-                        });
-                      })
-                      .catch(console.log);
-                  });
-                }}
-              >
-                {answer.answer}
-              </Button>
+                            // const currentVoteCount = gameDoc.data().voteCount;
+                            // const newVoteCount = currentVoteCount
+                            //   ? currentVoteCount + 1
+                            //   : 1;
+                            // t.update(this.props.gameRef, {
+                            //   voteCount: newVoteCount,
+                            //});
+                          });
+                        })
+                        .catch(console.log);
+                    });
+                  }}
+                >
+                  {answer.answer}
+                </Button>
+              </Grid.Row>
             );
           })}
-        </Container>
+        </Grid>
       )}
     </>
   );
