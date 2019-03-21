@@ -30,7 +30,7 @@ export class BoardQuestion extends React.Component {
   render() {
     if (!this.state.question) return <div>loading</div>
     return (
-      <Container>
+      <Container textAlign="center">
         <Header>{this.state.question}</Header>
         <Timer updateStage={this.props.updateStage} time={20}/>
       </Container>
