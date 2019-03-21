@@ -121,7 +121,8 @@ export const ContainerBoard = props => {
             currentQuestion={questions.currentQuestion}
             updateStage={updateStage}
             players={players}
-            areVotesIn="true" //{voteCount === players.length - 1}
+            inHotSeatName={inHotSeat.name}
+            areVotesIn={voteCount === players.length - 1}
           />
         );
       case 'results':

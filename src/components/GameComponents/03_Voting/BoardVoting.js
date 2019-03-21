@@ -16,27 +16,6 @@ export const BoardVoting = ({
   const answersCol = useCollection(answersRef);
   let answers = [];
 
-  const scoring = {
-    correctAnswer: '',
-    mostVotes: 0,
-    mostVotedFor: [],
-    votedCorrectly: [],
-    matchedAnswer: [],
-  };
-
-  if (areVotesIn) {
-    const { votedCorrectly, correctAnswer } = gameRef
-      .collection('answers')
-      .doc(inHotSeatName)
-      .get()
-      .then(function(answer) {
-        scoring.votedCorrectly = answer.data().playerVotes;
-        scoring.correctAnswer = answer.data().answer;
-      });
-    scoring.votedCorrectly = votedCorrectly;
-    scoring.correctAnswer = correctAnswer;
-  }
-
   let answer;
 
   if (answersCol.value) {
@@ -45,27 +24,52 @@ export const BoardVoting = ({
       if (!answers.includes(answer)) {
         answers.push(answer);
       }
-
-      if (areVotesIn && data.id !== inHotSeatName) {
-        if (scoring.correctAnswer === data.data().answer) {
-          scoring.matchedAnswer.push(data.data().name);
-        }
-        const voteCount = data.data().playerVotes.length;
-        if (voteCount === scoring.mostVotes) {
-          scoring.mostVotedFor.push(data.data().name);
-        } else if (voteCount > scoring.mostVotes) {
-          scoring.mostVotes = voteCount;
-          scoring.mostVotedFor = [].push(data.data().name);
-        }
-      }
     });
   }
 
   if (areVotesIn) {
-    console.log('SCORING:', scoring);
+    const scoring = {
+      correctAnswer: '',
+      mostVotes: 0,
+      mostVotedFor: [],
+      votedCorrectly: [],
+      matchedAnswer: [],
+    };
+
     const playerRef = gameRef.collection('players');
+    gameRef
+      .collection('answers')
+      .doc(inHotSeatName)
+      .get()
+      .then(function(answer) {
+        scoring.votedCorrectly = answer.data().playersVote;
+        scoring.correctAnswer = answer.data().answer;
+      });
+
+    gameRef
+      .collection('answers')
+      .get()
+      .then(function(answers) {
+        answers.forEach(data => {
+          if (areVotesIn && data.id !== inHotSeatName) {
+            if (scoring.correctAnswer === data.data().answer) {
+              scoring.matchedAnswer.push(data.data().name);
+            }
+            const voteCount = data.data().playersVote.length;
+            if (voteCount === scoring.mostVotes) {
+              scoring.mostVotedFor.push(data.data().name);
+            } else if (voteCount > scoring.mostVotes) {
+              scoring.mostVotes = voteCount;
+              scoring.mostVotedFor = [].push(data.data().name);
+            }
+          }
+        });
+      });
+
+    console.log('SCORING:', scoring);
 
     players.forEach(player => {
+      console.log(player);
       db.runTransaction(function(transaction) {
         return transaction.get(playerRef.doc(player.name)).then(playerDoc => {
           let newScore = playerDoc.data().score;

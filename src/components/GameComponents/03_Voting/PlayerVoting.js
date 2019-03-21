@@ -48,6 +48,7 @@ export const PlayerVoting = props => {
                   answer.name.forEach(name => {
                     const curAnswerRef = answersRef.doc(name);
                     const newName = props.selfName;
+                    console.log('ANSWER');
                     return db
                       .runTransaction(t => {
                         return t.get(curAnswerRef).then(doc => {
@@ -58,7 +59,7 @@ export const PlayerVoting = props => {
                           const newVoteArray = [...oldArrVote, newName];
                           t.set(
                             curAnswerRef,
-                            { playersVotes: newVoteArray },
+                            { playersVote: newVoteArray },
                             { merge: true }
                           );
 
