@@ -1,6 +1,6 @@
 // import { determineBoardComponent } from '../utils';
 import { db } from '../config/fbConfig';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
 import {
   BoardWaiting,
@@ -36,7 +36,10 @@ export const ContainerBoard = props => {
   }
 
   //Questions
-  const prevQuestions = {};
+  const [questions, setQuestions] = useState({
+    currentQuestion: null,
+    prevQuestions: {},
+  });
 
   const updateStage = async () => {
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
@@ -77,6 +80,7 @@ export const ContainerBoard = props => {
   };
 
   const determineBoardComponent = currentStage => {
+    console.log('Questions:', questions);
     switch (currentStage) {
       case 'waitingForPlayers':
         return (
@@ -98,7 +102,8 @@ export const ContainerBoard = props => {
         return (
           <BoardQuestion
             inHotSeatName={inHotSeat.name}
-            prevQuestions={prevQuestions}
+            questions={questions}
+            setQuestions={setQuestions}
             updateStage={updateStage}
           />
         );
@@ -106,7 +111,9 @@ export const ContainerBoard = props => {
         return (
           <BoardVoting
             gameRef={gameRef}
+            currentQuestion={questions.currentQuestion}
             updateStage={updateStage}
+            inHotSeatName={inHotSeat.name}
             players={players}
           />
         );

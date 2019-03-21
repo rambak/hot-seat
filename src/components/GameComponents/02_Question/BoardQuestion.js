@@ -15,7 +15,7 @@ export class BoardQuestion extends React.Component {
     let randomIdx;
     do {
       randomIdx = Math.floor(Math.random() * 15 + 1).toString();
-    } while (this.props.prevQuestions.randomIdx);
+    } while (this.props.questions.prevQuestions[randomIdx]);
     const curQuestion = await db
       .collection('questions')
       .doc(randomIdx)
@@ -25,7 +25,14 @@ export class BoardQuestion extends React.Component {
       .question.split('**name**')
       .join(this.props.inHotSeatName);
     this.setState({ question });
-    this.props.prevQuestions[randomIdx] = true;
+
+    this.props.setQuestions({
+      currentQuestion: question,
+      prevQuestions: {
+        ...this.props.questions.prevQuestions,
+        randomIdx: question,
+      },
+    });
   }
 
   render() {

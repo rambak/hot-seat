@@ -4,8 +4,12 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../../config/fbConfig';
 
 export const PlayerVoting = ({ selfName, gameRef, inHotSeatName }) => {
+  // const answersRef = gameRef.collection('answers');
+  // const answers = await answersRef.get()
+
   const answersRef = gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
+
   let answers = [];
   let isRepeated = {};
   if (answersCol.value) {
@@ -31,16 +35,16 @@ export const PlayerVoting = ({ selfName, gameRef, inHotSeatName }) => {
 
   const [isAnswered, setisAnswered] = useState(false);
 
-  if (isAnswered) return <div>wait for everybody..</div>;
+  if (isAnswered) return <div>Please wait for the other players to vote.</div>;
   return (
     <>
       {selfName === inHotSeatName ? (
         <Container>
-          Please wait for other players to guess your answer.
+          Please wait for the other players to guess your answer.
         </Container>
       ) : (
         <Container>
-          <Header>What do you think {inHotSeatName}'s answer?</Header>
+          <Header>What do you think {inHotSeatName}'s answer is?</Header>
           {answers.map((answer, idx) => {
             return (
               <Button
@@ -74,7 +78,6 @@ export const PlayerVoting = ({ selfName, gameRef, inHotSeatName }) => {
               </Button>
             );
           })}
-          }
         </Container>
       )}
     </>

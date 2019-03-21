@@ -35,8 +35,6 @@ export const ContainerPlayer = props => {
     });
   }
 
-  console.log('self', props.self);
-
   const determinePlayerComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayers':
