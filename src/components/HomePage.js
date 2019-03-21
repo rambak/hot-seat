@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Header } from 'semantic-ui-react';
+import { Button, Container, Header, Image } from 'semantic-ui-react';
 import { db } from '../config/fbConfig';
 
 const HomePage = props => {
@@ -72,7 +72,7 @@ const HomePage = props => {
   };
 
   return (
-    <Container textAlign="center" style={{ paddingTop: '40vh' }}>
+    <Container textAlign="center" style={{ paddingTop: '40vh' }} >
       <Header>Welcome, to Hot Seat Game!</Header>
       <Button onClick={generatePin}>Start a new Game</Button>
       <Button
@@ -82,6 +82,7 @@ const HomePage = props => {
       >
         Enter a Game
       </Button>
+      <Image src='../.././hotseat.png' className = "hotseat" />
     </Container>
   );
 };

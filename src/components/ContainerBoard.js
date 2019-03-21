@@ -123,11 +123,17 @@ export const ContainerBoard = props => {
           />
         );
       case 'results':
-        return <BoardResults gameRef={gameRef} />;
+        return (
+          <BoardResults
+            gameRef={gameRef}
+            inHotSeat={inHotSeat.name}
+            updateStage={updateStage}
+          />
+        );
       case 'scores':
         return <BoardScores players={players} inHotSeatName={inHotSeat.name} />;
       case 'gameOver':
-        return <BoardGameOver />;
+        return <BoardGameOver players={players}  gameRef={gameRef}/>;
       default:
         return <></>;
     }
@@ -136,7 +142,7 @@ export const ContainerBoard = props => {
   return gameDoc.loading || playersCol.loading ? (
     <div>loading</div>
   ) : (
-    determineBoardComponent(currentStage)
+      determineBoardComponent(currentStage)
   );
 };
 

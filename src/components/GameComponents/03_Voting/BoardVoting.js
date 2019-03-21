@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, Container } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { Timer } from '../../../utils/timer';
 
 export const BoardVoting = ({
   gameRef,
@@ -21,12 +22,12 @@ export const BoardVoting = ({
   }
 
   return (
-    <Container>
-      <Header as="h2">Guess {inHotSeatName}'s answer!</Header>
-      <Header as="h1">Question: {currentQuestion}</Header>
-      {answers.map((answer, idx) => {
-        return <Header key={idx}>{answer}</Header>;
+    <Container textAlign="center">
+      <Header>All Answers</Header>
+      {answers.map(answer => {
+        return <Header>{answer}</Header>;
       })}
+      <Timer updateStage={updateStage} time={20} />
     </Container>
   );
 };
