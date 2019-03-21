@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
+import { db } from '../../../config/fbConfig';
 
 export const PlayerQuestion = ({ name, gameRef }) => {
   const [answer, setAnswer] = useState('');
@@ -11,10 +12,22 @@ export const PlayerQuestion = ({ name, gameRef }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
     setDisabled(true);
-    gameRef
-      .collection('answers')
-      .doc(name)
-      .set({ answer: answer.toUpperCase(), playersVotes: [] }, { merge: true });
+
+    db.runTransaction(function(transaction) {
+      return transaction.get(gameRef).then(function(gameDoc) {
+        if (!gameDoc.exists) {
+          console.error('This game does not exist');
+        }
+        const currentAnswerCount = gameDoc.data().answerCount;
+        const newAnswerCount = currentAnswerCount ? currentAnswerCount + 1 : 1;
+        transaction.update(gameRef, { answerCount: newAnswerCount });
+
+        const myAnswerRef = gameRef.collection('answers').doc(name);
+        const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
+        transaction.set(myAnswerRef, myAnswer);
+      });
+    });
+
     setAnswer('');
   };
 

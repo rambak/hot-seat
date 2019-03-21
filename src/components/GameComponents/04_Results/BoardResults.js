@@ -19,11 +19,11 @@ export class BoardResults extends Component {
         answers.push({
           id: doc.id,
           answer: doc.data().answer,
-          voters: doc.data().playersVotes,
+          voters: doc.data().playersVote,
           votes:
-            doc.data().playersVotes === undefined
+            doc.data().playersVote === undefined
               ? 0
-              : doc.data().playersVotes.length,
+              : doc.data().playersVote.length,
           correctAnswer: doc.id === this.props.inHotSeat,
         });
       });
