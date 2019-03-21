@@ -18,6 +18,8 @@ export const PlayerQuestion = ({ name, gameRef }) => {
     setAnswer('');
   };
 
+  if (disabled) return <div>wait for everybody..</div>
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group>
