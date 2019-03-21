@@ -3,9 +3,13 @@ import { Card } from 'semantic-ui-react';
 import ResultCard from './ResultCard';
 
 export default props => (
-  <Card.Group>
+  <Card.Group centered>
     {props.answers.map(answer => (
-      <ResultCard key={answer.id} answer={answer} />
+      <ResultCard
+        key={answer.id}
+        answer={answer}
+        showingAnswer={props.showingAnswer}
+      />
     ))}
   </Card.Group>
 );
