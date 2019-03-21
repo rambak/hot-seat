@@ -18,8 +18,8 @@ export const PlayerQuestion = ({ name, gameRef }) => {
         if (!gameDoc.exists) {
           console.error('This game does not exist');
         }
-
-        const newAnswerCount = gameDoc.data().answerCount + 1;
+        const currentAnswerCount = gameDoc.data().answerCount;
+        const newAnswerCount = currentAnswerCount ? currentAnswerCount + 1 : 1;
         transaction.update(gameRef, { answerCount: newAnswerCount });
 
         const myAnswerRef = gameRef.collection('answers').doc(name);

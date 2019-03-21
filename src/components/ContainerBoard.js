@@ -18,9 +18,14 @@ export const ContainerBoard = props => {
   //Game Information
   let currentStage = '';
   let inHotSeat = null;
+  let answerCount = 0;
+  let voteCount = 0;
+
   const gameRef = db.collection('games').doc(pin);
   const gameDoc = useDocument(gameRef);
   if (gameDoc.value) {
+    voteCount = gameDoc.value.data().voteCount;
+    answerCount = gameDoc.value.data().answerCount;
     currentStage = gameDoc.value.data().currentStage;
     inHotSeat = gameDoc.value.data().inHotSeat;
   }
@@ -80,7 +85,6 @@ export const ContainerBoard = props => {
   };
 
   const determineBoardComponent = currentStage => {
-    console.log('Questions:', questions);
     switch (currentStage) {
       case 'waitingForPlayers':
         return (
@@ -105,6 +109,7 @@ export const ContainerBoard = props => {
             questions={questions}
             setQuestions={setQuestions}
             updateStage={updateStage}
+            areAnswersIn={answerCount === players.length}
           />
         );
       case 'voting':
@@ -113,8 +118,8 @@ export const ContainerBoard = props => {
             gameRef={gameRef}
             currentQuestion={questions.currentQuestion}
             updateStage={updateStage}
-            inHotSeatName={inHotSeat.name}
             players={players}
+            areVotesIn={voteCount === players.length - 1}
           />
         );
       case 'results':

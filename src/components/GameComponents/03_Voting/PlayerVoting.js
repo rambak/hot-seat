@@ -3,13 +3,9 @@ import { Button, Container, Header } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../../config/fbConfig';
 
-export const PlayerVoting = ({ selfName, gameRef, inHotSeatName }) => {
-  // const answersRef = gameRef.collection('answers');
-  // const answers = await answersRef.get()
-
-  const answersRef = gameRef.collection('answers');
+export const PlayerVoting = props => {
+  const answersRef = props.gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
-
   let answers = [];
   let isRepeated = {};
   if (answersCol.value) {
@@ -32,29 +28,26 @@ export const PlayerVoting = ({ selfName, gameRef, inHotSeatName }) => {
       isRepeated[answer] = true;
     });
   }
-
   const [isAnswered, setisAnswered] = useState(false);
-
-  if (isAnswered) return <div>Please wait for the other players to vote.</div>;
+  if (isAnswered) return <div>wait for everybody..</div>;
   return (
     <>
-      {selfName === inHotSeatName ? (
+      {props.selfName === props.inHotSeatName ? (
         <Container>
           Please wait for the other players to guess your answer.
         </Container>
       ) : (
         <Container>
-          <Header>What do you think {inHotSeatName}'s answer is?</Header>
+          <Header>What do you think {props.inHotSeatName}'s answer?</Header>
           {answers.map((answer, idx) => {
             return (
               <Button
                 key={idx}
                 onClick={() => {
                   setisAnswered(!isAnswered);
-
                   answer.name.forEach(name => {
                     const curAnswerRef = answersRef.doc(name);
-                    const newName = selfName;
+                    const newName = props.selfName;
                     return db
                       .runTransaction(t => {
                         return t.get(curAnswerRef).then(doc => {
@@ -68,6 +61,14 @@ export const PlayerVoting = ({ selfName, gameRef, inHotSeatName }) => {
                             { playersVote: newVoteArray },
                             { merge: true }
                           );
+
+                          // const currentVoteCount = gameDoc.data().voteCount;
+                          // const newVoteCount = currentVoteCount
+                          //   ? currentVoteCount + 1
+                          //   : 1;
+                          // t.update(this.props.gameRef, {
+                          //   voteCount: newVoteCount,
+                          //});
                         });
                       })
                       .catch(console.log);
