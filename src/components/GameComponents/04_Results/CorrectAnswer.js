@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header } from 'semantic-ui-react';
-import SplitText from 'react-pose-text';
+import posed, { PoseGroup } from 'react-pose';
 
 const CorrectAnswer = () => {
   const charPoses = {
@@ -14,9 +14,9 @@ const CorrectAnswer = () => {
 
   return (
     <div className="container">
-      <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+      {/* <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
         THE CORRECT ANSWER IS
-      </SplitText>
+      </SplitText> */}
     </div>
   );
 };

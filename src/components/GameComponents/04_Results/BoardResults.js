@@ -1,45 +1,55 @@
-import React from 'react';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { Header, Grid, Table } from 'semantic-ui-react';
-import { Chart } from 'react-google-charts';
-import CorrectAnswer from './CorrectAnswer';
+import React, { Component } from 'react';
+import { Header } from 'semantic-ui-react';
+import ResultsCards from './ResultsCards';
 
-export const BoardResults = props => {
-  const answersRef = props.gameRef.collection('answers');
-  const { error, loading, value } = useCollection(answersRef);
-
-  if (loading) {
-    return <div>Loading</div>;
+export class BoardResults extends Component {
+  constructor() {
+    super();
+    this.state = {
+      answers: [],
+    };
   }
 
-  if (error) {
-    return <div>Error: {error.toString()}</div>;
+  componentDidMount() {
+    this.answersRef = this.props.gameRef.collection('answers');
+    this.callback = querySnapshot => {
+      let answers = [];
+      querySnapshot.forEach(function(doc) {
+        answers.push({
+          id: doc.id,
+          answer: doc.data().answer,
+          voters: doc.data().playersVotes,
+          votes:
+            doc.data().playersVotes === undefined
+              ? 0
+              : doc.data().playersVotes.length,
+        });
+      });
+      answers = answers
+        .reduce((acc, datum) => {
+          if (!acc.some(accDatum => accDatum.answer === datum.answer)) {
+            acc.push(datum);
+          }
+          return acc;
+        }, [])
+        .sort((a, b) => b.votes - a.votes);
+      this.setState({ answers });
+    };
+    this.unsubscribe = this.answersRef.onSnapshot(this.callback);
   }
 
-  const answersArr = value.docs
-    .map(answer => ({
-      answer: answer.data().answer,
-      voters: answer.data().playersVotes,
-      votes:
-        answer.data().playersVotes === undefined
-          ? 0
-          : answer.data().playersVotes.length,
-    }))
-    .reduce((acc, datum) => {
-      if (!acc.some(accDatum => accDatum.answer === datum.answer)) {
-        acc.push(datum);
-      }
-      return acc;
-    }, [])
-    .sort((a, b) => b.votes - a.votes);
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
-  const data = answersArr.map(answerInfo => {
-    return [answerInfo.answer, answerInfo.votes];
-  });
-
-  data.unshift(['Answer', 'Votes']);
-
-  return <CorrectAnswer />;
-};
+  render() {
+    return (
+      <>
+        <Header>Results</Header>
+        <ResultsCards answers={this.state.answers} />
+      </>
+    );
+  }
+}
 
 export default BoardResults;
