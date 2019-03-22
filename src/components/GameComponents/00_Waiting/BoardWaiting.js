@@ -56,7 +56,7 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
       </List>
       <Button
         onClick={() => startGame(gameRef)}
-        // disabled={players.length < 3}
+        disabled={players.length < 3}
       >
         Start!
       </Button>
