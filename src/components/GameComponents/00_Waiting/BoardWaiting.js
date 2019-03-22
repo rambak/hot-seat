@@ -60,6 +60,26 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
       >
         Start!
       </Button>
+      <Header>Instructions:</Header>
+      <p>
+        Each round one player will end up in the hot seat. There are two stages:
+        QUESTION and VOTING.
+      </p>
+      <p>
+        QUESTION - The game will ask everyone to type in an answer to a question
+        about the person in the hot seat. Use your device to answer. If you are
+        in the hot seat, provide the correct answer. All other players, make
+        your best guess.
+      </p>
+      <p>
+        VOTING - All answers will be displayed and among them is the answer from
+        the player in the hot seat. Use your device to guess the correct answer
+        and score points!
+      </p>
+      <p>
+        Enjoy the game, see how well your friends know you, and learn more about
+        them!
+      </p>
     </Container>
   );
 };
