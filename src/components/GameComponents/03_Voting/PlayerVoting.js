@@ -78,10 +78,11 @@ export const PlayerVoting = props => {
                           if (!doc.exists) return;
                           // update the users array after getting it from Firestore.
                           const oldArrVote = doc.get('playersVote');
+
                           const newVoteArray = [...oldArrVote, newName];
                           t.set(
                             curAnswerRef,
-                            { playersVotes: newVoteArray },
+                            { playersVote: newVoteArray },
                             { merge: true }
                           );
 

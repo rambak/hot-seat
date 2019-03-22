@@ -81,7 +81,6 @@ export const ContainerBoard = props => {
     if (newHotSeat !== undefined) {
       updateGameObj.inHotSeat = newHotSeat;
     }
-    console.log(updateGameObj);
 
     gameRef.update(updateGameObj);
   };
