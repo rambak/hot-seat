@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 export const styles = {
   count: {
     color: 'white',
-    fontSize: '17vh',
+    fontSize: '17vw',
   },
   circle: {
     borderRadius: '50%',

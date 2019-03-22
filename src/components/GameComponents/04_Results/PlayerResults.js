@@ -1,26 +1,9 @@
 import React from 'react';
+import { Image } from 'semantic-ui-react'
 
 export const PlayerResults = () => {
   return (
-    <div
-      style={{
-        width: '100%',
-        height: 0,
-        paddingBottom: ' 80%',
-        position: 'relative',
-      }}
-    >
-      <iframe
-        src="https://giphy.com/embed/5VKbvrjxpVJCM"
-        width="100%"
-        height="100%"
-        style={{ position: 'absolute' }}
-        frameBorder="0"
-        class="giphy-embed"
-        allowFullScreen
-        title="results-gif"
-      />
-    </div>
+    <Image src="https://media.giphy.com/media/5VKbvrjxpVJCM/200w.webp" className="gif"></Image>
   );
 };
 
