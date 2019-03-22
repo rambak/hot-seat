@@ -24,27 +24,30 @@ export const styles = {
   },
 };
 
-export const setTimer = sec => {
+export const setTimer = (sec, stop) => {
+  if (stop === undefined) {
+    stop = false;
+  }
   const [timeRemainingInSeconds, decrementTime] = useState(sec);
   const r = useRef(null);
   r.current = { timeRemainingInSeconds, decrementTime };
   useEffect(() => {
     const timer = setInterval(() => {
       r.current.decrementTime(r.current.timeRemainingInSeconds - 1);
-      if (r.current.timeRemainingInSeconds === 0) {
+      if (r.current.timeRemainingInSeconds === 0 || stop) {
         clearInterval(timer);
       }
     }, 1000);
     return function cleanup() {
       clearInterval(timer);
     };
-  }, []);
+  }, [stop]);
 
   return r.current.timeRemainingInSeconds;
 };
 
-export const Timer = ({ updateStage, time }) => {
-  let timeRemainingInSeconds = setTimer(time);
+export const Timer = ({ updateStage, time, stop }) => {
+  let timeRemainingInSeconds = setTimer(time, stop);
   if (timeRemainingInSeconds === 0) updateStage();
 
   return (

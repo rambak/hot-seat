@@ -35,7 +35,7 @@ export const BoardVoting = ({
       {answers.map(answer => {
         return <Header>{answer}</Header>;
       })}
-      <Timer updateStage={updateStage} time={20} />
+      <Timer updateStage={updateStage} time={20} stop={areVotesIn} />
     </Container>
   );
 };
