@@ -1,16 +1,17 @@
 body {
   background: url('background.jpg') no-repeat fixed center;
   background-size: cover;
+  padding-top: 5vh
 }
 
 .image.hotseat {
   /* place it in bottom right corner */
   position: absolute;
   float: right;
-  right: 0px;
-  bottom: 0px;
+  right: 10px;
+  bottom: 10px;
   z-index: 2;
   /* make it responsive */
-  height: 30vw;
+  height: 20vw;
   width: auto;
 }
