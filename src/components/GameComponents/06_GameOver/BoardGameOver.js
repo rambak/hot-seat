@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Divider, Button } from 'semantic-ui-react';
+import { Container, Header, Button } from 'semantic-ui-react';
 
 export const BoardGameOver = ({ players, gameRef }) => {
   let winner = {
@@ -7,7 +7,7 @@ export const BoardGameOver = ({ players, gameRef }) => {
     playerName: []
   }
   players.forEach(player => {
-    if (player.score > winner.highScore) {
+    if (player.score > winner.highScore || player.score === winner.highScore) {
       winner.highScore = player.score;
       winner.playerName = [...winner.playerName, player.name]
     }
@@ -21,13 +21,13 @@ export const BoardGameOver = ({ players, gameRef }) => {
   }
 
   const winnerText = winner.playerName.length > 1 ?
-  `Winners: ${winner.playerName.split(', ')}` :
+  `Winners: ${winner.playerName.join(', ')}` :
   `Winner: ${winner.playerName[0]}`
 
   return (
     <Container textAlign="center" style={{ paddingTop: '27vh' }}>
       <Header className="title">GAME IS OVER</Header>
-      <Header className="question" >{winnerText} score: {winner.highScore}</Header>
+      <Header className="question" >{winnerText}</Header>
       <Button  onClick={playAgain}>Play Again</Button>
     </Container>
   );
