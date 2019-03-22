@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Form, Button, Grid } from 'semantic-ui-react';
+import { Form, Button, Grid, Image } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
+import { Timer } from '../../../utils/timer';
 
 export const PlayerQuestion = ({ name, gameRef }) => {
   const [answer, setAnswer] = useState('');
@@ -33,29 +34,12 @@ export const PlayerQuestion = ({ name, gameRef }) => {
 
   if (disabled)
     return (
-      <div
-        style={{
-          width: '100%',
-          height: '0',
-          paddingBottom: '66%',
-          position: 'relative',
-        }}
-      >
-        <iframe
-          src="https://giphy.com/embed/tXL4FHPSnVJ0A"
-          width="100%"
-          height="100%"
-          style={{ position: 'absolute' }}
-          frameBorder="0"
-          class="giphy-embed"
-          allowFullScreen
-          title="question waiting gif"
-        />
-      </div>
+      <Image src="https://media.giphy.com/media/tXL4FHPSnVJ0A/200w.webp" className="gif"></Image>
     );
 
   return (
-    <Grid centered>
+    <>
+    <Grid centered style={{ paddingTop: '30vh' }}>
       <Form
         textAlign="center"
         style={{ paddingTop: '2em' }}
@@ -66,6 +50,7 @@ export const PlayerQuestion = ({ name, gameRef }) => {
             placeholder="Answer..."
             onChange={handleChange}
             value={answer}
+            style={{ height: '10vh',  width: '20vw'  }}
           />
 
           <Button type="submit" disabled={disabled}>
@@ -74,6 +59,7 @@ export const PlayerQuestion = ({ name, gameRef }) => {
         </Form.Group>
       </Form>
     </Grid>
+    </>
   );
 };
 

@@ -32,11 +32,13 @@ export const BoardVoting = ({
   }
 
   return (
-    <Container textAlign="center">
+
+    <Container textAlign="center" style={{ paddingTop: '30vh' }}>
       <Header style={{ fontSize: '5em' }}>Question: {currentQuestion}</Header>
       <Header style={{ fontSize: '5em' }}>
         Guess {inHotSeatName}'s answer:
       </Header>
+
       {answers.map(answer => {
         return <Header>{answer}</Header>;
       })}

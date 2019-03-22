@@ -42,16 +42,16 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
   };
 
   return (
-    <Container textAlign="center">
-      <Header as="h1" textAlign="center">
+    <Container textAlign="center" style={{ paddingTop: '5vh' }}>
+      <Header className="title">
         Game PIN: {pin}
       </Header>
-      <p>Go to {window.location.hostname}/login to join!</p>
+      <Header style={{ fontSize: "4vh" }}>Go to {window.location.hostname}/login to join!</Header>
       <List>
         <List.Description as="h2">Players</List.Description>
 
         {players.map(player => (
-          <List.Item key={player.name}>{player.name}</List.Item>
+          <List.Item style={{ fontSize: "4vh" }} className="players" key={player.name}>{player.name}</List.Item>
         ))}
       </List>
       <Button
@@ -60,23 +60,20 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
       >
         Start!
       </Button>
-      <Header>Instructions:</Header>
       <p>
+        <Header>Instructions:</Header>
         Each round one player will end up in the hot seat. There are two stages:
         QUESTION and VOTING.
-      </p>
-      <p>
+      <br />
         QUESTION - The game will ask everyone to type in an answer to a question
         about the person in the hot seat. Use your device to answer. If you are
         in the hot seat, provide the correct answer. All other players, make
         your best guess.
-      </p>
-      <p>
+      <br />
         VOTING - All answers will be displayed and among them is the answer from
         the player in the hot seat. Use your device to guess the correct answer
         and score points!
-      </p>
-      <p>
+      <br />
         Enjoy the game, see how well your friends know you, and learn more about
         them!
       </p>

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 
 export const PlayerWaiting = () => {
   return (
-    <Container textAlign="center">
-      <p>Waiting for the game to start!</p>
+    <Container textAlign="center" style={{ paddingTop: '30vh' }}>
+      <Header className="title">Waiting for the game to start!</Header>
     </Container>
   );
 };

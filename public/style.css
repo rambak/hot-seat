@@ -1,7 +1,6 @@
 body {
   background: url('background.jpg') no-repeat fixed center;
   background-size: cover;
-  padding-top: 5vh
 }
 
 .image.hotseat {
@@ -14,4 +13,59 @@ body {
   /* make it responsive */
   height: 20vw;
   width: auto;
+  opacity: 0.95;
 }
+
+
+.image.gif {
+  width: 100%;
+  padding-bottom: 66%;
+  position: relative;
+}
+
+.header.title {
+  font-size: 10vh !important;
+  color:  #fe4902;
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 1px 1px white,
+               2px 2px #fe4902,
+               3px 3px white;
+}
+
+.header.question {
+  font-size: 6vh !important;
+  padding-bottom: 4vh;
+  color:  #fe4902;
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 1px 1px white,
+               2px 2px #fe4902,
+               3px 3px white;
+}
+
+.button.button {
+  min-height: 60px;
+  min-width: 120px;
+  height: 10vh;
+  width: 20vw;
+  background-color: rgb(14, 112, 168);
+  border-radius: 8px;
+  color: #fff;
+  border: 1px solid rgb(177, 210, 229);
+}
+
+.button.button:hover {
+  background-color: rgb(154, 215, 255);
+}
+
+p {
+  font-size: 3vh;
+  padding: 10vh;
+}
+
+label {
+  font-size: 3vh !important;
+}
+
+
+
+

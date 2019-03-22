@@ -72,9 +72,10 @@ const HomePage = props => {
   };
 
   return (
-    <Container textAlign="center" style={{ paddingTop: '40vh' }} >
-      <Header>Welcome, to Hot Seat Game!</Header>
-      <Button onClick={generatePin}>Start a new Game</Button>
+    <Container textAlign="center" style={{ paddingTop: '25vh' }}>
+      <Header className="title">Welcome to Hot Seat!</Header>
+      <Button.Group>
+      <Button  className = "button" onClick={generatePin}>Create a new Game</Button>
       <Button
         onClick={() => {
           props.history.push('/login');
@@ -82,6 +83,7 @@ const HomePage = props => {
       >
         Enter a Game
       </Button>
+      </Button.Group>
       <Image src='../.././hotseat.png' className = "hotseat" />
     </Container>
   );
