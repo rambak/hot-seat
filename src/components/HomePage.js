@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Header, Image } from 'semantic-ui-react';
+import { Button, Container, Header, Image, Card } from 'semantic-ui-react';
 import { db } from '../config/fbConfig';
 
 const HomePage = props => {
@@ -74,17 +74,31 @@ const HomePage = props => {
   return (
     <Container textAlign="center" style={{ paddingTop: '25vh' }}>
       <Header className="title">Welcome to Hot Seat!</Header>
-      <Button.Group>
-      <Button  className = "button" onClick={generatePin}>Create a new Game</Button>
-      <Button
-        onClick={() => {
-          props.history.push('/login');
-        }}
-      >
-        Enter a Game
-      </Button>
-      </Button.Group>
-      <Image src='../.././hotseat.png' className = "hotseat" />
+      {/* <Button.Group> */}
+      <Card.Group centered>
+        <Card>
+          <Card.Header>Hosts</Card.Header>
+          <Card.Content>If you are a host click here</Card.Content>
+          <Button className="button" onClick={generatePin}>
+            Create a new Game
+          </Button>
+        </Card>
+        <Card>
+          <Card.Header>Players</Card.Header>
+
+          <Card.Content>If you are a player click here</Card.Content>
+
+          <Button
+            onClick={() => {
+              props.history.push('/login');
+            }}
+          >
+            Enter a Game
+          </Button>
+        </Card>
+      </Card.Group>
+      {/* </Button.Group> */}
+      <Image src="../.././hotseat.png" className="hotseat" />
     </Container>
   );
 };

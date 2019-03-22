@@ -32,7 +32,6 @@ export const BoardVoting = ({
   }
 
   return (
-
     <Container textAlign="center" style={{ paddingTop: '30vh' }}>
       <Header style={{ fontSize: '5em' }}>Question: {currentQuestion}</Header>
       <Header style={{ fontSize: '5em' }}>
@@ -42,7 +41,7 @@ export const BoardVoting = ({
       {answers.map(answer => {
         return <Header>{answer}</Header>;
       })}
-      <Timer updateStage={updateStage} time={20} />
+      <Timer updateStage={updateStage} time={60} />
     </Container>
   );
 };
