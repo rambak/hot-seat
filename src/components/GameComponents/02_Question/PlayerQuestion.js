@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Grid, Image } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
+import { Timer } from '../../../utils/timer';
 
 export const PlayerQuestion = ({ name, gameRef }) => {
   const [answer, setAnswer] = useState('');
@@ -37,7 +38,8 @@ export const PlayerQuestion = ({ name, gameRef }) => {
     );
 
   return (
-    <Grid centered>
+    <>
+    <Grid centered style={{ paddingTop: '30vh' }}>
       <Form
         textAlign="center"
         style={{ paddingTop: '2em' }}
@@ -48,6 +50,7 @@ export const PlayerQuestion = ({ name, gameRef }) => {
             placeholder="Answer..."
             onChange={handleChange}
             value={answer}
+            style={{ height: '10vh',  width: '20vw'  }}
           />
 
           <Button type="submit" disabled={disabled}>
@@ -56,6 +59,7 @@ export const PlayerQuestion = ({ name, gameRef }) => {
         </Form.Group>
       </Form>
     </Grid>
+    </>
   );
 };
 

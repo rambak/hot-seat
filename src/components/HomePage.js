@@ -72,7 +72,7 @@ const HomePage = props => {
   };
 
   return (
-    <Container textAlign="center" style={{ paddingTop: '20vh' }}>
+    <Container textAlign="center" style={{ paddingTop: '25vh' }}>
       <Header className="title">Welcome to Hot Seat!</Header>
       <Button.Group>
       <Button  className = "button" onClick={generatePin}>Create a new Game</Button>

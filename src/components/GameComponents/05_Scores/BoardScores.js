@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Icon } from 'semantic-ui-react';
+import { Table, Icon, Container } from 'semantic-ui-react';
 import { Timer } from '../../../utils/timer';
 import { db } from '../../../config/fbConfig';
 
@@ -92,8 +92,8 @@ export const BoardScores = ({
   }, []);
 
   return (
-    <>
-      <Table basic="very" celled collapsing>
+  <>
+      <Table basic="very" celled collapsing singleLine="true">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />
@@ -116,7 +116,7 @@ export const BoardScores = ({
         </Table.Body>
       </Table>
       <Timer updateStage={updateStage} time={10} />
-    </>
+  </>
   );
 };
 

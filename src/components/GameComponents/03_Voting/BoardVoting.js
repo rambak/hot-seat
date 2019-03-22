@@ -30,8 +30,8 @@ export const BoardVoting = ({
   }
 
   return (
-    <Container textAlign="center">
-      <Header style={{ fontSize: '5em' }}>All Answers</Header>
+    <Container textAlign="center" style={{ paddingTop: '30vh' }}>
+      <Header className="title">All Answers</Header>
       {answers.map(answer => {
         return <Header>{answer}</Header>;
       })}

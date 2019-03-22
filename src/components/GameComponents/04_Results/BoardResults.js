@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Container } from 'semantic-ui-react';
 import ResultsCards from './ResultsCards';
 
 export class BoardResults extends Component {
@@ -49,13 +49,13 @@ export class BoardResults extends Component {
 
   render() {
     return (
-      <>
-        <Header textAlign="center">Votes</Header>
+      <Container textAlign="center" style={{ paddingTop: '10vh' }}>
+        <Header className="title">Votes</Header>
         <ResultsCards
           answers={this.state.answers}
           showingAnswer={this.state.showingAnswer}
         />
-      </>
+      </Container>
     );
   }
 }
