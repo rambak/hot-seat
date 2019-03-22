@@ -65,6 +65,4 @@ export default async function(gameRef, inHotSeat, players) {
       });
     }
   });
-
-  console.log(`${inHotSeat} is in the Hot Seat and I calculated the scores`);
 }
