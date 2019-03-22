@@ -81,7 +81,6 @@ export const ContainerBoard = props => {
     if (newHotSeat !== undefined) {
       updateGameObj.inHotSeat = newHotSeat;
     }
-    console.log(updateGameObj);
 
     gameRef.update(updateGameObj);
   };
@@ -121,6 +120,7 @@ export const ContainerBoard = props => {
             currentQuestion={questions.currentQuestion}
             updateStage={updateStage}
             players={players}
+            inHotSeatName={inHotSeat.name}
             areVotesIn={voteCount === players.length - 1}
           />
         );
