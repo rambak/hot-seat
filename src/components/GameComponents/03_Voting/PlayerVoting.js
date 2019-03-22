@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Grid, Header } from 'semantic-ui-react';
+import { Button, Grid, Header, Image } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../../config/fbConfig';
 
@@ -30,26 +30,9 @@ export const PlayerVoting = props => {
   }
   const [isAnswered, setisAnswered] = useState(false);
   if (isAnswered)
+
     return (
-      <div
-        style={{
-          width: '100%',
-          height: '0',
-          paddingBottom: '69%',
-          position: 'relative',
-        }}
-      >
-        <iframe
-          src="https://giphy.com/embed/l0HlBO7eyXzSZkJri"
-          width="100%"
-          height="100%"
-          style={{ position: 'absolute' }}
-          frameBorder="0"
-          class="giphy-embed"
-          allowFullScreen
-          title="voting waiting gif"
-        />
-      </div>
+      <Image src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/200w.webp" className="gif"></Image>
     );
   return (
     <>
