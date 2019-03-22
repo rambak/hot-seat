@@ -21,21 +21,21 @@ export default async function(gameRef, inHotSeat, players) {
   const answerDocs = await gameRef.collection('answers').get();
 
   answerDocs.forEach(answerDoc => {
-    if (answerDoc.id !== inHotSeat) {
-      const playerName = answerDoc.id;
-      const voteCount = answerDoc.data().playersVote.length;
+    const playerName = answerDoc.id;
+    const voteCount = answerDoc.data().playersVote.length;
 
+    if (answerDoc.id !== inHotSeat) {
       if (scoring.correctAnswer === answerDoc.data().answer) {
         scoring.matchedAnswer.push(playerName);
       }
+    }
 
-      if (voteCount === scoring.mostVotes) {
-        scoring.mostVotedFor.push(playerName);
-      } else if (voteCount > scoring.mostVotes) {
-        scoring.mostVotes = voteCount;
-        scoring.mostVotedFor = [];
-        scoring.mostVotedFor.push(playerName);
-      }
+    if (voteCount === scoring.mostVotes) {
+      scoring.mostVotedFor.push(playerName);
+    } else if (voteCount > scoring.mostVotes) {
+      scoring.mostVotes = voteCount;
+      scoring.mostVotedFor = [];
+      scoring.mostVotedFor.push(playerName);
     }
   });
 
