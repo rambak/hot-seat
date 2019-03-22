@@ -11,6 +11,7 @@ import {
   BoardScores,
   BoardGameOver,
 } from '../components/GameComponents';
+import calculateScores from '../utils/calculateScores';
 
 export const ContainerBoard = props => {
   const pin = props.match.params.pin;
@@ -58,6 +59,9 @@ export const ContainerBoard = props => {
       currentStage === 'scores' && !inHotSeat.nextPlayer
         ? 'gameOver'
         : stages[(stages.indexOf(currentStage) + 1) % stages.length];
+    if (newStage === 'results') {
+      calculateScores(gameRef, inHotSeat.name, players);
+    }
 
     let newHotSeat;
     if (currentStage === 'gameOver') {
@@ -130,6 +134,7 @@ export const ContainerBoard = props => {
             gameRef={gameRef}
             inHotSeat={inHotSeat.name}
             updateStage={updateStage}
+            players={players}
           />
         );
       case 'scores':
