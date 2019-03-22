@@ -38,7 +38,6 @@ export class BoardResults extends Component {
           return acc;
         }, [])
         .sort((a, b) => b.votes - a.votes);
-      console.log(answers, this.props.inHotSeat);
       this.setState({ answers });
     };
     this.answersRef.get().then(this.callback);
