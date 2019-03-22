@@ -23,7 +23,7 @@ export const PlayerQuestion = ({ name, gameRef }) => {
         transaction.update(gameRef, { answerCount: newAnswerCount });
 
         const myAnswerRef = gameRef.collection('answers').doc(name);
-        const myAnswer = { answer: answer.toUpperCase(), playersVotes: [] };
+        const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
         transaction.set(myAnswerRef, myAnswer);
       });
     });

@@ -71,26 +71,27 @@ export const PlayerVoting = props => {
                       const curAnswerRef = answersRef.doc(name);
                       const newName = props.selfName;
                       return db
-                        .runTransaction(t => {
-                          return t.get(curAnswerRef).then(doc => {
-                            // doc doesn't exist; can't update
-                            if (!doc.exists) return;
-                            // update the users array after getting it from Firestore.
-                            const oldArrVote = doc.get('playersVote');
-                            const newVoteArray = [...oldArrVote, newName];
-                            t.set(
-                              curAnswerRef,
-                              { playersVotes: newVoteArray },
-                              { merge: true }
-                            );
+                        .runTransaction(async t => {
+                          const doc = await t.get(curAnswerRef);
+                          const gameDoc = await t.get(props.gameRef);
+                          // doc doesn't exist; can't update
+                          if (!doc.exists) return;
+                          // update the users array after getting it from Firestore.
+                          const oldArrVote = doc.get('playersVote');
 
-                            // const currentVoteCount = gameDoc.data().voteCount;
-                            // const newVoteCount = currentVoteCount
-                            //   ? currentVoteCount + 1
-                            //   : 1;
-                            // t.update(this.props.gameRef, {
-                            //   voteCount: newVoteCount,
-                            //});
+                          const newVoteArray = [...oldArrVote, newName];
+                          t.set(
+                            curAnswerRef,
+                            { playersVote: newVoteArray },
+                            { merge: true }
+                          );
+
+                          const currentVoteCount = gameDoc.data().voteCount;
+                          const newVoteCount = currentVoteCount
+                            ? currentVoteCount + 1
+                            : 1;
+                          t.update(props.gameRef, {
+                            voteCount: newVoteCount,
                           });
                         })
                         .catch(console.log);

@@ -2,7 +2,6 @@ import React from 'react';
 import { Header, Container } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Timer } from '../../../utils/timer';
-// import { db } from '../../../config/fbConfig';
 
 export const BoardVoting = ({
   gameRef,
@@ -10,34 +9,25 @@ export const BoardVoting = ({
   updateStage,
   inHotSeatName,
   areVotesIn,
+  players,
 }) => {
+  if (areVotesIn) {
+    updateStage();
+  }
   const answersRef = gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
   let answers = [];
+
+  let answer;
+
   if (answersCol.value) {
     answersCol.value.docs.forEach(data => {
-      const answer = data.data().answer;
+      answer = data.data().answer;
       if (!answers.includes(answer)) {
         answers.push(answer);
       }
     });
   }
-
-  // if (areVotesIn) {
-  //   const correctAnswerVoters = gameRef
-  //     .collection('answers')
-  //     .doc(inHotSeatName)
-  //     .get()
-  //     .then(function(doc) {
-  //       return doc.playersVote;
-  //     });
-
-  //     const batch = db.runTransaction;
-  // correctAnswerVoters.forEach()
-  // batch.update();
-  // batch.commit();
-
-  // }
 
   return (
     <Container textAlign="center">
