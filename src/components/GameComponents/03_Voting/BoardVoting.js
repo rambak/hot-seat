@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header, Container } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Timer } from '../../../utils/timer';
@@ -11,9 +11,11 @@ export const BoardVoting = ({
   areVotesIn,
   players,
 }) => {
-  if (areVotesIn) {
-    updateStage();
-  }
+  useEffect(() => {
+    if (areVotesIn) {
+      updateStage();
+    }
+  }, [areVotesIn]);
   const answersRef = gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
   let answers = [];
@@ -35,7 +37,7 @@ export const BoardVoting = ({
       {answers.map(answer => {
         return <Header>{answer}</Header>;
       })}
-      <Timer updateStage={updateStage} time={20} stop={areVotesIn} />
+      <Timer updateStage={updateStage} time={20} />
     </Container>
   );
 };
