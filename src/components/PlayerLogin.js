@@ -15,7 +15,7 @@ class PlayerLogin extends React.Component {
 
   onSubmit = async event => {
     event.preventDefault();
-    const enteredPin = event.target.pin.value;
+    const enteredPin = event.target.pin.value.toLowerCase();
     const enteredName = event.target.name.value;
     this.setState({ errors: [] });
     //check if the entered pin code exists
