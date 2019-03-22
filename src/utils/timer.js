@@ -3,15 +3,15 @@ import React, { useEffect, useState, useRef } from 'react';
 export const styles = {
   count: {
     color: 'white',
-    fontSize: '15vw',
+    fontSize: '17vh',
   },
   circle: {
     borderRadius: '50%',
     width: '20vw',
     height: '20vw',
-    background: '#81CE97',
+    background: 'rgb(243, 136, 49)',
     textAlign: 'center',
-    border: '3px solid #81CE40',
+    border: '1vw solid rgb(201, 102, 80)',
 
     display: 'flex',
     flexDirection: 'column',
@@ -20,7 +20,7 @@ export const styles = {
 
     position: 'absolute',
     bottom: '3vw',
-    left: '40%',
+    right: '3vw',
   },
 };
 
