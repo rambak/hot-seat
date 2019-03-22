@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Table, Icon } from 'semantic-ui-react';
 import { Timer } from '../../../utils/timer';
 import { db } from '../../../config/fbConfig';
@@ -9,8 +9,6 @@ export const BoardScores = ({
   updateStage,
   gameRef,
 }) => {
-  const [scoresCalculated, setScoresCalculated] = useState(false);
-
   const calculateScores = async () => {
     const scoring = {
       correctAnswer: '',
@@ -33,7 +31,7 @@ export const BoardScores = ({
 
     answerDocs.forEach(answerDoc => {
       if (answerDoc.id !== inHotSeatName) {
-        const playerName = answerDoc.data().name;
+        const playerName = answerDoc.id;
         const voteCount = answerDoc.data().playersVote.length;
 
         if (scoring.correctAnswer === answerDoc.data().answer) {
@@ -44,69 +42,43 @@ export const BoardScores = ({
           scoring.mostVotedFor.push(playerName);
         } else if (voteCount > scoring.mostVotes) {
           scoring.mostVotes = voteCount;
-          scoring.mostVotedFor = [].push(playerName);
+          scoring.mostVotedFor = [];
+          scoring.mostVotedFor.push(playerName);
         }
       }
     });
 
-    console.log('SCORING:', scoring);
-
     players.forEach(player => {
-      console.log(player);
-      db.runTransaction(function(transaction) {
-        return transaction.get(playerRef.doc(player.name)).then(playerDoc => {
-          let newScore = playerDoc.data().score;
-          const playerName = playerDoc.data().name;
+      if (player.name !== inHotSeatName) {
+        db.runTransaction(function(transaction) {
+          return transaction.get(playerRef.doc(player.name)).then(playerDoc => {
+            let newScore = playerDoc.data().score;
+            const playerName = playerDoc.data().name;
 
-          console.log(playerDoc.data().name, 'CURRENT SCORE', newScore);
+            if (scoring.votedCorrectly.includes(playerName)) {
+              newScore += 2;
+            }
 
-          if (scoring.votedCorrectly.includes(playerName)) {
-            newScore += 2;
-            console.log(
-              playerDoc.data().name,
-              'Voted Correctly? - yes, NEW SCORE:',
-              newScore
-            );
-          } else {
-            console.log(playerDoc.data().name, 'Voted Correctly? - no');
-          }
+            if (scoring.matchedAnswer.includes(playerName)) {
+              newScore += 1;
+            }
 
-          if (scoring.matchedAnswer.includes(playerName)) {
-            newScore += 1;
-            console.log(
-              playerDoc.data().name,
-              'Matched the Answer? - yes, NEW SCORE:',
-              newScore
-            );
-          } else {
-            console.log(playerDoc.data().name, 'Matched the Answer? - no');
-          }
+            if (scoring.mostVotedFor.includes(playerName)) {
+              newScore += 1;
+            }
 
-          if (scoring.mostVotedFor.includes(playerName)) {
-            newScore += 1;
-            console.log(
-              playerDoc.data().name,
-              'Most Voted For? - yes, NEW SCORE:',
-              newScore
-            );
-          } else {
-            console.log(playerDoc.data().name, 'Most Voted For? - no');
-          }
-
-          console.log(playerDoc.data().name, 'FINAL SCORE', newScore);
-
-          transaction.update(playerRef.doc(playerName), {
-            score: newScore,
+            transaction.update(playerRef.doc(playerName), {
+              score: newScore,
+            });
           });
         });
-      });
+      }
     });
-    setScoresCalculated(true);
   };
 
-  if (!scoresCalculated) {
+  useEffect(() => {
     calculateScores();
-  }
+  }, []);
 
   let highScore = 0;
   players.forEach(player => {
@@ -143,7 +115,7 @@ export const BoardScores = ({
           ))}
         </Table.Body>
       </Table>
-      {/* <Timer updateStage={updateStage} time={5} /> */}
+      <Timer updateStage={updateStage} time={10} />
     </>
   );
 };
