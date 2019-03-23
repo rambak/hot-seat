@@ -16,7 +16,6 @@ body {
   opacity: 0.95;
 }
 
-
 .image.gif {
   width: 100%;
   padding-bottom: 66%;
@@ -25,21 +24,17 @@ body {
 
 .header.title {
   font-size: 10vh !important;
-  color:  #fe4902;
+  color: #fe4902;
   font: bold 52px Helvetica, Arial, Sans-Serif;
-  text-shadow: 1px 1px white,
-               2px 2px #fe4902,
-               3px 3px white;
+  text-shadow: 1px 1px white, 2px 2px #fe4902, 3px 3px white;
 }
 
 .header.question {
   font-size: 6vh !important;
   padding-bottom: 4vh;
-  color:  #fe4902;
+  color: #fe4902;
   font: bold 52px Helvetica, Arial, Sans-Serif;
-  text-shadow: 1px 1px white,
-               2px 2px #fe4902,
-               3px 3px white;
+  text-shadow: 1px 1px white, 2px 2px #fe4902, 3px 3px white;
 }
 
 .button.button {
@@ -57,6 +52,11 @@ body {
   background-color: rgb(154, 215, 255);
 }
 
+.segment.answers {
+  background-color: rgb(14, 112, 168);
+  color: #fff;
+}
+
 p {
   font-size: 3vh;
   padding: 10vh;
@@ -65,7 +65,3 @@ p {
 label {
   font-size: 3vh !important;
 }
-
-
-
-
