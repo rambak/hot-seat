@@ -74,7 +74,6 @@ const HomePage = props => {
   return (
     <Container textAlign="center" style={{ paddingTop: '25vh' }}>
       <Header className="title">Welcome to Hot Seat!</Header>
-      {/* <Button.Group> */}
       <Card.Group centered>
         <Card>
           <Card.Header>Hosts</Card.Header>
@@ -97,7 +96,6 @@ const HomePage = props => {
           </Button>
         </Card>
       </Card.Group>
-      {/* </Button.Group> */}
       <Image src="../.././hotseat.png" className="hotseat" />
     </Container>
   );

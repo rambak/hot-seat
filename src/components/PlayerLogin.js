@@ -17,27 +17,19 @@ class PlayerLogin extends React.Component {
     event.preventDefault();
     const enteredPin = event.target.pin.value.toLowerCase();
     const enteredName = event.target.name.value;
-    this.setState({ errors: [] });
-    console.log('enteredPin', enteredPin === '');
+    await this.setState({ errors: [] });
     if (enteredPin === '') {
-      this.setState({
-        errors: [`Please make sure to enter a pin.`],
+      await this.setState({
+        errors: [...this.state.errors, 'Please make sure to enter a pin.'],
       });
-      console.log(this.state.errors);
     }
-
     if (enteredName === '') {
-      this.setState({
-        errors: [...this.state.errors, `Please make sure to enter a name.`],
+      await this.setState({
+        errors: [...this.state.errors, 'Please make sure to enter a name.'],
       });
-
-      console.log(this.state.errors);
     }
 
     if (this.state.errors.length === 0) {
-      console.log(this.state.errors.length);
-      console.log(this.state.errors);
-
       //check if the entered pin code exists
       const gameRef = db.collection('games').doc(enteredPin);
 
@@ -59,14 +51,15 @@ class PlayerLogin extends React.Component {
           });
 
         if (playerNameExists) {
-          this.setState({
+          await this.setState({
             errors: [
               ...this.state.errors,
               `A player with the same name (${enteredName}) already joined. Please choose a different name.`,
             ],
           });
         } else {
-          db.collection('games')
+          await db
+            .collection('games')
             .doc(enteredPin)
             .collection('players')
             .doc(enteredName)
@@ -77,7 +70,7 @@ class PlayerLogin extends React.Component {
           this.props.history.push(`/${enteredPin}`);
         }
       } else {
-        this.setState({
+        await this.setState({
           errors: [
             ...this.state.errors,
             `There is no game matching this pin (${enteredPin}). Please enter a different pin.`,
@@ -94,8 +87,8 @@ class PlayerLogin extends React.Component {
           <Message negative>
             <Message.Header>We encountered an error</Message.Header>
             <Message.List>
-              {this.state.errors.map(error => {
-                return <Message.Item>{error}</Message.Item>;
+              {this.state.errors.map((error, idx) => {
+                return <Message.Item key={idx}>{error}</Message.Item>;
               })}
             </Message.List>
           </Message>
