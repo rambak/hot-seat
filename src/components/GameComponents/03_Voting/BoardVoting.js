@@ -38,7 +38,7 @@ export const BoardVoting = ({
         Guess {inHotSeatName}'s answer:
       </Header>
 
-      {answers.map(answer => {
+      {answers.sort().map(answer => {
         return <Header>{answer}</Header>;
       })}
       <Timer updateStage={updateStage} time={60} />
