@@ -41,7 +41,7 @@ export class BoardQuestion extends React.Component {
         currentQuestion: question,
         prevQuestions: {
           ...this.props.questions.prevQuestions,
-          randomIdx: question,
+          [randomIdx]: question,
         },
       });
     }
