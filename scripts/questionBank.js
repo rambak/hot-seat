@@ -28,4 +28,4 @@ const questionBank = [
   'If **name** could only eat one type of food, what would it be?',
 ];
 
-export default questionBank;
+module.exports = questionBank;
