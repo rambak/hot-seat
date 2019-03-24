@@ -110,7 +110,8 @@ export const ContainerBoard = props => {
       case 'question':
         return (
           <BoardQuestion
-            inHotSeatName={inHotSeat.name}
+            inHotSeat={inHotSeat}
+            gameRef={gameRef}
             questions={questions}
             setQuestions={setQuestions}
             updateStage={updateStage}
@@ -147,7 +148,9 @@ export const ContainerBoard = props => {
           />
         );
       case 'gameOver':
-        return <BoardGameOver players={players} gameRef={gameRef} />;
+        return <BoardGameOver players={players}
+                              gameRef={gameRef}
+                              setQuestions={setQuestions}/>;
       default:
         return <></>;
     }

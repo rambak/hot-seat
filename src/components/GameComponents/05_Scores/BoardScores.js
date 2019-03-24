@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Icon, Container } from 'semantic-ui-react';
+import { Table, Icon } from 'semantic-ui-react';
 import { Timer } from '../../../utils/timer';
 
 export const BoardScores = ({
