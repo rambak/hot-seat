@@ -147,7 +147,9 @@ export const ContainerBoard = props => {
           />
         );
       case 'gameOver':
-        return <BoardGameOver players={players} gameRef={gameRef} />;
+        return <BoardGameOver players={players}
+                              gameRef={gameRef}
+                              setQuestions={setQuestions}/>;
       default:
         return <></>;
     }

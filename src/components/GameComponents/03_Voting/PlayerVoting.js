@@ -3,8 +3,8 @@ import { Button, Grid, Header, Image, Container } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../../config/fbConfig';
 
-export const PlayerVoting = props => {
-  const answersRef = props.gameRef.collection('answers');
+export const PlayerVoting = ({gameRef, selfName, inHotSeatName}) => {
+  const answersRef = gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
   let answers = [];
   let isRepeated = {};
@@ -36,13 +36,13 @@ export const PlayerVoting = props => {
     );
   return (
     <Container textAlign="center" style={{ paddingTop: '30vh' }}>
-      {props.selfName === props.inHotSeatName ? (
+      {selfName === inHotSeatName ? (
         <Header className="title" >
           Please wait for the other players to guess your answer.
         </Header>
       ) : (
         <Grid centered style={{ paddingTop: '2em' }}>
-          <Header>What did {props.inHotSeatName} answer?</Header>
+          <Header>What did {inHotSeatName} answer?</Header>
           {answers
             .sort((firstEl, secondEl) => {
               if (firstEl.answer < secondEl.answer) {
@@ -61,11 +61,11 @@ export const PlayerVoting = props => {
                       setisAnswered(!isAnswered);
                       answer.name.forEach(name => {
                         const curAnswerRef = answersRef.doc(name);
-                        const newName = props.selfName;
+                        const newName = selfName;
                         return db
                           .runTransaction(async t => {
                             const doc = await t.get(curAnswerRef);
-                            const gameDoc = await t.get(props.gameRef);
+                            const gameDoc = await t.get(gameRef);
                             // doc doesn't exist; can't update
                             if (!doc.exists) return;
                             // update the users array after getting it from Firestore.
@@ -82,7 +82,7 @@ export const PlayerVoting = props => {
                             const newVoteCount = currentVoteCount
                               ? currentVoteCount + 1
                               : 1;
-                            t.update(props.gameRef, {
+                            t.update(gameRef, {
                               voteCount: newVoteCount,
                             });
                           })

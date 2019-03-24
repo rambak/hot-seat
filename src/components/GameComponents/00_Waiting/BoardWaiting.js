@@ -2,7 +2,7 @@ import React from 'react';
 import { Header, Button, List, Container } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
 
-export const BoardWaiting = ({ players, updateStage, pin, gameRef }) => {
+export const BoardWaiting = ({ players, updateStage, pin, gameRef, questions }) => {
   const startGame = async gameRef => {
     await gameRef
       .collection('players')
