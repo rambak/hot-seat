@@ -24,7 +24,7 @@ export class BoardQuestion extends React.Component {
       const question = curQuestion
         .data()
         .question.split('**name**')
-        .join(this.props.inHotSeatName);
+        .join(this.props.inHotSeat.name);
       this.setState({ question });
 
       this.props.setQuestions({
@@ -38,20 +38,7 @@ export class BoardQuestion extends React.Component {
   }
 
   render() {
-    const inHotSeatName = this.props.inHotSeatName;
-    const inHotSeatPlayerRef = this.props.gameRef.collection('answers').doc(inHotSeatName)
-
-    let isInHotSeatAnswered;
-    inHotSeatPlayerRef.get().then(function(doc) {
-      if (doc.exists) {
-        isInHotSeatAnswered=true;
-      } else {
-        isInHotSeatAnswered=false;
-      }
-    }).catch(function(error) {
-      console.log("Error getting document:", error);
-    })
-
+    const isInHotSeatAnswered = this.props.inHotSeat.isAnswered
     const updateStage = isInHotSeatAnswered ? this.props.updateStage : undefined
 
     if (this.props.areAnswersIn) {
@@ -62,7 +49,7 @@ export class BoardQuestion extends React.Component {
     return (
       <Container textAlign="center" style={{ paddingTop: '17vh' }}>
         <Header className="question">{this.state.question}</Header>
-        <Timer updateStage={updateStage} time={10} isInHotSeatAnswered={isInHotSeatAnswered} inHotSeatName={inHotSeatName}/>
+        <Timer updateStage={updateStage} time={10} isInHotSeatAnswered={isInHotSeatAnswered} inHotSeat={this.props.inHotSeat}/>
       </Container>
     );
   }

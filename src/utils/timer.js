@@ -44,14 +44,20 @@ export const setTimer = sec => {
   return r.current.timeRemainingInSeconds;
 };
 
-export const Timer = ({ updateStage, time, isInHotSeatAnswered, inHotSeatName }) => {
+export const Timer = ({ updateStage, time, inHotSeat }) => {
   let timeRemainingInSeconds = setTimer(time);
+
+  let isInHotSeatAnswered;
+  if (inHotSeat) {
+    isInHotSeatAnswered = inHotSeat.isAnswered ? true : false
+  }
+
   if (updateStage) if (timeRemainingInSeconds === 0) updateStage();
 
   return (
     <Container>
-      { (timeRemainingInSeconds === 0 && !isInHotSeatAnswered) ?
-      <Header className="question">Waiting for {inHotSeatName}'s answer</Header>
+      { (timeRemainingInSeconds === 0 && isInHotSeatAnswered===false) ?
+      <Header className="question">Waiting for {inHotSeat.name}'s answer</Header>
       :
       ''
     }

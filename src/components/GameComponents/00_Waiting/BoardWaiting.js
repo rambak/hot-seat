@@ -30,6 +30,7 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef, questions }) 
               inHotSeat: {
                 name: player.data().name,
                 nextPlayer: nextPlayerName,
+                isAnswered: false,
               },
             });
           }

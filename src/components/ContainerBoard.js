@@ -110,7 +110,7 @@ export const ContainerBoard = props => {
       case 'question':
         return (
           <BoardQuestion
-            inHotSeatName={inHotSeat.name}
+            inHotSeat={inHotSeat}
             gameRef={gameRef}
             questions={questions}
             setQuestions={setQuestions}
