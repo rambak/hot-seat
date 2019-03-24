@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Grid, Header, Image } from 'semantic-ui-react';
+import { Button, Grid, Header, Image, Container } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../../config/fbConfig';
 
@@ -35,14 +35,14 @@ export const PlayerVoting = props => {
       <Image src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/200w.webp" className="gif"></Image>
     );
   return (
-    <>
+    <Container textAlign="center" style={{ paddingTop: '30vh' }}>
       {props.selfName === props.inHotSeatName ? (
-        <Grid centered style={{ paddingTop: '2em' }}>
+        <Header className="title" >
           Please wait for the other players to guess your answer.
-        </Grid>
+        </Header>
       ) : (
-        <Grid centered style={{ paddingTop: '2em' }}>
-          <Header>What did {props.inHotSeatName} answer?</Header>
+        <Grid centered >
+          <Header className="title">What did {props.inHotSeatName} answer?</Header>
           {answers.map((answer, idx) => {
             return (
               <Grid.Row>
@@ -88,7 +88,7 @@ export const PlayerVoting = props => {
           })}
         </Grid>
       )}
-    </>
+    </Container>
   );
 };
 

@@ -31,7 +31,7 @@ export class BoardQuestion extends React.Component {
         currentQuestion: question,
         prevQuestions: {
           ...this.props.questions.prevQuestions,
-          randomIdx: question,
+          [randomIdx]: question,
         },
       });
     }
@@ -46,7 +46,7 @@ export class BoardQuestion extends React.Component {
     return (
       <Container textAlign="center" style={{ paddingTop: '17vh' }}>
         <Header className="question" >{this.state.question}</Header>
-        <Timer updateStage={this.props.updateStage} time={40} />
+        <Timer updateStage={this.props.updateStage} time={90} />
       </Container>
     );
   }
