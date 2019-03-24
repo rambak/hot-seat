@@ -41,51 +41,60 @@ export const PlayerVoting = props => {
           Please wait for the other players to guess your answer.
         </Header>
       ) : (
-        <Grid centered >
-          <Header className="title">What did {props.inHotSeatName} answer?</Header>
-          {answers.map((answer, idx) => {
-            return (
-              <Grid.Row>
-                <Button
-                  key={idx}
-                  onClick={() => {
-                    setisAnswered(!isAnswered);
-                    answer.name.forEach(name => {
-                      const curAnswerRef = answersRef.doc(name);
-                      const newName = props.selfName;
-                      return db
-                        .runTransaction(async t => {
-                          const doc = await t.get(curAnswerRef);
-                          const gameDoc = await t.get(props.gameRef);
-                          // doc doesn't exist; can't update
-                          if (!doc.exists) return;
-                          // update the users array after getting it from Firestore.
-                          const oldArrVote = doc.get('playersVote');
+        <Grid centered style={{ paddingTop: '2em' }}>
+          <Header>What did {props.inHotSeatName} answer?</Header>
+          {answers
+            .sort((firstEl, secondEl) => {
+              if (firstEl.answer < secondEl.answer) {
+                return -1;
+              } else if (firstEl.answer > secondEl.answer) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((answer, idx) => {
+              return (
+                <Grid.Row>
+                  <Button
+                    key={idx}
+                    onClick={() => {
+                      setisAnswered(!isAnswered);
+                      answer.name.forEach(name => {
+                        const curAnswerRef = answersRef.doc(name);
+                        const newName = props.selfName;
+                        return db
+                          .runTransaction(async t => {
+                            const doc = await t.get(curAnswerRef);
+                            const gameDoc = await t.get(props.gameRef);
+                            // doc doesn't exist; can't update
+                            if (!doc.exists) return;
+                            // update the users array after getting it from Firestore.
+                            const oldArrVote = doc.get('playersVote');
 
-                          const newVoteArray = [...oldArrVote, newName];
-                          t.set(
-                            curAnswerRef,
-                            { playersVote: newVoteArray },
-                            { merge: true }
-                          );
+                            const newVoteArray = [...oldArrVote, newName];
+                            t.set(
+                              curAnswerRef,
+                              { playersVote: newVoteArray },
+                              { merge: true }
+                            );
 
-                          const currentVoteCount = gameDoc.data().voteCount;
-                          const newVoteCount = currentVoteCount
-                            ? currentVoteCount + 1
-                            : 1;
-                          t.update(props.gameRef, {
-                            voteCount: newVoteCount,
-                          });
-                        })
-                        .catch(console.log);
-                    });
-                  }}
-                >
-                  {answer.answer}
-                </Button>
-              </Grid.Row>
-            );
-          })}
+                            const currentVoteCount = gameDoc.data().voteCount;
+                            const newVoteCount = currentVoteCount
+                              ? currentVoteCount + 1
+                              : 1;
+                            t.update(props.gameRef, {
+                              voteCount: newVoteCount,
+                            });
+                          })
+                          .catch(console.log);
+                      });
+                    }}
+                  >
+                    {answer.answer}
+                  </Button>
+                </Grid.Row>
+              );
+            })}
         </Grid>
       )}
     </Container>
