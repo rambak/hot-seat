@@ -41,7 +41,10 @@ export const ContainerPlayer = props => {
         return <PlayerWaiting />;
       case 'upNow':
         return (
-          <PlayerUpNow self={props.self.name} inHotSeatName={inHotSeat.name} />
+          <PlayerUpNow
+            selfName={props.self.name}
+            inHotSeatName={inHotSeat.name}
+          />
         );
       case 'question':
         return <PlayerQuestion name={props.self.name} gameRef={gameRef} />;
