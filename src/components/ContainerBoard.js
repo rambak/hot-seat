@@ -111,6 +111,7 @@ export const ContainerBoard = props => {
         return (
           <BoardQuestion
             inHotSeatName={inHotSeat.name}
+            gameRef={gameRef}
             questions={questions}
             setQuestions={setQuestions}
             updateStage={updateStage}

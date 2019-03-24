@@ -15,9 +15,6 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
     }
   });
 
-
-
-
   const playAgain = () => {
     setQuestions({
       currentQuestion: null,

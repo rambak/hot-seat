@@ -38,6 +38,22 @@ export class BoardQuestion extends React.Component {
   }
 
   render() {
+    const inHotSeatName = this.props.inHotSeatName;
+    const inHotSeatPlayerRef = this.props.gameRef.collection('answers').doc(inHotSeatName)
+
+    let isInHotSeatAnswered;
+    inHotSeatPlayerRef.get().then(function(doc) {
+      if (doc.exists) {
+        isInHotSeatAnswered=true;
+      } else {
+        isInHotSeatAnswered=false;
+      }
+    }).catch(function(error) {
+      console.log("Error getting document:", error);
+    })
+
+    const updateStage = isInHotSeatAnswered ? this.props.updateStage : undefined
+
     if (this.props.areAnswersIn) {
       this.props.updateStage();
     }
@@ -46,7 +62,7 @@ export class BoardQuestion extends React.Component {
     return (
       <Container textAlign="center" style={{ paddingTop: '17vh' }}>
         <Header className="question">{this.state.question}</Header>
-        <Timer updateStage={this.props.updateStage} time={90} />
+        <Timer updateStage={updateStage} time={10} isInHotSeatAnswered={isInHotSeatAnswered} inHotSeatName={inHotSeatName}/>
       </Container>
     );
   }

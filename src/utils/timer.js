@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Header, Container } from 'semantic-ui-react';
 
 export const styles = {
   count: {
@@ -43,13 +44,20 @@ export const setTimer = sec => {
   return r.current.timeRemainingInSeconds;
 };
 
-export const Timer = ({ updateStage, time }) => {
+export const Timer = ({ updateStage, time, isInHotSeatAnswered, inHotSeatName }) => {
   let timeRemainingInSeconds = setTimer(time);
-  if (timeRemainingInSeconds === 0) updateStage();
+  if (updateStage) if (timeRemainingInSeconds === 0) updateStage();
 
   return (
+    <Container>
+      { (timeRemainingInSeconds === 0 && !isInHotSeatAnswered) ?
+      <Header className="question">Waiting for {inHotSeatName}'s answer</Header>
+      :
+      ''
+    }
     <div style={styles.circle}>
       <div style={styles.count}>{timeRemainingInSeconds}</div>
     </div>
+    </Container>
   );
 };
