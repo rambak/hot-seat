@@ -3,7 +3,7 @@ import { Container, Header } from 'semantic-ui-react';
 
 export const PlayerUpNow = ({ selfName, inHotSeatName }) => {
   return (
-    <Container textAlign="center" style={{ paddingTop: '30vh' }}>
+    <Container textAlign="center" className="centered-child">
       {inHotSeatName === selfName ? (
         <>
           <Header style={{ fontSize: '6em' }}>YOU</Header>

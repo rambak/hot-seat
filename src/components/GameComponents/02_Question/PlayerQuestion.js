@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Grid, Image } from 'semantic-ui-react';
+import { Form, Button, Image, Container } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
 
 export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
@@ -22,8 +22,11 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
         const newAnswerCount = currentAnswerCount ? currentAnswerCount + 1 : 1;
         if (name === inHotSeatName) {
           const inHotSeatData = gameDoc.get('inHotSeat');
-          const inHotSeatNewData = {...inHotSeatData, 'isAnswered': true}
-          transaction.update(gameRef, { answerCount: newAnswerCount, inHotSeat: inHotSeatNewData});
+          const inHotSeatNewData = { ...inHotSeatData, isAnswered: true };
+          transaction.update(gameRef, {
+            answerCount: newAnswerCount,
+            inHotSeat: inHotSeatNewData,
+          });
         } else {
           transaction.update(gameRef, { answerCount: newAnswerCount });
         }
@@ -39,32 +42,27 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
 
   if (disabled)
     return (
-      <Image src="https://media.giphy.com/media/tXL4FHPSnVJ0A/200w.webp" className="gif"></Image>
+      <Image
+        src="https://media.giphy.com/media/tXL4FHPSnVJ0A/200w.webp"
+        className="gif"
+      />
     );
 
   return (
-    <>
-    <Grid centered style={{ paddingTop: '30vh' }}>
-      <Form
-        textAlign="center"
-        style={{ paddingTop: '2em' }}
-        onSubmit={handleSubmit}
-      >
-        <Form.Group>
-          <Form.Input
+    <Container textAlign="center" style={{ paddingTop: '17vh' }}>
+      <Form onSubmit={handleSubmit}>
+        <Form.Field>
+          <input
             placeholder="Answer..."
-            onChange={handleChange}
             value={answer}
-            style={{ height: '10vh',  width: '20vw'  }}
+            onChange={handleChange}
           />
-
-          <Button type="submit" disabled={disabled}>
-            Submit
-          </Button>
-        </Form.Group>
+        </Form.Field>
+        <Button type="submit" disabled={disabled}>
+          Submit
+        </Button>
       </Form>
-    </Grid>
-    </>
+    </Container>
   );
 };
 

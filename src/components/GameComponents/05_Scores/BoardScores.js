@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Icon } from 'semantic-ui-react';
+import { Table, Icon, Container, Header } from 'semantic-ui-react';
 import { Timer } from '../../../utils/timer';
 
 export const BoardScores = ({
@@ -31,31 +31,54 @@ export const BoardScores = ({
   }, []);
 
   return (
-  <>
-      <Table basic="very" celled collapsing singleLine="true">
+
+    <Container className="centered-child">
+      <Header className="title">Scores</Header>
+      <Table
+        basic="very"
+        celled
+        collapsing
+        padded="very"
+        size="large"
+        className="scores"
+      >
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />
-            <Table.HeaderCell>Player</Table.HeaderCell>
-            <Table.HeaderCell>Score</Table.HeaderCell>
+            <Table.HeaderCell>
+              <h1>Player</h1>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <h1>Score</h1>
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {players.map(player => (
-            <Table.Row key={player.name}>
-              <Table.Cell>
-                {player.name === inHotSeatName && <Icon name="fire" />}
-                {player.score === highScore && <Icon name="winner" />}
-              </Table.Cell>
-              <Table.Cell>{player.name}</Table.Cell>
-              <Table.Cell>{player.score}</Table.Cell>
-            </Table.Row>
-          ))}
+          {players
+            .sort((player1, player2) => {
+              if (player1.score > player2.score) return -1;
+              else if (player1.score < player2.score) return 1;
+              return 0;
+            })
+            .map(player => (
+              <Table.Row key={player.name}>
+                <Table.Cell>
+                  {player.name === inHotSeatName && (
+                    <Icon name="fire" size="huge" />
+                  )}
+                  {player.score === highScore && (
+                    <Icon name="winner" size="huge" />
+                  )}
+                </Table.Cell>
+                <Table.Cell>{player.name}</Table.Cell>
+                <Table.Cell>{player.score}</Table.Cell>
+              </Table.Row>
+            ))}
         </Table.Body>
       </Table>
       <Timer updateStage={updateStage} time={10} />
-  </>
+    </Container>
   );
 };
 
