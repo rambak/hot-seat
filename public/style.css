@@ -3,6 +3,12 @@ body {
   background-size: cover;
 }
 
+body.inHotSeat {
+  background-image: url('background.jpg'),
+  linear-gradient(rgba(255, 0, 13, 0.6), rgb(255, 5, 17, 0.7));
+  background-blend-mode: overlay;
+}
+
 .image.hotseat {
   /* place it in bottom right corner */
   position: absolute;
@@ -65,3 +71,4 @@ p {
 label {
   font-size: 3vh !important;
 }
+
