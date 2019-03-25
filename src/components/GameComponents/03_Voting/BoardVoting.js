@@ -32,10 +32,11 @@ export const BoardVoting = ({
   }
 
   return (
-    <Container textAlign="center" style={{ paddingTop: '30vh' }}>
-      <Header style={{ fontSize: '5em' }}>Question:</Header>
-      <Header style={{ fontSize: '4em' }}>{currentQuestion}</Header>
-      <Header style={{ fontSize: '5em' }}>
+    <Container textAlign="center" className="centered-child">
+      <Header className="question" style={{ fontSize: '5em' }}>
+        {currentQuestion}
+      </Header>
+      <Header style={{ fontSize: '4em' }}>
         Guess {inHotSeatName}'s answer:
       </Header>
 

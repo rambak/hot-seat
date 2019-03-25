@@ -3,7 +3,7 @@ import { Button, Grid, Header, Image, Container } from 'semantic-ui-react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../../config/fbConfig';
 
-export const PlayerVoting = ({gameRef, selfName, inHotSeatName}) => {
+export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
   const answersRef = gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
   let answers = [];
@@ -30,14 +30,16 @@ export const PlayerVoting = ({gameRef, selfName, inHotSeatName}) => {
   }
   const [isAnswered, setisAnswered] = useState(false);
   if (isAnswered)
-
     return (
-      <Image src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/200w.webp" className="gif"></Image>
+      <Image
+        src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/200w.webp"
+        className="gif"
+      />
     );
   return (
-    <Container textAlign="center" style={{ paddingTop: '30vh' }}>
+    <Container textAlign="center" className="centered-child">
       {selfName === inHotSeatName ? (
-        <Header className="title" >
+        <Header className="title">
           Please wait for the other players to guess your answer.
         </Header>
       ) : (
@@ -54,9 +56,8 @@ export const PlayerVoting = ({gameRef, selfName, inHotSeatName}) => {
             })
             .map((answer, idx) => {
               return (
-                <Grid.Row>
+                <Grid.Row key={idx}>
                   <Button
-                    key={idx}
                     onClick={() => {
                       setisAnswered(!isAnswered);
                       answer.name.forEach(name => {

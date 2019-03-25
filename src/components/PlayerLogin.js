@@ -82,7 +82,7 @@ class PlayerLogin extends React.Component {
 
   render() {
     return (
-      <Container textAlign="center" style={{ paddingTop: '27vh' }}>
+      <Container textAlign="center" style={{ paddingTop: '5vh' }}>
         {this.state.errors.length > 0 && (
           <Message negative>
             <Message.Header>We encountered an error</Message.Header>

@@ -48,7 +48,7 @@ export class BoardResults extends Component {
 
   render() {
     return (
-      <Container textAlign="center" style={{ paddingTop: '10vh' }}>
+      <Container textAlign="center" className="centered-child">
         <Header className="title">Votes</Header>
         <ResultsCards
           answers={this.state.answers}
