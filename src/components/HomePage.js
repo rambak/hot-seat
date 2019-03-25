@@ -91,7 +91,6 @@ const HomePage = props => {
     <>
       <Container className="centered-child" textAlign="center">
         <InstructionsModal modalOpen={modalOpen} handleClose={handleClose} />
-        <br />
         <Header className="title">Welcome to Hot Seat!</Header>
         <Label
           onClick={handleOpen}
