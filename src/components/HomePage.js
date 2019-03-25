@@ -85,7 +85,11 @@ const HomePage = props => {
       <Header className="title">Welcome to Hot Seat!</Header>
       <Card.Group centered>
         <Grid stackable reversed="mobile" columns="equal">
-          <Grid.Column>
+          <Grid.Column only="mobile">
+            To host a game please use a device with a larger screen such as a
+            tablet or a laptop.
+          </Grid.Column>
+          <Grid.Column only="computer tablet">
             <Card className="homepage">
               <Card.Content>
                 <Card.Header>Hosts</Card.Header>

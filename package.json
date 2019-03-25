@@ -7,6 +7,7 @@
     "firebase": "^5.8.6",
     "gsap": "^2.1.2",
     "react": "^16.8.4",
+    "react-card-flip": "^0.5.0",
     "react-dom": "^16.8.4",
     "react-firebase-hooks": "^1.1.0",
     "react-google-charts": "^3.0.11",
