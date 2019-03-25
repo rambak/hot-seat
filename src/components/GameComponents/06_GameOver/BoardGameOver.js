@@ -27,17 +27,17 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
 
     const playersRef = gameRef.collection('players');
 
-    // players.forEach(player => {
-    //   const playerData = {
-    //     name: player.name,
-    //   };
-    //   playersRef.doc(player.name).set(playerData);
-    // });
-    playersRef.get().then(snapchot => {
-      snapchot.forEach(doc => {
-        playersRef.doc(doc.name).delete();
-      })
-    })
+    players.forEach(player => {
+      const playerData = {
+        name: player.name,
+      };
+      playersRef.doc(player.name).set(playerData);
+    });
+    // playersRef.get().then(snapchot => {
+    //   snapchot.forEach(doc => {
+    //     playersRef.doc(doc.name).delete();
+    //   })
+    // })
   };
 
   const winnerText =

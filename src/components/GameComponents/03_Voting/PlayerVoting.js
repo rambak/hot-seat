@@ -39,7 +39,7 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
   return (
     <Container textAlign="center" className="centered-child">
       {selfName === inHotSeatName ? (
-        <Header className="title">
+        <Header className='inHotSeat'>
           Please wait for the other players to guess your answer.
         </Header>
       ) : (
