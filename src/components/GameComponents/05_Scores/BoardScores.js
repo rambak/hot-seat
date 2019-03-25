@@ -31,7 +31,6 @@ export const BoardScores = ({
   }, []);
 
   return (
-
     <Container className="centered-child">
       <Header className="title">Scores</Header>
       <Table
@@ -77,7 +76,7 @@ export const BoardScores = ({
             ))}
         </Table.Body>
       </Table>
-      <Timer updateStage={updateStage} time={10} />
+      <Timer updateStage={updateStage} time={30} />
     </Container>
   );
 };

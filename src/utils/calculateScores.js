@@ -51,7 +51,7 @@ export default async function(gameRef, inHotSeat, players) {
           }
 
           if (scoring.matchedAnswer.includes(playerName)) {
-            newScore += 1;
+            newScore += 2;
           }
 
           if (scoring.mostVotedFor.includes(playerName)) {

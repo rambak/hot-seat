@@ -4,7 +4,6 @@ body {
 }
 
 body.inHotSeat {
-
   background-image: url('background-hotSeat.jpg'),
     linear-gradient(rgba(255, 255, 255, 0.4), rgba(228, 99, 25, 0.384));
 
@@ -71,6 +70,7 @@ instructions-label {
 
 .ui.card.homepage,
 .ui.cards > .card.homepage {
+  margin-top: 20px;
   border-color: #fe4902;
   border-width: 2px;
   border-style: solid;
@@ -89,6 +89,7 @@ instructions-label {
   border-color: #fe4902;
   color: white;
   border-width: 1px;
+  font-size: 1.28571429rem;
 }
 
 .ui.card.homepage > .button:hover,

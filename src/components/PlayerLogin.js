@@ -33,61 +33,71 @@ class PlayerLogin extends React.Component {
       //check if the entered pin code exists
       const gameRef = db.collection('games').doc(enteredPin);
 
-      const docExists = await gameRef.get().then(doc => {
-        return doc.exists;
-      });
-
-      if (docExists) {
-        const playersRef = db
-          .collection('games')
-          .doc(enteredPin)
-          .collection('players');
-
-        const playerNameExists = await playersRef
-          .where('name', '==', enteredName)
-          .get()
-          .then(function(querySnapshot) {
-            return querySnapshot.docs.length > 0;
-          });
-
-        if (playerNameExists) {
+      const docExists = await gameRef.get().then(async doc => {
+        if (doc.exists && doc.data().currentStage !== 'waitingForPlayers') {
           await this.setState({
             errors: [
               ...this.state.errors,
-              `A player with the same name (${enteredName}) already joined. Please choose a different name.`,
+              `This game (${enteredPin}) is already in progress.`,
             ],
           });
-        } else {
-          auth
-            .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-            .then(() => {
-              return auth.signInAnonymously();
-            })
+        }
+        return doc.exists;
+      });
 
-            .then(function(cred) {
-              return cred.user.updateProfile({ displayName: enteredName });
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-
-          await db
+      if (this.state.errors.length === 0) {
+        if (docExists) {
+          const playersRef = db
             .collection('games')
             .doc(enteredPin)
-            .collection('players')
-            .doc(enteredName)
-            .set({
-              name: enteredName,
+            .collection('players');
+
+          const playerNameExists = await playersRef
+            .where('name', '==', enteredName)
+            .get()
+            .then(function(querySnapshot) {
+              return querySnapshot.docs.length > 0;
             });
-          this.props.history.push(`/${enteredPin}`);
+
+          if (playerNameExists) {
+            await this.setState({
+              errors: [
+                ...this.state.errors,
+                `A player with the same name (${enteredName}) already joined. Please choose a different name.`,
+              ],
+            });
+          } else {
+            auth
+              .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+              .then(() => {
+                return auth.signInAnonymously();
+              })
+
+              .then(function(cred) {
+                return cred.user.updateProfile({ displayName: enteredName });
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+
+            await db
+              .collection('games')
+              .doc(enteredPin)
+              .collection('players')
+              .doc(enteredName)
+              .set({
+                name: enteredName,
+              });
+            this.props.history.push(`/${enteredPin}`);
+          }
+        } else {
+          await this.setState({
+            errors: [
+              ...this.state.errors,
+              `There is no game matching this pin (${enteredPin}). Please enter a different pin.`,
+            ],
+          });
         }
-      } else {
-        await this.setState({
-          errors: [
-            ...this.state.errors,
-            `There is no game matching this pin (${enteredPin}). Please enter a different pin.`,
-          ],
-        });
       }
     }
   };

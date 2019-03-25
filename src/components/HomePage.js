@@ -110,8 +110,6 @@ const HomePage = props => {
                   <Divider />
                   <Segment basic>
                     <Image centered src="/images/monitor-100.png" />
-                    <Divider />
-                    [Placeholder] If you are a host click here [Placeholder]
                   </Segment>
                 </Card.Content>
                 <Button className="button" onClick={generatePin}>
@@ -126,8 +124,6 @@ const HomePage = props => {
                   <Divider />
                   <Segment basic>
                     <Image centered src="/images/smartphone-tablet-100.png" />
-                    <Divider />
-                    [Placeholder] If you are a player click here [Placeholder]
                   </Segment>
                 </Card.Content>
                 <Button
