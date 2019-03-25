@@ -69,7 +69,7 @@ instructions-label {
 
 .ui.card.homepage,
 .ui.cards > .card.homepage {
-  /* box-shadow: 0 2px 3px 0 #fe4902, 0 0 0 2px #fe4902; */
+  margin-top: 20px;
   border-color: #fe4902;
   border-width: 2px;
   border-style: solid;
@@ -93,6 +93,7 @@ instructions-label {
   color: white;
   /* border-color: rgb(14, 112, 168); */
   border-width: 1px;
+  font-size: 1.28571429rem;
 }
 
 .ui.card.homepage > .button:hover,

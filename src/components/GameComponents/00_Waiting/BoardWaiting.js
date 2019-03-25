@@ -27,7 +27,6 @@ export const BoardWaiting = ({
 
           batch.update(player.ref, {
             score: 0,
-            turnOrder: i,
             nextPlayer: nextPlayerName,
           });
 
