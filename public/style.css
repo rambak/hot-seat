@@ -3,9 +3,7 @@ body {
   background-size: cover;
 }
 
-body
-/* .inHotSeat { */
- {
+body.inHotSeat {
   background-image: url('background-hotSeat.jpg'),
     linear-gradient(rgba(255, 255, 255, 0.4), rgba(228, 99, 25, 0.384));
   background-blend-mode: overlay;
