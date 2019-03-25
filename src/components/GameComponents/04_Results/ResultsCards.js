@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
-import ResultCard from './ResultCard';
+import ResultsCardFlip from './ResultsCardFlip';
 
 export default props => (
   <Card.Group centered>
     {props.answers.map(answer => (
-      <ResultCard
+      <ResultsCardFlip
         key={answer.id}
         answer={answer}
-        showingAnswer={props.showingAnswer}
+        isFlipped={props.showingAnswer}
       />
     ))}
   </Card.Group>
