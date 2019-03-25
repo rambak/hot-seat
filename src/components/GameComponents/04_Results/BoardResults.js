@@ -43,7 +43,7 @@ export class BoardResults extends Component {
     this.answersRef.get().then(this.callback);
 
     setTimeout(() => this.setState({ showingAnswer: true }), 3000);
-    setTimeout(() => this.props.updateStage(), 8000);
+    // setTimeout(() => this.props.updateStage(), 8000);
   }
 
   render() {

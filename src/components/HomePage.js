@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Container,
@@ -8,10 +8,17 @@ import {
   Divider,
   Segment,
   Grid,
+  Label,
 } from 'semantic-ui-react';
 import { db } from '../config/fbConfig';
+import InstructionsModal from './InstructionsModal';
 
 const HomePage = props => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpen = () => setModalOpen(true);
+  const handleClose = () => setModalOpen(false);
+
   const generate = () => {
     const alphabet = [
       'a',
@@ -81,50 +88,62 @@ const HomePage = props => {
   };
 
   return (
-    <Container className="centered-child" textAlign="center">
-      <Header className="title">Welcome to Hot Seat!</Header>
-      <Card.Group centered>
-        <Grid stackable reversed="mobile" columns="equal">
-          <Grid.Column>
-            <Card className="homepage">
-              <Card.Content>
-                <Card.Header>Hosts</Card.Header>
-                <Divider />
-                <Segment basic>
-                  <Image centered src="/images/monitor-100.png" />
+    <>
+      <Container className="centered-child" textAlign="center">
+        <InstructionsModal modalOpen={modalOpen} handleClose={handleClose} />
+        <Header className="title">Welcome to Hot Seat!</Header>
+        <Label
+          onClick={handleOpen}
+          content="How to Play"
+          circular
+          color="blue"
+          size="big"
+        />
+        <br />
+        <br />
+        <Card.Group centered>
+          <Grid stackable reversed="mobile" columns="equal">
+            <Grid.Column>
+              <Card className="homepage">
+                <Card.Content>
+                  <Card.Header>Hosts</Card.Header>
                   <Divider />
-                  [Placeholder] If you are a host click here [Placeholder]
-                </Segment>
-              </Card.Content>
-              <Button className="button" onClick={generatePin}>
-                Host a game
-              </Button>
-            </Card>
-          </Grid.Column>
-          <Grid.Column>
-            <Card className="homepage">
-              <Card.Content>
-                <Card.Header>Players</Card.Header>
-                <Divider />
-                <Segment basic>
-                  <Image centered src="/images/smartphone-tablet-100.png" />
+                  <Segment basic>
+                    <Image centered src="/images/monitor-100.png" />
+                    <Divider />
+                    [Placeholder] If you are a host click here [Placeholder]
+                  </Segment>
+                </Card.Content>
+                <Button className="button" onClick={generatePin}>
+                  Host a game
+                </Button>
+              </Card>
+            </Grid.Column>
+            <Grid.Column>
+              <Card className="homepage">
+                <Card.Content>
+                  <Card.Header>Players</Card.Header>
                   <Divider />
-                  [Placeholder] If you are a player click here [Placeholder]
-                </Segment>
-              </Card.Content>
-              <Button
-                onClick={() => {
-                  props.history.push('/login');
-                }}
-              >
-                Join a game
-              </Button>
-            </Card>
-          </Grid.Column>
-        </Grid>
-      </Card.Group>
-      {/* <Image src="../.././hotseat.png" className="hotseat" /> */}
-    </Container>
+                  <Segment basic>
+                    <Image centered src="/images/smartphone-tablet-100.png" />
+                    <Divider />
+                    [Placeholder] If you are a player click here [Placeholder]
+                  </Segment>
+                </Card.Content>
+                <Button
+                  onClick={() => {
+                    props.history.push('/login');
+                  }}
+                >
+                  Join a game
+                </Button>
+              </Card>
+            </Grid.Column>
+          </Grid>
+        </Card.Group>
+        {/* <Image src="../.././hotseat.png" className="hotseat" /> */}
+      </Container>
+    </>
   );
 };
 

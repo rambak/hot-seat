@@ -4,8 +4,10 @@ body {
 }
 
 body.inHotSeat {
+
   background-image: url('background-hotSeat.jpg'),
     linear-gradient(rgba(255, 255, 255, 0.4), rgba(228, 99, 25, 0.384));
+
   background-blend-mode: overlay;
 }
 
@@ -61,6 +63,10 @@ body.inHotSeat {
   border: 1px solid rgb(177, 210, 229);
 }
 
+instructions-label {
+  background-color: rgb(14, 112, 168);
+}
+
 .button.button:hover {
   background-color: rgb(154, 215, 255);
 }
@@ -72,7 +78,6 @@ body.inHotSeat {
 
 .ui.card.homepage,
 .ui.cards > .card.homepage {
-  /* box-shadow: 0 2px 3px 0 #fe4902, 0 0 0 2px #fe4902; */
   border-color: #fe4902;
   border-width: 2px;
   border-style: solid;
@@ -81,11 +86,7 @@ body.inHotSeat {
 }
 
 .ui.card.homepage > .content .divider {
-  /* border-color: rgb(14, 112, 168); */
-  /* border-width: 2px; */
   background-color: #fe4902;
-  /* background-color: rgb(154, 215, 255); */
-  /* border-style: solid; */
 }
 
 .ui.card.homepage > .button,
@@ -94,7 +95,6 @@ body.inHotSeat {
   background-color: #fe4902;
   border-color: #fe4902;
   color: white;
-  /* border-color: rgb(14, 112, 168); */
   border-width: 1px;
 }
 
@@ -107,6 +107,49 @@ body.inHotSeat {
 }
 .ui.card.homepage > :last-child.button {
   border-radius: 0px 0px 50px 50px !important;
+}
+
+.ui.card.ui.card.results-card .divider {
+  background-color: rgb(14, 112, 168);
+}
+
+.ui.card.results-card {
+  border-color: rgb(14, 112, 168);
+  border-width: 2px;
+  border-style: solid;
+  margin-left: 5px;
+  margin-right: 5px;
+  /* border-radius: 50px 50px 50px 50px; */
+  box-shadow: 2px 2px white, 4px 4px rgb(14, 112, 168);
+}
+
+.ui.card.results-card-correct .divider {
+  background-color: #fe4902;
+}
+
+.ui.card.results-card .card-title {
+  font-weight: bolder;
+  color: rgb(14, 112, 168);
+}
+
+.ui.card.results-card-correct {
+  border-color: #fe4902;
+  border-width: 2px;
+  border-style: solid;
+  margin-left: 5px;
+  margin-right: 5px;
+
+  /* border-radius: 50px 50px 50px 50px; */
+  box-shadow: 2px 2px white, 4px 4px #fe4902;
+}
+
+.ui.card.results-card-correct .divider {
+  background-color: #fe4902;
+}
+
+.ui.card.results-card-correct .card-title {
+  font-weight: bolder;
+  color: #fe4902;
 }
 
 .centered-parent {
