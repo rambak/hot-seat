@@ -123,7 +123,7 @@ const HomePage = props => {
           </Grid.Column>
         </Grid>
       </Card.Group>
-      <Image src="../.././hotseat.png" className="hotseat" />
+      {/* <Image src="../.././hotseat.png" className="hotseat" /> */}
     </Container>
   );
 };
