@@ -42,10 +42,12 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
 
   if (disabled)
     return (
-      <Image
-        src="https://media.giphy.com/media/tXL4FHPSnVJ0A/200w.webp"
-        className="gif"
-      />
+      <Container className="centered-child">
+        <Image
+          src="https://media.giphy.com/media/tXL4FHPSnVJ0A/giphy.gif"
+          className="gif"
+        />
+      </Container>
     );
 
   return (
