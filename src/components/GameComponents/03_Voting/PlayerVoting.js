@@ -31,10 +31,12 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
   const [isAnswered, setisAnswered] = useState(false);
   if (isAnswered)
     return (
-      <Image
-        src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/200w.webp"
-        className="gif"
-      />
+      <Container className="centered-child">
+        <Image
+          src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif"
+          className="gif"
+        />
+      </Container>
     );
   return (
     <Container textAlign="center" className="centered-child">

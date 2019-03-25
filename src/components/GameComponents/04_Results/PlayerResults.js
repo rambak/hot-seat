@@ -1,9 +1,14 @@
 import React from 'react';
-import { Image } from 'semantic-ui-react'
+import { Image, Container } from 'semantic-ui-react';
 
 export const PlayerResults = () => {
   return (
-    <Image src="https://media.giphy.com/media/5VKbvrjxpVJCM/200w.webp" className="gif"></Image>
+    <Container className="centered-child">
+      <Image
+        src="https://media.giphy.com/media/5VKbvrjxpVJCM/giphy.gif"
+        className="gif"
+      />
+    </Container>
   );
 };
 
