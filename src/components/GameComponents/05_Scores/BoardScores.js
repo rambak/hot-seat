@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Icon, Container, Header, Label } from 'semantic-ui-react';
+import { Table, Icon, Container, Header } from 'semantic-ui-react';
 import { Timer } from '../../../utils/timer';
 
 export const BoardScores = ({
@@ -76,7 +76,7 @@ export const BoardScores = ({
             ))}
         </Table.Body>
       </Table>
-      {/* <Timer updateStage={updateStage} time={10} /> */}
+      <Timer updateStage={updateStage} time={10} />
     </Container>
   );
 };
