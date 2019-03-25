@@ -19,19 +19,19 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
     setQuestions({
       currentQuestion: null,
       prevQuestions: {},
-    })
+    });
 
     gameRef.set({
       currentStage: 'waitingForPlayers',
-    })
+    });
 
-    const playersRef = gameRef.collection('players')
+    const playersRef = gameRef.collection('players');
 
     players.forEach(player => {
-       const playerData = {
-         name: player.name
-       }
-      playersRef.doc(player.name).set(playerData)
+      const playerData = {
+        name: player.name,
+      };
+      playersRef.doc(player.name).set(playerData);
     });
   };
 
@@ -41,7 +41,7 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
       : `Winner: ${winner.playerName[0]}`;
 
   return (
-    <Container textAlign="center" style={{ paddingTop: '27vh' }}>
+    <Container textAlign="center" className="centered-child">
       <Header className="title">GAME IS OVER</Header>
       <Header className="question">{winnerText}</Header>
       <Button onClick={playAgain}>Play Again</Button>

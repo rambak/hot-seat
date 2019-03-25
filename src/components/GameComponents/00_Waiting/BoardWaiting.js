@@ -2,7 +2,13 @@ import React from 'react';
 import { Header, Button, List, Container } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
 
-export const BoardWaiting = ({ players, updateStage, pin, gameRef, questions }) => {
+export const BoardWaiting = ({
+  players,
+  updateStage,
+  pin,
+  gameRef,
+  questions,
+}) => {
   const startGame = async gameRef => {
     await gameRef
       .collection('players')
@@ -68,8 +74,9 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef, questions }) 
       >
         Start!
       </Button>
+
+      {/* <Header>Instructions:</Header>
       <p>
-        <Header>Instructions:</Header>
         Each round one player will end up in the hot seat. There are two stages:
         QUESTION and VOTING.
         <br />
@@ -84,7 +91,7 @@ export const BoardWaiting = ({ players, updateStage, pin, gameRef, questions }) 
         <br />
         Enjoy the game, see how well your friends know you, and learn more about
         them!
-      </p>
+      </p> */}
     </Container>
   );
 };

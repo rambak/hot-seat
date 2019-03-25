@@ -63,6 +63,75 @@ body.inHotSeat {
   color: #fff;
 }
 
+.ui.card.homepage,
+.ui.cards > .card.homepage {
+  /* box-shadow: 0 2px 3px 0 #fe4902, 0 0 0 2px #fe4902; */
+  border-color: #fe4902;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50px 50px 50px 50px;
+  box-shadow: 2px 2px white, 4px 4px #fe4902, 6px 6px white;
+}
+
+.ui.card.homepage > .content .divider {
+  /* border-color: rgb(14, 112, 168); */
+  /* border-width: 2px; */
+  background-color: #fe4902;
+  /* background-color: rgb(154, 215, 255); */
+  /* border-style: solid; */
+}
+
+.ui.card.homepage > .button,
+.ui.cards > .card.homepage > .ui.button {
+  box-shadow: none;
+  background-color: #fe4902;
+  border-color: #fe4902;
+  color: white;
+  /* border-color: rgb(14, 112, 168); */
+  border-width: 1px;
+}
+
+.ui.card.homepage > .button:hover,
+.ui.cards > .card.homepage > .ui.button:active {
+  background-color: white;
+  color: #fe4902;
+  border-color: #fe4902;
+  border-top-width: 2px;
+}
+.ui.card.homepage > :last-child.button {
+  border-radius: 0px 0px 50px 50px !important;
+}
+
+.centered-parent {
+  width: 100%;
+  height: 100%;
+  display: table;
+  text-align: center;
+}
+
+.ui.container.centered-child {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.ui.table.scores {
+  width: 100%;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  padding-top: 5vh;
+}
+
+.ui.table.scores th,
+.ui.table.scores td,
+.ui.table.scores tr,
+.ui.table.scores :last-child th,
+.ui.table.scores :last-child td {
+  border-color: black;
+  border-width: 2px;
+}
+
 p {
   font-size: 3vh;
   padding: 10vh;
