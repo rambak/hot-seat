@@ -1,5 +1,5 @@
-import React from 'react';
-import { db } from '../config/fbConfig';
+import React, { useState, useEffect } from 'react';
+import { db, auth } from '../config/fbConfig';
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
 import {
   PlayerWaiting,
@@ -10,9 +10,16 @@ import {
   PlayerScores,
   PlayerGameOver,
 } from '../components/GameComponents';
-import { connect } from 'react-redux';
 
 export const ContainerPlayer = props => {
+  const [self, setSelf] = useState('');
+  let user = auth.currentUser;
+  useEffect(() => {
+    if (user) {
+      setSelf(user.displayName);
+    }
+  }, [user]);
+
   const pin = props.match.params.pin;
 
   //Game Information
@@ -40,18 +47,13 @@ export const ContainerPlayer = props => {
       case 'waitingForPlayers':
         return <PlayerWaiting />;
       case 'upNow':
-        return (
-          <PlayerUpNow
-            selfName={props.self.name}
-            inHotSeatName={inHotSeat.name}
-          />
-        );
+        return <PlayerUpNow selfName={self} inHotSeatName={inHotSeat.name} />;
       case 'question':
-        return <PlayerQuestion name={props.self.name} inHotSeatName={inHotSeat.name} gameRef={gameRef} />;
+        return <PlayerQuestion name={self} inHotSeatName={inHotSeat.name} gameRef={gameRef} />;
       case 'voting':
         return (
           <PlayerVoting
-            selfName={props.self.name}
+            selfName={self}
             gameRef={gameRef}
             inHotSeatName={inHotSeat.name}
           />
@@ -67,15 +69,20 @@ export const ContainerPlayer = props => {
     }
   };
 
+  if (!gameDoc.loading && !playersCol.loading && currentStage !== '' && currentStage !== 'waitingForPlayers' && currentStage !== 'scores' && currentStage !== 'gameOver') {
+    if (props.self.name === inHotSeat.name) {
+      document.body.classList.add('inHotSeat');
+    }
+  }
+  if (!gameDoc.loading && !playersCol.loading && currentStage === 'scores') {
+    document.body.classList.remove('inHotSeat');
+  }
+
   return gameDoc.loading || playersCol.loading ? (
     <div>loading</div>
   ) : (
-    determinePlayerComponent(currentStage)
+      determinePlayerComponent(currentStage)
   );
 };
 
-const mapState = state => ({
-  self: state.user,
-});
-
-export default connect(mapState)(ContainerPlayer);
+export default ContainerPlayer;

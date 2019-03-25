@@ -31,6 +31,7 @@ export const BoardScores = ({
   }, []);
 
   return (
+
     <Container className="centered-child">
       <Header className="title">Scores</Header>
       <Table

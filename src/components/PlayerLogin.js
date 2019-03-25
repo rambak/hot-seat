@@ -3,7 +3,7 @@ import { Container, Form, Button, Message } from 'semantic-ui-react';
 import { setUser } from '../store/reducers/user';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { db } from '../config/fbConfig';
+import firebase, { db, auth } from '../config/fbConfig';
 
 class PlayerLogin extends React.Component {
   constructor() {
@@ -58,6 +58,19 @@ class PlayerLogin extends React.Component {
             ],
           });
         } else {
+          auth
+            .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(() => {
+              return auth.signInAnonymously();
+            })
+
+            .then(function(cred) {
+              return cred.user.updateProfile({ displayName: enteredName });
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+
           await db
             .collection('games')
             .doc(enteredPin)
@@ -66,7 +79,6 @@ class PlayerLogin extends React.Component {
             .set({
               name: enteredName,
             });
-          this.props.setUser(enteredName);
           this.props.history.push(`/${enteredPin}`);
         }
       } else {
