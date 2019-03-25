@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header, Button } from 'semantic-ui-react';
 
-export const BoardGameOver = ({ players, gameRef }) => {
+export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
   let winner = {
     highScore: 0,
     playerName: [],
@@ -16,9 +16,22 @@ export const BoardGameOver = ({ players, gameRef }) => {
   });
 
   const playAgain = () => {
-    // const answersRef = gameRef.collection('answers')
-    gameRef.update({
+    setQuestions({
+      currentQuestion: null,
+      prevQuestions: {},
+    })
+
+    gameRef.set({
       currentStage: 'waitingForPlayers',
+    })
+
+    const playersRef = gameRef.collection('players')
+
+    players.forEach(player => {
+       const playerData = {
+         name: player.name
+       }
+      playersRef.doc(player.name).set(playerData)
     });
   };
 

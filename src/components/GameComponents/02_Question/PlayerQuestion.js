@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Grid, Image } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
-import { Timer } from '../../../utils/timer';
 
-export const PlayerQuestion = ({ name, gameRef }) => {
+export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
   const [answer, setAnswer] = useState('');
   const [disabled, setDisabled] = useState(false);
 
@@ -21,7 +20,13 @@ export const PlayerQuestion = ({ name, gameRef }) => {
         }
         const currentAnswerCount = gameDoc.data().answerCount;
         const newAnswerCount = currentAnswerCount ? currentAnswerCount + 1 : 1;
-        transaction.update(gameRef, { answerCount: newAnswerCount });
+        if (name === inHotSeatName) {
+          const inHotSeatData = gameDoc.get('inHotSeat');
+          const inHotSeatNewData = {...inHotSeatData, 'isAnswered': true}
+          transaction.update(gameRef, { answerCount: newAnswerCount, inHotSeat: inHotSeatNewData});
+        } else {
+          transaction.update(gameRef, { answerCount: newAnswerCount });
+        }
 
         const myAnswerRef = gameRef.collection('answers').doc(name);
         const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };

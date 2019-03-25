@@ -13,9 +13,19 @@ export class BoardQuestion extends React.Component {
 
   async componentDidMount() {
     if (this.state.question === '') {
+      const lastQuestion = await db
+        .collection('questions')
+        .orderBy('id', 'desc')
+        .limit(1)
+        .get();
+
+      console.log('Last Question', lastQuestion);
+
+      const numQuestions = lastQuestion.docs[0].data().id;
+
       let randomIdx;
       do {
-        randomIdx = Math.floor(Math.random() * 15 + 1).toString();
+        randomIdx = Math.floor(Math.random() * numQuestions).toString();
       } while (this.props.questions.prevQuestions[randomIdx]);
       const curQuestion = await db
         .collection('questions')
@@ -24,7 +34,7 @@ export class BoardQuestion extends React.Component {
       const question = curQuestion
         .data()
         .question.split('**name**')
-        .join(this.props.inHotSeatName);
+        .join(this.props.inHotSeat.name);
       this.setState({ question });
 
       this.props.setQuestions({
@@ -38,6 +48,9 @@ export class BoardQuestion extends React.Component {
   }
 
   render() {
+    const isInHotSeatAnswered = this.props.inHotSeat.isAnswered
+    const updateStage = isInHotSeatAnswered ? this.props.updateStage : undefined
+
     if (this.props.areAnswersIn) {
       this.props.updateStage();
     }
@@ -46,7 +59,7 @@ export class BoardQuestion extends React.Component {
     return (
       <Container textAlign="center" style={{ paddingTop: '17vh' }}>
         <Header className="question">{this.state.question}</Header>
-        <Timer updateStage={this.props.updateStage} time={90} />
+        <Timer updateStage={updateStage} time={10} isInHotSeatAnswered={isInHotSeatAnswered} inHotSeat={this.props.inHotSeat}/>
       </Container>
     );
   }
