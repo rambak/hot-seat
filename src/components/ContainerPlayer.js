@@ -75,10 +75,6 @@ export const ContainerPlayer = props => {
     }
   };
 
-<<<<<<< HEAD
-  if (!gameDoc.loading && !playersCol.loading && currentStage !== '' && currentStage !== 'waitingForPlayers' && currentStage !== 'scores' && currentStage !== 'gameOver') {
-    if (self === inHotSeat.name) {
-=======
   if (
     !gameDoc.loading &&
     !playersCol.loading &&
@@ -87,8 +83,7 @@ export const ContainerPlayer = props => {
     currentStage !== 'scores' &&
     currentStage !== 'gameOver'
   ) {
-    if (props.self === inHotSeat.name) {
->>>>>>> 5d1026c7eabee72d37a97bf75457d13251d842e8
+    if (self === inHotSeat.name) {
       document.body.classList.add('inHotSeat');
     }
   }
