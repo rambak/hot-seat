@@ -54,6 +54,10 @@ body.inHotSeat {
   border: 1px solid rgb(177, 210, 229);
 }
 
+instructions-label {
+  background-color: rgb(14, 112, 168);
+}
+
 .button.button:hover {
   background-color: rgb(154, 215, 255);
 }
