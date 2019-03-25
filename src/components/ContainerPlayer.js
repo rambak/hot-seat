@@ -70,7 +70,7 @@ export const ContainerPlayer = props => {
   };
 
   if (!gameDoc.loading && !playersCol.loading && currentStage !== '' && currentStage !== 'waitingForPlayers' && currentStage !== 'scores' && currentStage !== 'gameOver') {
-    if (props.self.name === inHotSeat.name) {
+    if (self === inHotSeat.name) {
       document.body.classList.add('inHotSeat');
     }
   }
