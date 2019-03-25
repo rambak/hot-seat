@@ -49,7 +49,13 @@ export const ContainerPlayer = props => {
       case 'upNow':
         return <PlayerUpNow selfName={self} inHotSeatName={inHotSeat.name} />;
       case 'question':
-        return <PlayerQuestion name={self} inHotSeatName={inHotSeat.name} gameRef={gameRef} />;
+        return (
+          <PlayerQuestion
+            name={self}
+            inHotSeatName={inHotSeat.name}
+            gameRef={gameRef}
+          />
+        );
       case 'voting':
         return (
           <PlayerVoting
@@ -69,8 +75,20 @@ export const ContainerPlayer = props => {
     }
   };
 
+<<<<<<< HEAD
   if (!gameDoc.loading && !playersCol.loading && currentStage !== '' && currentStage !== 'waitingForPlayers' && currentStage !== 'scores' && currentStage !== 'gameOver') {
     if (self === inHotSeat.name) {
+=======
+  if (
+    !gameDoc.loading &&
+    !playersCol.loading &&
+    currentStage !== '' &&
+    currentStage !== 'waitingForPlayers' &&
+    currentStage !== 'scores' &&
+    currentStage !== 'gameOver'
+  ) {
+    if (props.self === inHotSeat.name) {
+>>>>>>> 5d1026c7eabee72d37a97bf75457d13251d842e8
       document.body.classList.add('inHotSeat');
     }
   }
@@ -81,7 +99,7 @@ export const ContainerPlayer = props => {
   return gameDoc.loading || playersCol.loading ? (
     <div>loading</div>
   ) : (
-      determinePlayerComponent(currentStage)
+    determinePlayerComponent(currentStage)
   );
 };
 
