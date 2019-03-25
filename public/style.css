@@ -4,8 +4,8 @@ body {
 }
 
 body.inHotSeat {
-  background-image: url('background.jpg'),
-    linear-gradient(rgba(255, 0, 13, 0.6), rgb(255, 5, 17, 0.7));
+  background-image: url('background-hotSeat.jpg'),
+    linear-gradient(rgba(255, 255, 255, 0.4), rgba(228, 99, 25, 0.384));
   background-blend-mode: overlay;
 }
 
