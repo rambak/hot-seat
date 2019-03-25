@@ -48,13 +48,13 @@ export const BoardWaiting = ({
   };
 
   return (
-    <Container textAlign="center" style={{ paddingTop: '5vh' }}>
-      <Header className="title">Game PIN: {pin}</Header>
-      <Header style={{ fontSize: '4vh' }}>
+    <Container textAlign="center" style={{ paddingTop: '7vh' }}>
+      <Header style={{ fontSize: '10vh', color: 'black' }} >Game pin: <span style={{ color: '#fe4902' }}>{pin}</span></Header>
+      <Header style={{ fontSize: '4vh' }} className="question">
         Go to {window.location.hostname}/login to join!
       </Header>
       <List>
-        <List.Description as="h2">Players</List.Description>
+        <List.Description as="h1">Players</List.Description>
 
         {players.map(player => (
           <List.Item
