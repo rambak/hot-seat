@@ -39,31 +39,30 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
 
   if (disabled)
     return (
-      <Image src="https://media.giphy.com/media/tXL4FHPSnVJ0A/200w.webp" className="gif"></Image>
+      <Image
+        src="https://media.giphy.com/media/tXL4FHPSnVJ0A/200w.webp"
+        className="gif"
+      />
     );
 
   return (
     <>
-    <Grid centered style={{ paddingTop: '30vh' }}>
-      <Form
-        textAlign="center"
-        style={{ paddingTop: '2em' }}
-        onSubmit={handleSubmit}
-      >
-        <Form.Group>
-          <Form.Input
-            placeholder="Answer..."
-            onChange={handleChange}
-            value={answer}
-            style={{ height: '10vh',  width: '20vw'  }}
-          />
+      <Grid centered style={{ paddingTop: '30vh' }}>
+        <Form style={{ paddingTop: '2em' }} onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Input
+              placeholder="Answer..."
+              onChange={handleChange}
+              value={answer}
+              style={{ height: '10vh', width: '20vw' }}
+            />
 
-          <Button type="submit" disabled={disabled}>
-            Submit
-          </Button>
-        </Form.Group>
-      </Form>
-    </Grid>
+            <Button type="submit" disabled={disabled}>
+              Submit
+            </Button>
+          </Form.Group>
+        </Form>
+      </Grid>
     </>
   );
 };

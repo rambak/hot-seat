@@ -31,7 +31,7 @@ export const BoardScores = ({
   }, []);
 
   return (
-  <>
+    <>
       <Table basic="very" celled collapsing singleLine="true">
         <Table.Header>
           <Table.Row>
@@ -55,7 +55,7 @@ export const BoardScores = ({
         </Table.Body>
       </Table>
       <Timer updateStage={updateStage} time={10} />
-  </>
+    </>
   );
 };
 
