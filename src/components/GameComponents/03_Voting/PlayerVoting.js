@@ -4,10 +4,14 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../../config/fbConfig';
 
 export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
+  const [isAnswered, setisAnswered] = useState(false);
+
   const answersRef = gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
+
   let answers = [];
   let isRepeated = {};
+
   if (answersCol.value) {
     answersCol.value.docs.forEach(data => {
       const name = data.id;
@@ -28,8 +32,44 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
       isRepeated[answer] = true;
     });
   }
-  const [isAnswered, setisAnswered] = useState(false);
-  if (isAnswered)
+
+  const handleSubmit = (answer) => {
+    setisAnswered(true);
+    answer.name.forEach(name => {
+      const curAnswerRef = answersRef.doc(name);
+      const newName = selfName;
+      db
+        .runTransaction(async t => {
+          const doc = await t.get(curAnswerRef);
+          const gameDoc = await t.get(gameRef);
+          // doc doesn't exist; can't update
+          if (!doc.exists) return;
+          // update the users array after getting it from Firestore.
+          const oldArrVote = doc.get('playersVote');
+
+          const newVoteArray = [...oldArrVote, newName];
+          t.set(
+            curAnswerRef,
+            { playersVote: newVoteArray },
+            { merge: true }
+          );
+
+          const currentVoteCount = gameDoc.data().voteCount;
+          const newVoteCount = currentVoteCount
+            ? currentVoteCount + 1
+            : 1;
+          t.update(gameRef, {
+            voteCount: newVoteCount,
+          });
+        }).then(function() {
+          console.log("Transaction successfully committed!");
+         }).catch(function(error) {
+          console.log("Transaction failed: ", error);
+        });
+    });
+  }
+
+  if (isAnswered) {
     return (
       <Container className="centered-child">
         <Image
@@ -38,6 +78,7 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
         />
       </Container>
     );
+  }
     // const answers1 = [1,2,3,4,5,6,7,8,9,10]
   return (
     <Container className="centered-child">
@@ -62,36 +103,7 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
                 <Grid.Row key={idx}>
                   <Button
                     onClick={() => {
-                      setisAnswered(!isAnswered);
-                      answer.name.forEach(name => {
-                        const curAnswerRef = answersRef.doc(name);
-                        const newName = selfName;
-                        return db
-                          .runTransaction(async t => {
-                            const doc = await t.get(curAnswerRef);
-                            const gameDoc = await t.get(gameRef);
-                            // doc doesn't exist; can't update
-                            if (!doc.exists) return;
-                            // update the users array after getting it from Firestore.
-                            const oldArrVote = doc.get('playersVote');
-
-                            const newVoteArray = [...oldArrVote, newName];
-                            t.set(
-                              curAnswerRef,
-                              { playersVote: newVoteArray },
-                              { merge: true }
-                            );
-
-                            const currentVoteCount = gameDoc.data().voteCount;
-                            const newVoteCount = currentVoteCount
-                              ? currentVoteCount + 1
-                              : 1;
-                            t.update(gameRef, {
-                              voteCount: newVoteCount,
-                            });
-                          })
-                          .catch(console.log);
-                      });
+                     handleSubmit(answer)
                     }}
                   >
                     {answer.answer}
