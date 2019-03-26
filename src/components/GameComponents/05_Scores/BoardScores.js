@@ -16,7 +16,7 @@ export const BoardScores = ({
   });
 
   useEffect(() => {
-    gameRef.update({ answerCount: 0, voteCount: 0 });
+    gameRef.update({ voteCount: 0 });
     gameRef
       .collection('answers')
       .get()

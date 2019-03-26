@@ -45,7 +45,7 @@ export const BoardVoting = ({
   ]
 
   return (
-    <Container  >
+    <Container className="centered-child">
       <Header className="question" style={{ fontSize: '5em' }}>
         {currentQuestion}
       </Header>
@@ -56,7 +56,7 @@ export const BoardVoting = ({
       {answers.sort().map((answer,idx) => {
         return <Segment key={idx} inverted color={colors[idx]} className="answers">{answer}</Segment>;
       })}
-      <Timer updateStage={updateStage} time={600} />
+      <Timer updateStage={updateStage} time={60} />
     </Container>
   );
 };

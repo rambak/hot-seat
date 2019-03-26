@@ -13,33 +13,32 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
     evt.preventDefault();
     setDisabled(true);
 
-   return db.runTransaction(function(transaction) {
-      return transaction.get(gameRef).then(function(gameDoc) {
-        if (!gameDoc.exists) {
-          console.error('This game does not exist');
-        }
-        const currentAnswerCount = gameDoc.data().answerCount;
-        const newAnswerCount = currentAnswerCount ? currentAnswerCount + 1 : 1;
-        const myAnswerRef = gameRef.collection('answers').doc(name);
-        const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
-        if (name === inHotSeatName) {
+    const myAnswerRef = gameRef.collection('answers').doc(name);
+    const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
+    myAnswerRef.set(myAnswer);
+
+    if (name === inHotSeatName) {
+      db.runTransaction(function(transaction) {
+        return transaction.get(gameRef).then(function(gameDoc) {
+          if (!gameDoc.exists) {
+            console.error('This game does not exist');
+          }
           const inHotSeatData = gameDoc.get('inHotSeat');
           const inHotSeatNewData = { ...inHotSeatData, isAnswered: true };
           transaction.update(gameRef, {
-            answerCount: newAnswerCount,
             inHotSeat: inHotSeatNewData,
           });
-        } else {
-          transaction.update(gameRef, { answerCount: newAnswerCount });
-        }
-        transaction.set(myAnswerRef, myAnswer);
-      });
-    }).then(function() {
-      setAnswer('');
-      console.log("Transaction successfully committed!");
-     }).catch(function(error) {
-      console.log("Transaction failed: ", error);
-    });
+        });
+      })
+        .then(function() {
+          console.log('Transaction successfully committed!');
+        })
+        .catch(function(error) {
+          console.log('Transaction failed: ', error);
+        });
+    }
+
+    setAnswer('');
   };
 
   if (disabled)
