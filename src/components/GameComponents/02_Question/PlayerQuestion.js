@@ -13,7 +13,7 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
     evt.preventDefault();
     setDisabled(true);
 
-    db.runTransaction(function(transaction) {
+   db.runTransaction(function(transaction) {
       return transaction.get(gameRef).then(function(gameDoc) {
         if (!gameDoc.exists) {
           console.error('This game does not exist');
@@ -35,7 +35,12 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
         const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
         transaction.set(myAnswerRef, myAnswer);
       });
+    }).then(function() {
+      console.log("Transaction successfully committed!");
+     }).catch(function(error) {
+      console.log("Transaction failed: ", error);
     });
+
 
     setAnswer('');
   };
