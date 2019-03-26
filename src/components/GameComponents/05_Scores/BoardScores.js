@@ -73,21 +73,12 @@ export const BoardScores = ({
                 className={player.score === highScore ? 'high-score' : 'score'}
               >
                 <Table.Cell textAlign="right">
-                  {player.name === inHotSeatName && (
-                    <Image
-                      floated="right"
-                      size="tiny"
-                      src="/images/chair-100.png"
-                    />
-                  )}
                   {player.score === highScore && (
                     <Image
                       floated="right"
                       size="tiny"
                       src="/images/trophy-100.png"
                     />
-
-                    // <Icon name="winner" color="black" size="huge" />
                   )}
                 </Table.Cell>
                 <Table.Cell>
