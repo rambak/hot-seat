@@ -17,7 +17,6 @@ class ResultsCard extends React.Component {
     setTimeout(() => this.setState({ nameVisible: true }), 2500);
   }
   render() {
-    console.log(this.props.answer);
     return (
       <Card fluid style={{ height: '80vh' }} className="results-card">
         <Card.Content>

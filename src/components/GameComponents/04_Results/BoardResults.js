@@ -8,7 +8,7 @@ export class BoardResults extends Component {
     super(props);
     this.state = {
       answers: [],
-      currentIdx: 0,
+      currentIdx: -1,
       isFlipped: false,
     };
     this.flipTimer = function() {};
@@ -19,10 +19,6 @@ export class BoardResults extends Component {
     this.callback = querySnapshot => {
       let answers = [];
       querySnapshot.forEach(doc => {
-        // console.log(doc.id, doc.data());
-
-        const newVoters = doc.data().playersVote.map(player => player);
-        console.log('NEW VOTERS', newVoters);
         answers.push({
           id: doc.id,
           answer: doc.data().answer,
@@ -66,12 +62,12 @@ export class BoardResults extends Component {
         newAnswers[this.state.currentIdx].hasBeenShown = true;
 
         this.setState({
-          answers: newAnswers,
-          currentIdx: this.state.currentIdx + 1,
           isFlipped: !this.state.isFlipped,
+          answers: newAnswers,
         });
       } else {
         this.setState({
+          currentIdx: this.state.currentIdx + 1,
           isFlipped: !this.state.isFlipped,
         });
       }
@@ -85,15 +81,17 @@ export class BoardResults extends Component {
   }
 
   render() {
-    console.log('ANSWERS', this.state.answers);
+    console.log(this.props);
     return (
       <Container className="centered-child">
-        <Header className="title">Votes</Header>
+        <Header className="question" style={{ fontSize: '5em' }}>
+          {this.props.currentQuestion}
+        </Header>
         {this.state.answers.length && (
           <ResultsCardFlip
             isFlipped={this.state.isFlipped}
             answers={this.state.answers}
-            idx={this.state.currentIdx}
+            idx={this.state.currentIdx === -1 ? 0 : this.state.currentIdx}
           />
         )}
       </Container>

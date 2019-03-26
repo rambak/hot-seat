@@ -125,24 +125,31 @@ instructions-label {
 
 .ui.card.results-card {
   border-color: #fe4902;
-  border-width: 2px;
+  border-width: 4px;
   border-style: solid;
   border-radius: 10px 10px 10px 10px;
 }
 
-.ui.card.results-card > .segment {
-  border-color: #fe4902;
-  border-width: 2px;
+/* .ui.card.results-card > .segment { */
+/* border-color: #fe4902; */
+/* border-width: 2px; */
+/* border-style: solid; */
+/* border-radius: 10px 10px 10px 10px; */
+/* } */
+
+.ui.card.all-results-card {
+  border-color: rgb(14, 112, 168);
+  border-width: 4px;
   border-style: solid;
   border-radius: 10px 10px 10px 10px;
 }
 
-.ui.card.all-results-card > .segment {
+/* .ui.card.all-results-card > .segment {
   border-color: rgb(14, 112, 168);
   border-width: 2px;
   border-style: solid;
   border-radius: 10px 10px 10px 10px;
-}
+} */
 
 .ui.table.scores {
   width: 100%;

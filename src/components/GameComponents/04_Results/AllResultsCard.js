@@ -6,7 +6,7 @@ const AllResultsCard = ({ answers }) => {
     return b.answer < a.answer ? 1 : -1;
   });
   return (
-    <Card fluid className="all-results-card ">
+    <Card fluid style={{ height: '80vh' }} className="all-results-card">
       <List size="massive">
         {orderedAnswers.map(answer => (
           <List.Item key={answer.id}>
