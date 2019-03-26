@@ -3,6 +3,7 @@ import { Card, Icon, Divider, Segment, Image } from 'semantic-ui-react';
 
 export const ResultCard = props => {
   // if (!(props.answer.correctAnswer && props.showingAnswer)) {
+    console.log('444props', props)
   return (
     <Card
       key="front"
@@ -25,7 +26,7 @@ export const ResultCard = props => {
           </Segment>
         ) : (
           <Segment basic size="massive">
-            ???
+            {props.answer.id}
           </Segment>
         )}
         <Divider />
@@ -48,7 +49,7 @@ export const ResultCard = props => {
                   return props.isFlipped ? (
                     <li key={idx}>{vote}</li>
                   ) : (
-                    <li key={idx}>???</li>
+                    <li key={idx}>{vote}</li>
                   );
                 })}
             </ul>

@@ -76,7 +76,7 @@ export const BoardScores = ({
             ))}
         </Table.Body>
       </Table>
-      <Timer updateStage={updateStage} time={30} />
+      <Timer updateStage={updateStage} time={5} />
     </Container>
   );
 };

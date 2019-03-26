@@ -112,7 +112,7 @@ const HomePage = props => {
                     <Image centered src="/images/monitor-100.png" />
                   </Segment>
                 </Card.Content>
-                <Button className="button" onClick={generatePin}>
+                <Button className="buttonStyle" onClick={generatePin}>
                   Host a game
                 </Button>
               </Card>

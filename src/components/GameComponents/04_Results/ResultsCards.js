@@ -2,17 +2,20 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import ResultsCardFlip from './ResultsCardFlip';
 
-export default props => (
+export const ResultsCards = (answers, showingAnswer) => {
+  console.log('222answers', answers)
+  return (
   <Card.Group centered>
-    {props.answers.map(answer => (
+    {answers.map(answer => (
       <ResultsCardFlip
         key={answer.id}
         answer={answer}
-        isFlipped={props.showingAnswer}
+        isFlipped={showingAnswer}
       />
     ))}
   </Card.Group>
-);
+)
+    };
 
 // const Container = posed.div({
 //   enter: { staggerChildren: 50 },

@@ -31,8 +31,21 @@ export const BoardVoting = ({
     });
   }
 
+  const colors = [
+    'teal',
+    'yellow',
+    'olive',
+    'green',
+    'blue',
+    'violet',
+    'purple',
+    'red',
+    'orange',
+    'pink',
+  ]
+
   return (
-    <Container className="centered-child" >
+    <Container  >
       <Header className="question" style={{ fontSize: '5em' }}>
         {currentQuestion}
       </Header>
@@ -40,8 +53,8 @@ export const BoardVoting = ({
         Guess {inHotSeatName}'s answer:
       </Header>
 
-      {answers.sort().map(answer => {
-        return <Segment className="answers" style={{marginRight: '22vw', marginLeft: '22vw'}}>{answer}</Segment>;
+      {answers.sort().map((answer,idx) => {
+        return <Segment key={idx} inverted color={colors[idx]} className="answers">{answer}</Segment>;
       })}
       <Timer updateStage={updateStage} time={600} />
     </Container>

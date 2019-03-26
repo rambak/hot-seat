@@ -50,11 +50,20 @@ body.inHotSeat {
   text-shadow: 1px 1px white;
 }
 
-.button.button {
+.button.buttonStyle {
   min-height: 60px;
   min-width: 120px;
   height: 10vh;
   width: 20vw;
+  background-color: rgb(14, 112, 168);
+  border-radius: 8px;
+  color: #fff;
+  border: 1px solid rgb(177, 210, 229);
+}
+
+.button.answer {
+  width: 80%;
+  margin: 1vh;
   background-color: rgb(14, 112, 168);
   border-radius: 8px;
   color: #fff;
@@ -70,7 +79,10 @@ instructions-label {
 }
 
 .segment.answers {
-  background-color: rgb(14, 112, 168);
+  margin-right: 20%;
+  margin-left: 20%;
+  padding: 1.5vh;
+  font-size: 3vh;
   color: #fff;
 }
 

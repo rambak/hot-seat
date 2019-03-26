@@ -3,6 +3,7 @@ import ReactCardFlip from 'react-card-flip';
 import ResultCard from './ResultCard';
 
 const ResultsCardFlip = props => {
+  console.log('333props', props)
   return (
     <ReactCardFlip isFlipped={props.isFlipped}>
       <ResultCard

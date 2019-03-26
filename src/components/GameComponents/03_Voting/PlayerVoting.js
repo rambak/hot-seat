@@ -38,7 +38,7 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
     answer.name.forEach(name => {
       const curAnswerRef = answersRef.doc(name);
       const newName = selfName;
-      db
+      return db
         .runTransaction(async t => {
           const doc = await t.get(curAnswerRef);
           const gameDoc = await t.get(gameRef);
@@ -79,7 +79,7 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
       </Container>
     );
   }
-    // const answers1 = [1,2,3,4,5,6,7,8,9,10]
+    //  const answers1 = [{answer:'23'}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '},]
   return (
     <Container className="centered-child">
       {selfName === inHotSeatName ? (
@@ -100,15 +100,14 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
             })
             .map((answer, idx) => {
               return (
-                <Grid.Row key={idx}>
-                  <Button
+                  <Button key={idx}
+                    className="answer"
                     onClick={() => {
                      handleSubmit(answer)
                     }}
                   >
                     {answer.answer}
                   </Button>
-                </Grid.Row>
               );
             })}
         </Grid>

@@ -23,7 +23,6 @@ export const GridRow = (players) => {
     'red',
     'orange',
     'pink',
-    'brown',
   ]
   let colorIndx = -1
   return (
