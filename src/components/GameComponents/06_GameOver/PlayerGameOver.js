@@ -3,13 +3,12 @@ import { Header, Container } from 'semantic-ui-react';
 import { auth } from '../../../config/fbConfig';
 
 export const PlayerGameOver = props => {
-  
-  //   const user = auth.currentUser;
-//   if (user) {
-//     user.delete().catch(function(error) {
-//       console.log(error.message);
-//     });
-//   }
+  const user = auth.currentUser;
+  if (user) {
+    user.delete().catch(function(error) {
+      console.log(error.message);
+    });
+  }
   return (
     <Container className="centered-child">
       <Header className="title" textAlign="center">
