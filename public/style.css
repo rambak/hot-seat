@@ -47,7 +47,7 @@ body.inHotSeat {
   padding-bottom: 4vh;
   color: #fe4902;
   font: bold 52px Helvetica, Arial, Sans-Serif;
-  text-shadow: 1px 1px white, 2px 2px #fe4902, 3px 3px white;
+  text-shadow: 1px 1px white;
 }
 
 .button.button {
