@@ -10,6 +10,7 @@ import {
   PlayerScores,
   PlayerGameOver,
 } from '../components/GameComponents';
+import PlayerPlayAgainLogin from './GameComponents/00_Waiting/PlayerPlayAgainLogin';
 
 export const ContainerPlayer = props => {
   const [self, setSelf] = useState('');
@@ -44,6 +45,12 @@ export const ContainerPlayer = props => {
 
   const determinePlayerComponent = currentStage => {
     switch (currentStage) {
+      case 'waitingForPlayersNew':
+        if (!players.find(player => player.name === self)) {
+          return <PlayerPlayAgainLogin gameRef={gameRef} pin={pin} />;
+        } else {
+          return <PlayerWaiting />;
+        }
       case 'waitingForPlayers':
         return <PlayerWaiting />;
       case 'upNow':
@@ -80,10 +87,11 @@ export const ContainerPlayer = props => {
     !playersCol.loading &&
     currentStage !== '' &&
     currentStage !== 'waitingForPlayers' &&
+    currentStage !== 'waitingForPlayersNew' &&
     currentStage !== 'scores' &&
     currentStage !== 'gameOver'
   ) {
-    if (props.self === inHotSeat.name) {
+    if (self === inHotSeat.name) {
       document.body.classList.add('inHotSeat');
     }
   }
