@@ -2,7 +2,9 @@ import React from 'react';
 import { Card, List } from 'semantic-ui-react';
 
 const AllResultsCard = ({ answers }) => {
-  const orderedAnswers = [...answers];
+  const orderedAnswers = [...answers].sort((a, b) => {
+    return b.answer < a.answer ? 1 : -1;
+  });
   return (
     <Card fluid>
       <List size="massive">

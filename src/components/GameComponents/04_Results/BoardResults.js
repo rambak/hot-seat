@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from 'react';
 import { Header, Container } from 'semantic-ui-react';
 import ResultsCardFlip from './ResultsCardFlip';
+import ResultsCard from './ResultsCard';
 
 export class BoardResults extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export class BoardResults extends Component {
       currentIdx: 0,
       isFlipped: false,
     };
+    this.flipTimer = function() {};
   }
 
   componentDidMount() {
@@ -51,17 +53,16 @@ export class BoardResults extends Component {
     };
     this.answersRef.get().then(this.callback);
 
-    // useEffect(() => {
-    const flipTimer = setInterval(() => {
-      // if (this.state.currentIdx === this.state.answers.length - 1) {
-      //   clearInterval(flipTimer);
-      // }
+    this.flipTimer = setInterval(() => {
+      if (this.state.currentIdx === this.state.answers.length - 1) {
+        clearInterval(this.flipTimer);
+      }
       if (this.state.isFlipped) {
-        // const newAnswers = [...this.state.answers];
-        // newAnswers[this.state.currentIdx].hasBeenShown = true;
+        const newAnswers = [...this.state.answers];
+        newAnswers[this.state.currentIdx].hasBeenShown = true;
 
         this.setState({
-          // answers: newAnswers,
+          answers: newAnswers,
           currentIdx: this.state.currentIdx + 1,
           isFlipped: !this.state.isFlipped,
         });
@@ -71,12 +72,12 @@ export class BoardResults extends Component {
         });
       }
     }, 3000);
-    //   return function cleanup() {
-    //     clearInterval(flipTimer);
-    //   };
-    // });
 
-    setTimeout(() => this.props.updateStage(), 8000);
+    // setTimeout(() => this.props.updateStage(), 8000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.flipTimer);
   }
 
   render() {
@@ -84,10 +85,13 @@ export class BoardResults extends Component {
     return (
       <Container className="centered-child">
         <Header className="title">Votes</Header>
-        <ResultsCardFlip
+        {/* <ResultsCardFlip
           isFlipped={this.state.isFlipped}
           answers={this.state.answers}
-        />
+        /> */}
+        {this.state.answers[0] && (
+          <ResultsCard answer={this.state.answers[0]} />
+        )}
       </Container>
     );
   }
