@@ -30,6 +30,11 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
     players.forEach(player => {
       playersRef.doc(player.name).delete();
     });
+    // playersRef.get().then(snapchot => {
+    //   snapchot.forEach(doc => {
+    //     playersRef.doc(doc.name).delete();
+    //   })
+    // })
   };
 
   const winnerText =
