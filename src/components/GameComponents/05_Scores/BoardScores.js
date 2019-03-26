@@ -52,10 +52,10 @@ export const BoardScores = ({
           <Table.Row>
             <Table.HeaderCell />
             <Table.HeaderCell>
-              <h1>Player</h1>
+              <Label>Player</Label>
             </Table.HeaderCell>
             <Table.HeaderCell textAlign="center">
-              <h1>Score</h1>
+              <Label>Score</Label>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
