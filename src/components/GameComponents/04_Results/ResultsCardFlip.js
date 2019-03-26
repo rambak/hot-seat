@@ -1,20 +1,13 @@
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
-import ResultCard from './ResultCard';
+import ResultsCard from './ResultsCard';
+import AllResultsCard from './AllResultsCard';
 
-const ResultsCardFlip = props => {
+const ResultsCardFlip = ({ answers, answer, isFlipped }) => {
   return (
-    <ReactCardFlip isFlipped={props.isFlipped}>
-      <ResultCard
-        key="front"
-        isFlipped={props.isFlipped}
-        answer={props.answer}
-      />
-      <ResultCard
-        key="back"
-        isFlipped={props.isFlipped}
-        answer={props.answer}
-      />
+    <ReactCardFlip isFlipped={isFlipped}>
+      <AllResultsCard key="front" answers={answers} />
+      <ResultsCard key="back" answer={answer} />
     </ReactCardFlip>
   );
 };

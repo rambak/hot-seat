@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Header, Container } from 'semantic-ui-react';
-import ResultsCards from './ResultsCards';
+import ResultsCardFlip from './ResultsCardFlip';
 
 export class BoardResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
       answers: [],
-      showingAnswer: false,
+      currentIdx: 0,
+      isFlipped: false,
     };
   }
 
@@ -25,6 +26,7 @@ export class BoardResults extends Component {
               ? 0
               : doc.data().playersVote.length,
           correctAnswer: doc.id === this.props.inHotSeat,
+          hasBeenShown: false,
         });
       });
       answers = answers
@@ -37,22 +39,54 @@ export class BoardResults extends Component {
           }
           return acc;
         }, [])
-        .sort((a, b) => b.votes - a.votes);
+        .sort((a, b) => {
+          if (!b.correctAnswer && (a.correctAnswer || a.votes > b.votes)) {
+            return 1;
+          } else if (b.correctAnswer || a.votes < b.votes) {
+            return -1;
+          }
+          return 0;
+        });
       this.setState({ answers });
     };
     this.answersRef.get().then(this.callback);
 
-    setTimeout(() => this.setState({ showingAnswer: true }), 3000);
+    // useEffect(() => {
+    const flipTimer = setInterval(() => {
+      // if (this.state.currentIdx === this.state.answers.length - 1) {
+      //   clearInterval(flipTimer);
+      // }
+      if (this.state.isFlipped) {
+        // const newAnswers = [...this.state.answers];
+        // newAnswers[this.state.currentIdx].hasBeenShown = true;
+
+        this.setState({
+          // answers: newAnswers,
+          currentIdx: this.state.currentIdx + 1,
+          isFlipped: !this.state.isFlipped,
+        });
+      } else {
+        this.setState({
+          isFlipped: !this.state.isFlipped,
+        });
+      }
+    }, 3000);
+    //   return function cleanup() {
+    //     clearInterval(flipTimer);
+    //   };
+    // });
+
     setTimeout(() => this.props.updateStage(), 8000);
   }
 
   render() {
+    console.log('ANSWERS', this.state.answers);
     return (
-      <Container textAlign="center" className="centered-child">
+      <Container className="centered-child">
         <Header className="title">Votes</Header>
-        <ResultsCards
+        <ResultsCardFlip
+          isFlipped={this.state.isFlipped}
           answers={this.state.answers}
-          showingAnswer={this.state.showingAnswer}
         />
       </Container>
     );

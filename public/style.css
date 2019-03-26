@@ -137,6 +137,10 @@ instructions-label {
   border-width: 2px;
 }
 
+.card .strikethrough {
+  text-decoration: #fe4902 line-through;
+}
+
 p {
   font-size: 3vh;
   padding: 10vh;
