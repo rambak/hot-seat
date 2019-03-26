@@ -3,11 +3,11 @@ import ReactCardFlip from 'react-card-flip';
 import ResultsCard from './ResultsCard';
 import AllResultsCard from './AllResultsCard';
 
-const ResultsCardFlip = ({ answers, answer, isFlipped }) => {
+const ResultsCardFlip = ({ answers, idx, isFlipped }) => {
   return (
     <ReactCardFlip isFlipped={isFlipped}>
       <AllResultsCard key="front" answers={answers} />
-      <ResultsCard key="back" answer={answer} />
+      <ResultsCard key="back" answer={answers[idx]} />
     </ReactCardFlip>
   );
 };
