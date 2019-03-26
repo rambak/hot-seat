@@ -46,7 +46,7 @@ export const ContainerPlayer = props => {
   const determinePlayerComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayersNew':
-        if (!players.find(player => player.id === self)) {
+        if (!players.find(player => player.name === self)) {
           return <PlayerPlayAgainLogin gameRef={gameRef} pin={pin} />;
         } else {
           return <PlayerWaiting />;

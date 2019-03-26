@@ -63,11 +63,9 @@ const HomePage = props => {
   const generatePin = async () => {
     let pin;
     let gameExists;
-    console.log('I GOT HERE');
 
     do {
       pin = generate();
-      console.log('Pin', pin);
       gameExists = await db
         .collection('games')
         .doc(pin)
@@ -75,9 +73,7 @@ const HomePage = props => {
         .then(doc => {
           return doc.exists;
         });
-      console.log('gameExists', gameExists);
     } while (gameExists);
-    console.log('I GOT TO PIN', pin);
 
     db.collection('games')
       .doc(pin)

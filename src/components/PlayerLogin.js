@@ -85,7 +85,6 @@ class PlayerLogin extends React.Component {
               .catch(function(error) {
                 console.log(error);
               });
-
             await db
               .collection('games')
               .doc(enteredPin)
