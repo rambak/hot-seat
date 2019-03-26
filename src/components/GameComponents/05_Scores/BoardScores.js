@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
-import { Table, Icon, Container, Header } from 'semantic-ui-react';
+import {
+  Table,
+  Icon,
+  Container,
+  Header,
+  Label,
+  Image,
+} from 'semantic-ui-react';
 import { Timer } from '../../../utils/timer';
 
 export const BoardScores = ({
@@ -37,7 +44,7 @@ export const BoardScores = ({
         basic="very"
         celled
         collapsing
-        padded="very"
+        // padded="very"
         size="large"
         className="scores"
       >
@@ -47,7 +54,7 @@ export const BoardScores = ({
             <Table.HeaderCell>
               <h1>Player</h1>
             </Table.HeaderCell>
-            <Table.HeaderCell>
+            <Table.HeaderCell textAlign="center">
               <h1>Score</h1>
             </Table.HeaderCell>
           </Table.Row>
@@ -61,22 +68,39 @@ export const BoardScores = ({
               return 0;
             })
             .map(player => (
-              <Table.Row key={player.name}>
-                <Table.Cell>
+              <Table.Row
+                key={player.name}
+                className={player.score === highScore ? 'high-score' : 'score'}
+              >
+                <Table.Cell textAlign="right">
                   {player.name === inHotSeatName && (
-                    <Icon name="fire" size="huge" />
+                    <Image
+                      floated="right"
+                      size="tiny"
+                      src="/images/chair-100.png"
+                    />
                   )}
                   {player.score === highScore && (
-                    <Icon name="winner" size="huge" />
+                    <Image
+                      floated="right"
+                      size="tiny"
+                      src="/images/trophy-100.png"
+                    />
+
+                    // <Icon name="winner" color="black" size="huge" />
                   )}
                 </Table.Cell>
-                <Table.Cell>{player.name}</Table.Cell>
-                <Table.Cell>{player.score}</Table.Cell>
+                <Table.Cell>
+                  <h1>{player.name}</h1>
+                </Table.Cell>
+                <Table.Cell textAlign="center">
+                  <Label circular>{player.score}</Label>
+                </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
       </Table>
-      <Timer updateStage={updateStage} time={30} />
+      {/* <Timer updateStage={updateStage} time={30} /> */}
     </Container>
   );
 };
