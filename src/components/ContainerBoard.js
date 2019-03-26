@@ -92,6 +92,7 @@ export const ContainerBoard = props => {
   const determineBoardComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayers':
+      case 'waitingForPlayersNew':
         return (
           <BoardWaiting
             players={players}
@@ -148,9 +149,13 @@ export const ContainerBoard = props => {
           />
         );
       case 'gameOver':
-        return <BoardGameOver players={players}
-                              gameRef={gameRef}
-                              setQuestions={setQuestions}/>;
+        return (
+          <BoardGameOver
+            players={players}
+            gameRef={gameRef}
+            setQuestions={setQuestions}
+          />
+        );
       default:
         return <></>;
     }
