@@ -32,7 +32,14 @@ class ResultsCard extends React.Component {
           >
             <Card.Description>
               {this.props.answer.voters.length
-                ? GridRow(this.props.answer.voters)
+                ? GridRow(
+                    this.props.answer.voters.split(',').map(player => {
+                      return {
+                        name: player,
+                      };
+                    }),
+                    false
+                  )
                 : 'No one!'}
             </Card.Description>
           </Transition>

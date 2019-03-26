@@ -19,10 +19,14 @@ export class BoardResults extends Component {
     this.callback = querySnapshot => {
       let answers = [];
       querySnapshot.forEach(doc => {
+        // console.log(doc.id, doc.data());
+
+        const newVoters = doc.data().playersVote.map(player => player);
+        console.log('NEW VOTERS', newVoters);
         answers.push({
           id: doc.id,
           answer: doc.data().answer,
-          voters: doc.data().playersVote,
+          voters: doc.data().playersVote.join(','),
           votes:
             doc.data().playersVote === undefined
               ? 0
@@ -31,6 +35,7 @@ export class BoardResults extends Component {
           hasBeenShown: false,
         });
       });
+      console.log('PRE', answers);
       answers = answers
         .reduce((acc, datum) => {
           if (!acc.some(accDatum => accDatum.answer === datum.answer)) {
@@ -53,25 +58,25 @@ export class BoardResults extends Component {
     };
     this.answersRef.get().then(this.callback);
 
-    this.flipTimer = setInterval(() => {
-      if (this.state.currentIdx === this.state.answers.length - 1) {
-        clearInterval(this.flipTimer);
-      }
-      if (this.state.isFlipped) {
-        const newAnswers = [...this.state.answers];
-        newAnswers[this.state.currentIdx].hasBeenShown = true;
+    // this.flipTimer = setInterval(() => {
+    //   if (this.state.currentIdx === this.state.answers.length - 1) {
+    //     clearInterval(this.flipTimer);
+    //   }
+    //   if (this.state.isFlipped) {
+    //     const newAnswers = [...this.state.answers];
+    //     newAnswers[this.state.currentIdx].hasBeenShown = true;
 
-        this.setState({
-          answers: newAnswers,
-          currentIdx: this.state.currentIdx + 1,
-          isFlipped: !this.state.isFlipped,
-        });
-      } else {
-        this.setState({
-          isFlipped: !this.state.isFlipped,
-        });
-      }
-    }, 3000);
+    //     this.setState({
+    //       answers: newAnswers,
+    //       currentIdx: this.state.currentIdx + 1,
+    //       isFlipped: !this.state.isFlipped,
+    //     });
+    //   } else {
+    //     this.setState({
+    //       isFlipped: !this.state.isFlipped,
+    //     });
+    //   }
+    // }, 3000);
 
     // setTimeout(() => this.props.updateStage(), 8000);
   }
@@ -90,7 +95,7 @@ export class BoardResults extends Component {
           answers={this.state.answers}
         /> */}
         {this.state.answers[0] && (
-          <ResultsCard answer={this.state.answers[0]} />
+          <ResultsCard answer={this.state.answers[2]} />
         )}
       </Container>
     );

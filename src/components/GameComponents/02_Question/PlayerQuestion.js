@@ -14,27 +14,32 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
     setDisabled(true);
 
     db.runTransaction(function(transaction) {
-      return transaction.get(gameRef).then(function(gameDoc) {
-        if (!gameDoc.exists) {
-          console.error('This game does not exist');
-        }
-        const currentAnswerCount = gameDoc.data().answerCount;
-        const newAnswerCount = currentAnswerCount ? currentAnswerCount + 1 : 1;
-        if (name === inHotSeatName) {
-          const inHotSeatData = gameDoc.get('inHotSeat');
-          const inHotSeatNewData = { ...inHotSeatData, isAnswered: true };
-          transaction.update(gameRef, {
-            answerCount: newAnswerCount,
-            inHotSeat: inHotSeatNewData,
-          });
-        } else {
-          transaction.update(gameRef, { answerCount: newAnswerCount });
-        }
+      return transaction
+        .get(gameRef)
+        .then(function(gameDoc) {
+          if (!gameDoc.exists) {
+            console.error('This game does not exist');
+          }
+          const currentAnswerCount = gameDoc.data().answerCount;
+          const newAnswerCount = currentAnswerCount
+            ? currentAnswerCount + 1
+            : 1;
+          if (name === inHotSeatName) {
+            const inHotSeatData = gameDoc.get('inHotSeat');
+            const inHotSeatNewData = { ...inHotSeatData, isAnswered: true };
+            transaction.update(gameRef, {
+              answerCount: newAnswerCount,
+              inHotSeat: inHotSeatNewData,
+            });
+          } else {
+            transaction.update(gameRef, { answerCount: newAnswerCount });
+          }
 
-        const myAnswerRef = gameRef.collection('answers').doc(name);
-        const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
-        transaction.set(myAnswerRef, myAnswer);
-      });
+          const myAnswerRef = gameRef.collection('answers').doc(name);
+          const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
+          transaction.set(myAnswerRef, myAnswer);
+        })
+        .catch(error => console.error(error));
     });
 
     setAnswer('');
