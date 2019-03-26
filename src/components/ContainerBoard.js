@@ -26,7 +26,6 @@ export const ContainerBoard = props => {
   const gameDoc = useDocument(gameRef);
   if (gameDoc.value) {
     voteCount = gameDoc.value.data().voteCount;
-    answerCount = gameDoc.value.data().answerCount;
     currentStage = gameDoc.value.data().currentStage;
     inHotSeat = gameDoc.value.data().inHotSeat;
   }
@@ -39,6 +38,14 @@ export const ContainerBoard = props => {
     playersCol.value.docs.forEach(player => {
       players.push({ ...player.data() });
     });
+  }
+
+  //AnswerCounting
+  const answers = [];
+  const answersRef = gameRef.collection('answers');
+  const answersCol = useCollection(answersRef);
+  if (answersCol.value) {
+    answerCount = answersCol.value.docs.length;
   }
 
   //Questions
