@@ -19,7 +19,7 @@ class ResultsCard extends React.Component {
   render() {
     console.log(this.props.answer);
     return (
-      <Card fluid style={{ height: '80vh' }}>
+      <Card fluid style={{ height: '80vh' }} className="results-card">
         <Card.Content>
           <Card.Header>{this.props.answer.answer}</Card.Header>
         </Card.Content>
@@ -33,7 +33,7 @@ class ResultsCard extends React.Component {
             <Card.Description>
               {this.props.answer.voters.length
                 ? GridRow(
-                    this.props.answer.voters.split(',').map(player => {
+                    this.props.answer.voters.split('|').map(player => {
                       return {
                         name: player,
                       };

@@ -26,7 +26,7 @@ export class BoardResults extends Component {
         answers.push({
           id: doc.id,
           answer: doc.data().answer,
-          voters: doc.data().playersVote.join(','),
+          voters: doc.data().playersVote.join('|'),
           votes:
             doc.data().playersVote === undefined
               ? 0

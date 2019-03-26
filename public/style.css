@@ -85,11 +85,7 @@ instructions-label {
 }
 
 .ui.card.homepage > .content .divider {
-  /* border-color: rgb(14, 112, 168); */
-  /* border-width: 2px; */
   background-color: #fe4902;
-  /* background-color: rgb(154, 215, 255); */
-  /* border-style: solid; */
 }
 
 .ui.card.homepage > .button,
@@ -98,7 +94,6 @@ instructions-label {
   background-color: #fe4902;
   border-color: #fe4902;
   color: white;
-  /* border-color: rgb(14, 112, 168); */
   border-width: 1px;
   font-size: 1.28571429rem;
 }
@@ -126,6 +121,27 @@ instructions-label {
   vertical-align: middle;
   padding-left: 5vw;
   padding-right: 5vw;
+}
+
+.ui.card.results-card {
+  border-color: #fe4902;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.ui.card.results-card > .segment {
+  border-color: #fe4902;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.ui.card.all-results-card > .segment {
+  border-color: rgb(14, 112, 168);
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px 10px 10px 10px;
 }
 
 .ui.table.scores {
