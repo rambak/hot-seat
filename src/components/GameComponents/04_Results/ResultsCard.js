@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Transition } from 'semantic-ui-react';
 import useTimeout from '../../../utils/useTimeout';
-// import
+import { GridRow } from '../00_Waiting/GridRow';
 
 class ResultsCard extends React.Component {
   constructor(props) {
@@ -17,18 +17,26 @@ class ResultsCard extends React.Component {
     setTimeout(() => this.setState({ nameVisible: true }), 2500);
   }
   render() {
+    console.log(this.props.answer);
     return (
       <Card fluid style={{ height: '80vh' }}>
         <Card.Content>
           <Card.Header>{this.props.answer.answer}</Card.Header>
         </Card.Content>
-        <Transition
-          animation="jiggle"
-          duration={1000}
-          visible={this.state.votersVisible}
-        >
-          <Card.Content>Who Guessed This?</Card.Content>
-        </Transition>
+        <Card.Content>
+          Who Guessed This?
+          <Transition
+            animation="jiggle"
+            duration={1000}
+            visible={this.state.votersVisible}
+          >
+            <Card.Description>
+              {this.props.answer.voters.length
+                ? GridRow(this.props.answer.voters)
+                : 'No one!'}
+            </Card.Description>
+          </Transition>
+        </Card.Content>
         <Card.Content>
           <Transition
             animation="jiggle"
