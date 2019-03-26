@@ -59,7 +59,7 @@ export class BoardQuestion extends React.Component {
 
     if (!this.state.question) return <div>Loading...</div>;
     return (
-      <Container textAlign="center" style={{ paddingTop: '17vh' }}>
+      <Container className="centered-child">
         <Header className="question">{this.state.question}</Header>
         <Timer
           updateStage={updateStage}

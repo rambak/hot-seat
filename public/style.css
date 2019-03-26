@@ -35,12 +35,19 @@ body.inHotSeat {
   text-shadow: 1px 1px white, 2px 2px #fe4902, 3px 3px white;
 }
 
+.header.inHotSeat {
+  font-size: 10vh !important;
+  color: rgb(14, 112, 168);
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 1px 1px white, 2px 2px rgb(14, 112, 168), 3px 3px white;
+}
+
 .header.question {
   font-size: 6vh !important;
   padding-bottom: 4vh;
   color: #fe4902;
   font: bold 52px Helvetica, Arial, Sans-Serif;
-  text-shadow: 1px 1px white, 2px 2px white, 3px 3px white;
+  text-shadow: 1px 1px white;
 }
 
 .button.button {

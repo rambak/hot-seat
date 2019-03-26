@@ -38,10 +38,11 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
         />
       </Container>
     );
+    // const answers1 = [1,2,3,4,5,6,7,8,9,10]
   return (
-    <Container textAlign="center" className="centered-child">
+    <Container className="centered-child">
       {selfName === inHotSeatName ? (
-        <Header className="title">
+        <Header className='inHotSeat'>
           Please wait for the other players to guess your answer.
         </Header>
       ) : (
