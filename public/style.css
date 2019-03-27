@@ -214,12 +214,10 @@ instructions-label {
   padding-top: 5vh;
 }
 
-.ui.table.scores th,
 .ui.table.scores td,
 .ui.table.scores tr,
-.ui.table.scores :last-child th,
 .ui.table.scores :last-child td {
-  border-color: black;
+  border-color: white;
   border-width: 2px;
 }
 

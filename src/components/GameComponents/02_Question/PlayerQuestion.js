@@ -13,34 +13,30 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
     evt.preventDefault();
     setDisabled(true);
 
-    db.runTransaction(function(transaction) {
-      return transaction
-        .get(gameRef)
-        .then(function(gameDoc) {
+    const myAnswerRef = gameRef.collection('answers').doc(name);
+    const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
+    myAnswerRef.set(myAnswer);
+
+    if (name === inHotSeatName) {
+      db.runTransaction(function(transaction) {
+        return transaction.get(gameRef).then(function(gameDoc) {
           if (!gameDoc.exists) {
             console.error('This game does not exist');
           }
-          const currentAnswerCount = gameDoc.data().answerCount;
-          const newAnswerCount = currentAnswerCount
-            ? currentAnswerCount + 1
-            : 1;
-          if (name === inHotSeatName) {
-            const inHotSeatData = gameDoc.get('inHotSeat');
-            const inHotSeatNewData = { ...inHotSeatData, isAnswered: true };
-            transaction.update(gameRef, {
-              answerCount: newAnswerCount,
-              inHotSeat: inHotSeatNewData,
-            });
-          } else {
-            transaction.update(gameRef, { answerCount: newAnswerCount });
-          }
-
-          const myAnswerRef = gameRef.collection('answers').doc(name);
-          const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
-          transaction.set(myAnswerRef, myAnswer);
+          const inHotSeatData = gameDoc.get('inHotSeat');
+          const inHotSeatNewData = { ...inHotSeatData, isAnswered: true };
+          transaction.update(gameRef, {
+            inHotSeat: inHotSeatNewData,
+          });
+        });
+      })
+        .then(function() {
+          console.log('Transaction successfully committed!');
         })
-        .catch(error => console.error(error));
-    });
+        .catch(function(error) {
+          console.log('Transaction failed: ', error);
+        });
+    }
 
     setAnswer('');
   };

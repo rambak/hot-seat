@@ -50,7 +50,7 @@ export const BoardVoting = ({
           </Segment>
         );
       })}
-      <Timer updateStage={updateStage} time={30} />
+      <Timer updateStage={updateStage} time={60} />
     </Container>
   );
 };
