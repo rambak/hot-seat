@@ -41,7 +41,6 @@ export const ContainerBoard = props => {
   }
 
   //AnswerCounting
-  const answers = [];
   const answersRef = gameRef.collection('answers');
   const answersCol = useCollection(answersRef);
   if (answersCol.value) {
