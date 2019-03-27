@@ -34,7 +34,13 @@ class PlayerLogin extends React.Component {
       const gameRef = db.collection('games').doc(enteredPin);
 
       const docExists = await gameRef.get().then(async doc => {
-        if (doc.exists && doc.data().currentStage !== 'waitingForPlayers') {
+        if (
+          doc.exists &&
+          !(
+            doc.data().currentStage === 'waitingForPlayers' ||
+            doc.data().currentStage === 'waitingForPlayersNew'
+          )
+        ) {
           await this.setState({
             errors: [
               ...this.state.errors,
@@ -79,7 +85,6 @@ class PlayerLogin extends React.Component {
               .catch(function(error) {
                 console.log(error);
               });
-
             await db
               .collection('games')
               .doc(enteredPin)

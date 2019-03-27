@@ -26,7 +26,6 @@ export const ContainerBoard = props => {
   const gameDoc = useDocument(gameRef);
   if (gameDoc.value) {
     voteCount = gameDoc.value.data().voteCount;
-    answerCount = gameDoc.value.data().answerCount;
     currentStage = gameDoc.value.data().currentStage;
     inHotSeat = gameDoc.value.data().inHotSeat;
   }
@@ -39,6 +38,13 @@ export const ContainerBoard = props => {
     playersCol.value.docs.forEach(player => {
       players.push({ ...player.data() });
     });
+  }
+
+  //AnswerCounting
+  const answersRef = gameRef.collection('answers');
+  const answersCol = useCollection(answersRef);
+  if (answersCol.value) {
+    answerCount = answersCol.value.docs.length;
   }
 
   //Questions
@@ -92,6 +98,7 @@ export const ContainerBoard = props => {
   const determineBoardComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayers':
+      case 'waitingForPlayersNew':
         return (
           <BoardWaiting
             players={players}
@@ -148,9 +155,13 @@ export const ContainerBoard = props => {
           />
         );
       case 'gameOver':
-        return <BoardGameOver players={players}
-                              gameRef={gameRef}
-                              setQuestions={setQuestions}/>;
+        return (
+          <BoardGameOver
+            players={players}
+            gameRef={gameRef}
+            setQuestions={setQuestions}
+          />
+        );
       default:
         return <></>;
     }

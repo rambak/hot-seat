@@ -1,6 +1,7 @@
 import React from 'react';
-import { Header, Button, List, Container } from 'semantic-ui-react';
+import { Header, Button, Container } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
+import { GridRow } from './GridRow'
 
 export const BoardWaiting = ({
   players,
@@ -48,27 +49,17 @@ export const BoardWaiting = ({
   };
 
   return (
-    <Container textAlign="center" style={{ paddingTop: '5vh' }}>
-      <Header className="title">Game PIN: {pin}</Header>
-      <Header style={{ fontSize: '4vh' }}>
+    <Container className="centered-child">
+      <Header style={{ fontSize: '10vh', color: 'black' }} >Game pin: <span style={{ color: '#fe4902' }}>{pin}</span></Header>
+      <Header style={{ fontSize: '4vh', margin: '-2vh' }} className="question">
         Go to {window.location.hostname}/login to join!
       </Header>
-      <List>
-        <List.Description as="h2">Players</List.Description>
-
-        {players.map(player => (
-          <List.Item
-            style={{ fontSize: '4vh' }}
-            className="players"
-            key={player.name}
-          >
-            {player.name}
-          </List.Item>
-        ))}
-      </List>
+      <Header style={{ fontSize: '7vh', color: 'black', marginTop: '-3vh' }}>Players</Header>
+      {GridRow(players)}
       <Button
+        style={{margin: '25px' }}
         onClick={() => startGame(gameRef)}
-        disabled={players.length === 0}
+        // disabled={players.length === 0}
         // disabled={players.length < 3}
       >
         Start!

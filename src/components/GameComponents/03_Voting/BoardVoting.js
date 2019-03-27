@@ -32,7 +32,7 @@ export const BoardVoting = ({
   }
 
   return (
-    <Container textAlign="center" className="centered-child">
+    <Container className="centered-child">
       <Header className="question" style={{ fontSize: '5em' }}>
         {currentQuestion}
       </Header>
@@ -41,7 +41,14 @@ export const BoardVoting = ({
       </Header>
 
       {answers.sort().map(answer => {
-        return <Segment className="answers">{answer}</Segment>;
+        return (
+          <Segment
+            className="answers"
+            style={{ marginRight: '22vw', marginLeft: '22vw' }}
+          >
+            {answer}
+          </Segment>
+        );
       })}
       <Timer updateStage={updateStage} time={60} />
     </Container>

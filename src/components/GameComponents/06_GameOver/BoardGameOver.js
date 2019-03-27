@@ -22,22 +22,24 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
     });
 
     gameRef.set({
-      currentStage: 'waitingForPlayers',
+      currentStage: 'waitingForPlayersNew',
     });
 
     const playersRef = gameRef.collection('players');
 
     players.forEach(player => {
-      const playerData = {
-        name: player.name,
-      };
-      playersRef.doc(player.name).set(playerData);
+      playersRef.doc(player.name).delete();
     });
+    // playersRef.get().then(snapchot => {
+    //   snapchot.forEach(doc => {
+    //     playersRef.doc(doc.name).delete();
+    //   })
+    // })
   };
 
   const winnerText =
     winner.playerName.length > 1
-      ? `Winners: ${winner.playerName.join(', ')}`
+      ? `Its a Tie!${'\n'}Winners: ${winner.playerName.join(' and ')}`
       : `Winner: ${winner.playerName[0]}`;
 
   return (
