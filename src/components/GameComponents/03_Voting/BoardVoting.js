@@ -44,17 +44,19 @@ export const BoardVoting = ({
     'yellow'
   ]
 
+  const padding = answers.length > 5 ? { paddingTop: '2vh' } : { paddingTop: '8vh' }
+
   return (
-    <Container className="centered-child">
-      <Header className="question" style={{ fontSize: '5em', color: "rgb(14, 60, 97)" }}>
-        {currentQuestion}
-      </Header>
-      <Header style={{ fontSize: '4em', textShadow: '1px 1px white', color: "#fe4902" }}>
-        Guess {inHotSeatName}'s answer:
+    <Container textAlign="center" style={padding}>
+      <Header style={{ fontSize: '3em'}} className="questionNoPadding">
+        {currentQuestion}wjjwjwjjwjjwjwjjwjjwjjjjjjjjjj sjkdnkjn jkncncjks nckjnncjksjncnjejjejejejejejejejej
       </Header>
       {answers.length < 5 ? <><br/><br/></> : ''}
+      <Header style={{ fontSize: '3em', textShadow: '1px 1px white', color: "#fe4902", paddingBottom: '1vh' }}>
+        Guess {inHotSeatName}'s answer:
+      </Header>
       {answers.sort().map((answer,idx) => {
-        return <Segment key={idx} inverted color={colors[idx]} className="answers">{answer}</Segment>;
+        return <Segment  key={idx} inverted color={colors[idx]} className="answers">{answer}</Segment>;
       })}
       <Timer updateStage={updateStage} time={60} />
     </Container>
@@ -62,3 +64,4 @@ export const BoardVoting = ({
 };
 
 export default BoardVoting;
+

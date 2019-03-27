@@ -94,13 +94,13 @@ class PlayerLogin extends React.Component {
               </Message.List>
             </Message>
           )}
-          <Header>Play game {this.props.pin} again</Header>
+          <Header as="h2">Play game {this.props.pin} again</Header>
           <Form onSubmit={this.onSubmit}>
             <Form.Field>
-              <label>Name:</label>
+              <Header as="h1">Name:</Header>
               <input name="name" />
             </Form.Field>
-            <Button type="submit">Join!</Button>
+            <Button type="submit" color="blue" size="huge">Join!</Button>
           </Form>
         </Container>
       );

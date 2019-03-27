@@ -9,6 +9,12 @@ body.inHotSeat {
   background-blend-mode: overlay;
 }
 
+body.player {
+  background-image: url('background.jpg'),
+    linear-gradient(rgba(19, 106, 146, 0.719), rgba(13, 44, 80, 0.534));
+  background-blend-mode: overlay;
+}
+
 .image.hotseat {
   /* place it in bottom right corner */
   position: absolute;
@@ -36,7 +42,7 @@ body.inHotSeat {
 }
 
 .header.inHotSeat {
-  font-size: 10vh !important;
+  font-size: 6vh !important;
   color: rgb(14, 112, 168);
   font: bold 52px Helvetica, Arial, Sans-Serif;
   text-shadow: 1px 1px white
@@ -46,6 +52,12 @@ body.inHotSeat {
   font-size: 6vh !important;
   padding-bottom: 4vh;
   color: #fe4902;
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 1px 1px white;
+}
+
+.header.questionNoPadding {
+  color: rgb(14, 60, 97);
   font: bold 52px Helvetica, Arial, Sans-Serif;
   text-shadow: 1px 1px white;
 }
@@ -68,11 +80,15 @@ instructions-label {
 }
 
 .segment.answers {
-  margin-right: 20%;
-  margin-left: 20%;
   padding: 1.5vh;
   font-size: 3vh;
   color: #fff;
+}
+
+.ui.segment {
+  margin: 0.5rem;
+  margin-right: 20%;
+  margin-left: 20%;
 }
 
 .ui.card.homepage,
