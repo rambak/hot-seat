@@ -3,8 +3,8 @@ import { Header, Container } from 'semantic-ui-react';
 import ResultsCardFlip from './ResultsCardFlip';
 
 export class BoardResults extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       answers: [],
       currentIdx: -1,
@@ -19,6 +19,13 @@ export class BoardResults extends Component {
     this.callback = querySnapshot => {
       let answers = [];
       querySnapshot.forEach(doc => {
+        console.log('playersVote', doc.data().playersVote);
+        console.log('id', doc.id);
+        console.log(
+          'doc.id === this.props.inHotSeat',
+          doc.id,
+          this.props.inHotSeat
+        );
         answers.push({
           id: doc.id,
           answer: doc.data().answer,
@@ -31,6 +38,7 @@ export class BoardResults extends Component {
           hasBeenShown: false,
         });
       });
+
       answers = answers
         .reduce((acc, datum) => {
           if (!acc.some(accDatum => accDatum.answer === datum.answer)) {

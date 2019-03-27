@@ -52,16 +52,17 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
     );
 
   return (
-    <Container textAlign="center" style={{ paddingTop: '17vh' }}>
+    <Container className="centered-child">
       <Form onSubmit={handleSubmit}>
         <Form.Field>
           <input
             placeholder="Answer..."
             value={answer}
             onChange={handleChange}
+            maxLength="23"
           />
         </Form.Field>
-        <Button type="submit" disabled={disabled}>
+        <Button color="blue" size="huge" type="submit" disabled={disabled}>
           Submit
         </Button>
       </Form>

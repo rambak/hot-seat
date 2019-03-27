@@ -38,7 +38,7 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
     answer.name.forEach(name => {
       const curAnswerRef = answersRef.doc(name);
       const newName = selfName;
-      db
+      return db
         .runTransaction(async t => {
           const doc = await t.get(curAnswerRef);
           const gameDoc = await t.get(gameRef);
@@ -79,7 +79,20 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
       </Container>
     );
   }
-    // const answers1 = [1,2,3,4,5,6,7,8,9,10]
+    //  const answers1 = [{answer:'23'}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '},]
+    const colors = [
+      'teal',
+      'yellow',
+      'olive',
+      'green',
+      'violet',
+      'purple',
+      'red',
+      'orange',
+      'pink',
+      'yellow'
+    ]
+
   return (
     <Container className="centered-child">
       {selfName === inHotSeatName ? (
@@ -88,7 +101,7 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
         </Header>
       ) : (
         <Grid centered style={{ paddingTop: '2em' }}>
-          <Header>What did {inHotSeatName} answer?</Header>
+          <Header style={{ fontSize: '2em', textShadow: '1px 1px white', color: "#fe4902" }}>What did {inHotSeatName} answer?</Header>
           {answers
             .sort((firstEl, secondEl) => {
               if (firstEl.answer < secondEl.answer) {
@@ -100,15 +113,15 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
             })
             .map((answer, idx) => {
               return (
-                <Grid.Row key={idx}>
-                  <Button
+                  <Button key={idx}
+                    className="answer"
+                    color={colors[idx]}
                     onClick={() => {
                      handleSubmit(answer)
                     }}
                   >
                     {answer.answer}
                   </Button>
-                </Grid.Row>
               );
             })}
         </Grid>

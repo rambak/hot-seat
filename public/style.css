@@ -9,6 +9,12 @@ body.inHotSeat {
   background-blend-mode: overlay;
 }
 
+body.player {
+  background-image: url('background.jpg'),
+    linear-gradient(rgba(19, 106, 146, 0.719), rgba(13, 44, 80, 0.534));
+  background-blend-mode: overlay;
+}
+
 .image.hotseat {
   /* place it in bottom right corner */
   position: absolute;
@@ -36,10 +42,10 @@ body.inHotSeat {
 }
 
 .header.inHotSeat {
-  font-size: 10vh !important;
+  font-size: 6vh !important;
   color: rgb(14, 112, 168);
   font: bold 52px Helvetica, Arial, Sans-Serif;
-  text-shadow: 1px 1px white, 2px 2px rgb(14, 112, 168), 3px 3px white;
+  text-shadow: 1px 1px white;
 }
 
 .header.question {
@@ -63,6 +69,17 @@ span.question {
   min-width: 120px;
   height: 10vh;
   width: 20vw;
+}
+
+.header.questionNoPadding {
+  color: rgb(14, 60, 97);
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 1px 1px white;
+}
+
+.button.answer {
+  width: 80%;
+  margin: 1vh;
   background-color: rgb(14, 112, 168);
   border-radius: 8px;
   color: #fff;
@@ -78,8 +95,15 @@ instructions-label {
 }
 
 .segment.answers {
-  background-color: rgb(14, 112, 168);
+  padding: 1.5vh;
+  font-size: 3vh;
   color: #fff;
+}
+
+.ui.segment {
+  margin: 0.5rem;
+  margin-right: 20%;
+  margin-left: 20%;
 }
 
 .ui.card.homepage,
@@ -254,4 +278,9 @@ p {
 
 label {
   font-size: 3vh !important;
+}
+
+span.pin {
+  color: #fe4902;
+  text-shadow: 1px 1px white, 2px 2px #fe4902, 3px 3px white;
 }

@@ -41,30 +41,66 @@ export const BoardWaiting = ({
             });
           }
         }
-
         await batch.commit();
       });
 
     updateStage();
   };
+  const padding =
+    players.length > 7 ? { paddingTop: '1vh' } : { paddingTop: '7vh' };
 
   return (
-    <Container className="centered-child">
-      <Header style={{ fontSize: '10vh', color: 'black' }}>
-        Game pin:{' '}
-        <span style={{ fontSize: '10vh' }} className="question">
-          {pin}
-        </span>
+    <Container textAlign="center" style={padding}>
+      <Header
+        style={{
+          fontSize: '9vh',
+          color: 'rgb(14, 60, 97)',
+          textShadow: '1px 1px white',
+        }}
+      >
+        Game pin: <span className="pin">{pin}</span>
       </Header>
-      <Header style={{ fontSize: '4vh', margin: '-2vh' }}>
+      {players.length === 0 ? (
+        <>
+          <br />
+          <br />
+        </>
+      ) : (
+        ''
+      )}
+      <Header
+        style={{
+          fontSize: '6vh',
+          margin: '-2vh',
+          color: 'rgb(14, 60, 97)',
+          textShadow: '1px 1px white',
+        }}
+      >
         Go to <span className="question">{window.location.hostname}/login</span>{' '}
         to join!
       </Header>
-      <Header style={{ fontSize: '7vh', color: 'black', marginTop: '-1vh' }}>
+      <Header
+        style={{
+          fontSize: '7vh',
+          color: 'rgb(14, 60, 97)',
+          marginTop: '-3vh',
+          textShadow: '1px 1px white',
+        }}
+      >
         Players
       </Header>
-      {GridRow(players, true)}
+      {GridRow(players)}
+      {players.length === 0 ? (
+        <>
+          <br />
+          <br />
+        </>
+      ) : (
+        ''
+      )}
       <Button
+        color="blue"
+        size="massive"
         style={{ margin: '25px' }}
         onClick={() => startGame(gameRef)}
         // disabled={players.length === 0}
@@ -72,24 +108,6 @@ export const BoardWaiting = ({
       >
         Start!
       </Button>
-
-      {/* <Header>Instructions:</Header>
-      <p>
-        Each round one player will end up in the hot seat. There are two stages:
-        QUESTION and VOTING.
-        <br />
-        QUESTION - The game will ask everyone to type in an answer to a question
-        about the person in the hot seat. Use your device to answer. If you are
-        in the hot seat, provide the correct answer. All other players, make
-        your best guess.
-        <br />
-        VOTING - All answers will be displayed and among them is the answer from
-        the player in the hot seat. Use your device to guess the correct answer
-        and score points!
-        <br />
-        Enjoy the game, see how well your friends know you, and learn more about
-        them!
-      </p> */}
     </Container>
   );
 };
