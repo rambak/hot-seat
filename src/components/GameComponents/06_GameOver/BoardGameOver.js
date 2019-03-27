@@ -46,7 +46,7 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
     <Container textAlign="center" className="centered-child">
       <Header className="title">GAME IS OVER</Header>
       <Header className="question">{winnerText}</Header>
-      <Button onClick={playAgain}>Play Again</Button>
+      <Button color="blue" size="massive" onClick={playAgain}>Play Again</Button>
     </Container>
   );
 };

@@ -7,12 +7,12 @@ export const PlayerUpNow = ({ selfName, inHotSeatName }) => {
       {inHotSeatName === selfName ? (
         <>
           <Header style={{ fontSize: '6em' }} className="inHotSeat">YOU</Header>
-          <Header>are in the hot seat!</Header>
+          <Header as='h1'>are in the hot seat!</Header>
         </>
       ) : (
         <>
           <Header style={{ fontSize: '6em' }} className="question">{inHotSeatName}</Header>
-          <Header>is in the hot seat!</Header>
+          <Header as='h1'>is in the hot seat!</Header>
         </>
       )}
     </Container>

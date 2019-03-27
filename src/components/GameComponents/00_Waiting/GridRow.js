@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Label, Icon, Image } from 'semantic-ui-react';
+import { Grid, Label, Image } from 'semantic-ui-react';
 
 export const GridRow = (players) => {
   let firstRow = 3;
@@ -15,15 +15,14 @@ export const GridRow = (players) => {
   const colors = [
     'teal',
     'yellow',
+    'purple',
+    'violet',
     'olive',
     'green',
-    'blue',
-    'violet',
-    'purple',
     'red',
     'orange',
     'pink',
-    'brown',
+    'yellow',
   ]
   let colorIndx = -1
   return (
@@ -36,7 +35,7 @@ export const GridRow = (players) => {
               colorIndx++
             return (
             <Grid.Column key={idx2}>
-              <Label as='a' color={colors[colorIndx]}  style={{ color: 'white', fontSize: '3vh'}}>
+              <Label as='a' color={colors[colorIndx]} size="massive">
               <Image avatar spaced='right' src='/hotseat.png' />
               <div>{player.name}</div>
                 {/* <Icon name='close' color = 'white'/> */}

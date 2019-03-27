@@ -9,6 +9,7 @@ import {
   Segment,
   Grid,
   Label,
+  Transition
 } from 'semantic-ui-react';
 import { db } from '../config/fbConfig';
 import InstructionsModal from './InstructionsModal';
@@ -87,6 +88,9 @@ const HomePage = props => {
     props.history.push(`/${pin}/game-board`);
   };
 
+  const [animation, toggle] = useState(false);
+  setTimeout(() => toggle(true), 500)
+
   return (
     <>
       <Container className="centered-child" textAlign="center">
@@ -112,7 +116,7 @@ const HomePage = props => {
                     <Image centered src="/images/monitor-100.png" />
                   </Segment>
                 </Card.Content>
-                <Button className="button" onClick={generatePin}>
+                <Button onClick={generatePin}>
                   Host a game
                 </Button>
               </Card>
@@ -137,7 +141,14 @@ const HomePage = props => {
             </Grid.Column>
           </Grid>
         </Card.Group>
-        {/* <Image src="../.././hotseat.png" className="hotseat" /> */}
+        <Transition
+            animation="tada"
+            duration={1000}
+            visible={animation}
+            unmountOnHide={true}
+          >
+           <Image src="/hotseat.png" className="hotseat" />
+        </Transition>
       </Container>
     </>
   );

@@ -31,24 +31,32 @@ export const BoardVoting = ({
     });
   }
 
+  const colors = [
+    'teal',
+    'yellow',
+    'olive',
+    'green',
+    'violet',
+    'purple',
+    'red',
+    'orange',
+    'pink',
+    'yellow'
+  ]
+
+  const padding = answers.length > 5 ? { paddingTop: '2vh' } : { paddingTop: '8vh' }
+
   return (
-    <Container className="centered-child">
-      <Header className="question" style={{ fontSize: '5em' }}>
+    <Container textAlign="center" style={padding}>
+      <Header style={{ fontSize: '3em'}} className="questionNoPadding">
         {currentQuestion}
       </Header>
-      <Header style={{ fontSize: '4em' }}>
+      {answers.length < 5 ? <><br/><br/></> : ''}
+      <Header style={{ fontSize: '3em', textShadow: '1px 1px white', color: "#fe4902", paddingBottom: '1vh' }}>
         Guess {inHotSeatName}'s answer:
       </Header>
-
-      {answers.sort().map(answer => {
-        return (
-          <Segment
-            className="answers"
-            style={{ marginRight: '22vw', marginLeft: '22vw' }}
-          >
-            {answer}
-          </Segment>
-        );
+      {answers.sort().map((answer,idx) => {
+        return <Segment  key={idx} inverted color={colors[idx]} className="answers">{answer}</Segment>;
       })}
       <Timer updateStage={updateStage} time={60} />
     </Container>
@@ -56,3 +64,4 @@ export const BoardVoting = ({
 };
 
 export default BoardVoting;
+

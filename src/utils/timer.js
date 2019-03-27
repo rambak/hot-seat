@@ -4,12 +4,12 @@ import { Header, Container } from 'semantic-ui-react';
 export const styles = {
   count: {
     color: 'white',
-    fontSize: '12vw',
+    fontSize: '11vw',
   },
   circle: {
     borderRadius: '50%',
-    width: '20vw',
-    height: '20vw',
+    width: '17vw',
+    height: '17vw',
     background: 'rgb(243, 136, 49)',
     textAlign: 'center',
     border: '1vh solid rgb(201, 102, 80)',

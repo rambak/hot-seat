@@ -99,6 +99,8 @@ export const ContainerPlayer = props => {
     }
   };
 
+  document.body.classList.add('player');
+
   if (
     !gameDoc.loading &&
     !playersCol.loading &&
@@ -109,11 +111,13 @@ export const ContainerPlayer = props => {
     currentStage !== 'gameOver'
   ) {
     if (self === inHotSeat.name) {
+      document.body.classList.remove('player');
       document.body.classList.add('inHotSeat');
     }
   }
   if (!gameDoc.loading && !playersCol.loading && currentStage === 'scores') {
     document.body.classList.remove('inHotSeat');
+    document.body.classList.add('player');
   }
 
   return gameDoc.loading || playersCol.loading ? (
