@@ -84,7 +84,7 @@ export const BoardScores = ({
             ))}
         </Table.Body>
       </Table>
-      <Timer updateStage={updateStage} time={5} />
+      <Timer updateStage={updateStage} time={15} />
     </Container>
   );
 };
