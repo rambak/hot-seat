@@ -51,19 +51,23 @@ export const BoardWaiting = ({
   return (
     <Container className="centered-child">
       <Header style={{ fontSize: '10vh', color: 'black' }}>
-        Game pin: <span style={{ color: '#fe4902' }}>{pin}</span>
+        Game pin:{' '}
+        <span style={{ fontSize: '10vh' }} className="question">
+          {pin}
+        </span>
       </Header>
-      <Header style={{ fontSize: '4vh', margin: '-2vh' }} className="question">
-        Go to {window.location.hostname}/login to join!
+      <Header style={{ fontSize: '4vh', margin: '-2vh' }}>
+        Go to <span className="question">{window.location.hostname}/login</span>{' '}
+        to join!
       </Header>
-      <Header style={{ fontSize: '7vh', color: 'black', marginTop: '-3vh' }}>
+      <Header style={{ fontSize: '7vh', color: 'black', marginTop: '-1vh' }}>
         Players
       </Header>
       {GridRow(players, true)}
       <Button
         style={{ margin: '25px' }}
         onClick={() => startGame(gameRef)}
-        // disabled={players.length === 0}
+        disabled={players.length === 0}
         // disabled={players.length < 3}
       >
         Start!

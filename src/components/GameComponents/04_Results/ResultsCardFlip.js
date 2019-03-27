@@ -7,7 +7,7 @@ const ResultsCardFlip = ({ answers, idx, isFlipped }) => {
   return (
     <ReactCardFlip isFlipped={isFlipped}>
       <AllResultsCard key="front" answers={answers} />
-      <ResultsCard key="back" answer={answers[idx]} />
+      <ResultsCard key="back" answer={answers[idx]} isFlipped={isFlipped} />
     </ReactCardFlip>
   );
 };

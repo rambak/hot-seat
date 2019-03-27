@@ -89,6 +89,8 @@ export const ContainerBoard = props => {
     gameRef.update(updateGameObj);
   };
 
+  console.log('Q:', questions.currentQuestion, '(stage -', currentStage, ')');
+
   const determineBoardComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayers':

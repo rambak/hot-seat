@@ -56,22 +56,23 @@ export class BoardResults extends Component {
     this.flipTimer = setInterval(() => {
       if (this.state.currentIdx === this.state.answers.length - 1) {
         clearInterval(this.flipTimer);
-      }
-      if (this.state.isFlipped) {
-        const newAnswers = [...this.state.answers];
-        newAnswers[this.state.currentIdx].hasBeenShown = true;
-
-        this.setState({
-          isFlipped: !this.state.isFlipped,
-          answers: newAnswers,
-        });
       } else {
-        this.setState({
-          currentIdx: this.state.currentIdx + 1,
-          isFlipped: !this.state.isFlipped,
-        });
+        if (this.state.isFlipped) {
+          const newAnswers = [...this.state.answers];
+          newAnswers[this.state.currentIdx].hasBeenShown = true;
+
+          this.setState({
+            isFlipped: !this.state.isFlipped,
+            answers: newAnswers,
+          });
+        } else {
+          this.setState({
+            currentIdx: this.state.currentIdx + 1,
+            isFlipped: !this.state.isFlipped,
+          });
+        }
       }
-    }, 3000);
+    }, 6000);
 
     // setTimeout(() => this.props.updateStage(), 8000);
   }
@@ -81,7 +82,6 @@ export class BoardResults extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <Container className="centered-child">
         <Header className="question" style={{ fontSize: '5em' }}>

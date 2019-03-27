@@ -50,6 +50,14 @@ body.inHotSeat {
   text-shadow: 1px 1px white;
 }
 
+span.question {
+  /* font-size: 6vh !important; */
+  padding-bottom: 4vh;
+  color: #fe4902;
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 2px 2px white;
+}
+
 .button.button {
   min-height: 60px;
   min-width: 120px;
@@ -124,21 +132,69 @@ instructions-label {
 }
 
 .ui.card.results-card {
-  border-color: #fe4902;
+  border-color: rgb(14, 112, 168);
   border-width: 4px;
   border-style: solid;
   border-radius: 10px 10px 10px 10px;
 }
+
+.ui.card.results-card > .content.name {
+  display: table;
+  background-color: white;
+  border-top: white;
+}
+
+.ui.card.results-card > .content.name-visible {
+  display: table;
+  background-color: rgb(14, 112, 168);
+  border-top: white;
+}
+
+.ui.card.results-card > .content.name-visible > .header {
+  color: white;
+  vertical-align: middle;
+  display: table-cell !important;
+}
+
+.ui.card.results-card > .content.answer {
+  display: table;
+  background-color: rgb(14, 112, 168);
+}
+
+.ui.card.results-card > .content.answer > .header {
+  color: white;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.ui.card.results-card > .content > .divider {
+  border-color: #fe4902;
+}
+
+/* .ui.card.results-card > .content > .card.description {
+  display: table;
+}
+
+.ui.card.results-card > .content > .card.description > .header {
+  vertical-align: middle;
+  display: table-cell;
+} */
+
+/* .ui.card.results-card > .content > .description > .grid { */
+/* vertical-align: middle; */
+/* display: table-cell; */
+/* } */
 
 /* .ui.card.results-card > .segment { */
 /* border-color: #fe4902; */
 /* border-width: 2px; */
 /* border-style: solid; */
 /* border-radius: 10px 10px 10px 10px; */
+/* vertical-align: middle; */
 /* } */
 
 .ui.card.all-results-card {
-  border-color: rgb(14, 112, 168);
+  border-color: #fe4902;
   border-width: 4px;
   border-style: solid;
   border-radius: 10px 10px 10px 10px;
