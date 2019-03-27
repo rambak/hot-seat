@@ -35,7 +35,7 @@ export const GridRow = (players) => {
               colorIndx++
             return (
             <Grid.Column key={idx2}>
-              <Label as='a' color={colors[colorIndx]}  style={{ color: 'white', fontSize: '3vh'}}>
+              <Label as='a' color={colors[colorIndx]} size="massive">
               <Image avatar spaced='right' src='/hotseat.png' />
               <div>{player.name}</div>
                 {/* <Icon name='close' color = 'white'/> */}

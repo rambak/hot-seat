@@ -52,6 +52,7 @@ export const BoardVoting = ({
       <Header style={{ fontSize: '4em', textShadow: '1px 1px white', color: "#fe4902" }}>
         Guess {inHotSeatName}'s answer:
       </Header>
+      {answers.length < 5 ? <><br/><br/></> : ''}
       {answers.sort().map((answer,idx) => {
         return <Segment key={idx} inverted color={colors[idx]} className="answers">{answer}</Segment>;
       })}

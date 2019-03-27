@@ -123,11 +123,11 @@ class PlayerLogin extends React.Component {
         <Form onSubmit={this.onSubmit}>
           <Form.Field>
             <Header>PIN:</Header>
-            <input name="pin" />
+            <input name="pin"  maxLength="4" />
           </Form.Field>
           <Form.Field>
             <Header>Name:</Header>
-            <input name="name" />
+            <input name="name"  maxLength="12"/>
           </Form.Field>
           <Button type="submit" color="blue" size="huge">Join!</Button>
         </Form>

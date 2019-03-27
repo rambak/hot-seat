@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Header, Button, Container, Image, Transition } from 'semantic-ui-react';
+import React from 'react';
+import { Header, Button, Container} from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
 import { GridRow } from './GridRow';
 
