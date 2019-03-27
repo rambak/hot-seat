@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, List, Table, Label } from 'semantic-ui-react';
+import { Card, Table, Label } from 'semantic-ui-react';
 
 const AllResultsCard = ({ answers }) => {
   const orderedAnswers = [...answers].sort((a, b) => {

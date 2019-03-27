@@ -1,13 +1,5 @@
-import React, { useState } from 'react';
-import {
-  Card,
-  Transition,
-  Header,
-  Divider,
-  Image,
-  Container,
-} from 'semantic-ui-react';
-import useTimeout from '../../../utils/useTimeout';
+import React from 'react';
+import { Card, Transition, Header, Divider } from 'semantic-ui-react';
 import { GridRow } from '../00_Waiting/GridRow';
 import Confetti from 'reactfitti';
 

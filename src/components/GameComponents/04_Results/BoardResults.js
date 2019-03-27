@@ -1,7 +1,6 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import { Header, Container } from 'semantic-ui-react';
 import ResultsCardFlip from './ResultsCardFlip';
-import ResultsCard from './ResultsCard';
 
 export class BoardResults extends Component {
   constructor(props) {
@@ -10,6 +9,7 @@ export class BoardResults extends Component {
       answers: [],
       currentIdx: -1,
       isFlipped: false,
+      intervalCounter: 0,
     };
     this.flipTimer = function() {};
   }
@@ -55,26 +55,29 @@ export class BoardResults extends Component {
 
     this.flipTimer = setInterval(() => {
       if (this.state.currentIdx === this.state.answers.length - 1) {
+        setTimeout(() => this.props.updateStage(), 5000);
         clearInterval(this.flipTimer);
       } else {
-        if (this.state.isFlipped) {
+        if (this.state.intervalCounter % 4 === 0) {
+          this.setState({
+            currentIdx: this.state.currentIdx + 1,
+            isFlipped: true,
+            intervalCounter: this.state.intervalCounter + 1,
+          });
+        } else if (this.state.intervalCounter % 4 === 3) {
           const newAnswers = [...this.state.answers];
           newAnswers[this.state.currentIdx].hasBeenShown = true;
 
           this.setState({
-            isFlipped: !this.state.isFlipped,
+            isFlipped: false,
             answers: newAnswers,
+            intervalCounter: this.state.intervalCounter + 1,
           });
         } else {
-          this.setState({
-            currentIdx: this.state.currentIdx + 1,
-            isFlipped: !this.state.isFlipped,
-          });
+          this.setState({ intervalCounter: this.state.intervalCounter + 1 });
         }
       }
-    }, 6000);
-
-    // setTimeout(() => this.props.updateStage(), 8000);
+    }, 2500);
   }
 
   componentWillUnmount() {
