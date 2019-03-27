@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Icon, Container, Header } from 'semantic-ui-react';
+import { Table, Container, Header, Label, Image } from 'semantic-ui-react';
 import { Timer } from '../../../utils/timer';
 
 export const BoardScores = ({
@@ -31,7 +31,7 @@ export const BoardScores = ({
   }, []);
 
   return (
-    <Container className="centered-child">
+    <Container>
       <Header className="title">Scores</Header>
       <Table
         basic="very"
@@ -45,10 +45,10 @@ export const BoardScores = ({
           <Table.Row>
             <Table.HeaderCell />
             <Table.HeaderCell>
-              <h1>Player</h1>
+              <Label size="massive">Player</Label>
             </Table.HeaderCell>
-            <Table.HeaderCell>
-              <h1>Score</h1>
+            <Table.HeaderCell textAlign="center">
+              <Label size="massive">Score</Label>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -61,17 +61,25 @@ export const BoardScores = ({
               return 0;
             })
             .map(player => (
-              <Table.Row key={player.name}>
-                <Table.Cell>
-                  {player.name === inHotSeatName && (
-                    <Icon name="fire" size="huge" />
-                  )}
+              <Table.Row
+                key={player.name}
+                className={player.score === highScore ? 'high-score' : 'score'}
+              >
+                <Table.Cell textAlign="right">
                   {player.score === highScore && (
-                    <Icon name="winner" size="huge" />
+                    <Image
+                      floated="right"
+                      size="tiny"
+                      src="/images/trophy-100.png"
+                    />
                   )}
                 </Table.Cell>
-                <Table.Cell>{player.name}</Table.Cell>
-                <Table.Cell>{player.score}</Table.Cell>
+                <Table.Cell>
+                  <h1>{player.name}</h1>
+                </Table.Cell>
+                <Table.Cell textAlign="center">
+                  <Label circular>{player.score}</Label>
+                </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
