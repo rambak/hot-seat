@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Table,
-  Icon,
-  Container,
-  Header,
-  Label,
-  Image,
-} from 'semantic-ui-react';
+import { Table, Container, Header, Label, Image } from 'semantic-ui-react';
 import { Timer } from '../../../utils/timer';
 
 export const BoardScores = ({
@@ -44,7 +37,7 @@ export const BoardScores = ({
         basic="very"
         celled
         collapsing
-        // padded="very"
+        padded="very"
         size="large"
         className="scores"
       >

@@ -165,9 +165,13 @@ tr.high-score > td {
   font-size: 2 rem;
 }
 
+/* .ui.table.scores th {
+  padding: 0px;
+} */
+
 .ui.table.scores th .label {
-  height: 90%;
-  width: 90%;
+  height: 99%;
+  width: 99%;
   border-radius: 0;
   background: white;
 }
