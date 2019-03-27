@@ -45,7 +45,7 @@ body.player {
   font-size: 6vh !important;
   color: rgb(14, 112, 168);
   font: bold 52px Helvetica, Arial, Sans-Serif;
-  text-shadow: 1px 1px white
+  text-shadow: 1px 1px white;
 }
 
 .header.question {
@@ -54,6 +54,21 @@ body.player {
   color: #fe4902;
   font: bold 52px Helvetica, Arial, Sans-Serif;
   text-shadow: 1px 1px white;
+}
+
+span.question {
+  /* font-size: 6vh !important; */
+  padding-bottom: 4vh;
+  color: #fe4902;
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 2px 2px white;
+}
+
+.button.button {
+  min-height: 60px;
+  min-width: 120px;
+  height: 10vh;
+  width: 20vw;
 }
 
 .header.questionNoPadding {
@@ -102,11 +117,7 @@ instructions-label {
 }
 
 .ui.card.homepage > .content .divider {
-  /* border-color: rgb(14, 112, 168); */
-  /* border-width: 2px; */
   background-color: #fe4902;
-  /* background-color: rgb(154, 215, 255); */
-  /* border-style: solid; */
 }
 
 .ui.card.homepage > .button,
@@ -115,7 +126,6 @@ instructions-label {
   background-color: #fe4902;
   border-color: #fe4902;
   color: white;
-  /* border-color: rgb(14, 112, 168); */
   border-width: 1px;
   font-size: 1.28571429rem;
 }
@@ -145,6 +155,82 @@ instructions-label {
   padding-right: 5vw;
 }
 
+.ui.card.results-card {
+  border-color: rgb(14, 112, 168);
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.ui.card.results-card > .content.name {
+  display: table;
+  background-color: white;
+  border-top: white;
+}
+
+.ui.card.results-card > .content.name-visible {
+  display: table;
+  background-color: rgb(14, 112, 168);
+  border-top: white;
+}
+
+.ui.card.results-card > .content.name-visible > .header {
+  color: white;
+  vertical-align: middle;
+  display: table-cell !important;
+}
+
+.ui.card.results-card > .content.answer {
+  display: table;
+  background-color: rgb(14, 112, 168);
+}
+
+.ui.card.results-card > .content.answer > .header {
+  color: white;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.ui.card.results-card > .content > .divider {
+  border-color: #fe4902;
+}
+
+/* .ui.card.results-card > .content > .card.description {
+  display: table;
+}
+
+.ui.card.results-card > .content > .card.description > .header {
+  vertical-align: middle;
+  display: table-cell;
+} */
+
+/* .ui.card.results-card > .content > .description > .grid { */
+/* vertical-align: middle; */
+/* display: table-cell; */
+/* } */
+
+/* .ui.card.results-card > .segment { */
+/* border-color: #fe4902; */
+/* border-width: 2px; */
+/* border-style: solid; */
+/* border-radius: 10px 10px 10px 10px; */
+/* vertical-align: middle; */
+/* } */
+
+.ui.card.all-results-card {
+  border-color: #fe4902;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 10px 10px 10px 10px;
+}
+
+/* .ui.card.all-results-card > .segment {
+  border-color: rgb(14, 112, 168);
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px 10px 10px 10px;
+} */
+
 .ui.table.scores {
   width: 100%;
   padding-left: 5vw;
@@ -159,53 +245,30 @@ instructions-label {
   border-width: 2px;
 }
 
-tr.high-score {
-  background-color: #fe4902;
-  height: 104px;
+.card .label.strikethrough {
+  text-decoration: black line-through;
 }
 
-tr.score {
-  background-color: rgb(14, 112, 168);
-  height: 104px;
-}
-
-tr.score .label {
-  font-size: 2rem;
-  background-color: white;
-  color: rgb(14, 112, 168);
-}
-
-tr.high-score .label {
-  font-size: 2rem;
-  background-color: white;
-  color: #fe4902;
-}
-
-tr.score > td,
-tr.high-score > td {
-  color: white;
-  font-size: 2 rem;
-}
-
-.ui.table.scores :last-child th,
-.ui.table.scores th {
-  border-color: #fe4902;
+.ui.card.all-results-card td {
+  border-color: white;
   border-width: 2px;
-  padding: 0px;
+  background-color: rgb(14, 112, 168);
 }
 
-.ui.table.scores th .label {
-  height: 100%;
+.ui.card.all-results-card .label.answer {
+  /* width: 80%; */
+  margin-left: 4px;
+}
+
+.ui.card.all-results-card .label {
+  color: #fe4902;
+  background-color: white;
   width: 100%;
-  border-radius: 0;
-  background: white;
-  color: black;
 }
 
-.ui.table.scores .label {
-  height: 90%;
+.ui.card.all-results-card .label.name {
   width: 90%;
-  background: white;
+  color: rgb(14, 112, 168);
 }
 
 p {

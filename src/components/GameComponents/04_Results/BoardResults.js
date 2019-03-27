@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Header, Container } from 'semantic-ui-react';
-import {ResultsCards} from './ResultsCards';
+import ResultsCardFlip from './ResultsCardFlip';
 
 export class BoardResults extends Component {
   constructor() {
     super();
     this.state = {
-      answersOnState: [],
-      showingAnswer: false,
+      answers: [],
+      currentIdx: -1,
+      isFlipped: false,
+      intervalCounter: 0,
     };
+    this.flipTimer = function() {};
   }
 
   componentDidMount() {
@@ -16,18 +19,27 @@ export class BoardResults extends Component {
     this.callback = querySnapshot => {
       let answers = [];
       querySnapshot.forEach(doc => {
-        console.log('playersVote', doc.data().playersVote )
-        console.log('id', doc.id )
-        console.log ('doc.id === this.props.inHotSeat', doc.id, this.props.inHotSeat)
+        console.log('playersVote', doc.data().playersVote);
+        console.log('id', doc.id);
+        console.log(
+          'doc.id === this.props.inHotSeat',
+          doc.id,
+          this.props.inHotSeat
+        );
         answers.push({
           id: doc.id,
           answer: doc.data().answer,
-          voters: doc.data().playersVote,
+          voters: doc.data().playersVote.join('|'),
+          votes:
+            doc.data().playersVote === undefined
+              ? 0
+              : doc.data().playersVote.length,
           correctAnswer: doc.id === this.props.inHotSeat,
+          hasBeenShown: false,
         });
       });
-      console.log('answers', answers)
-      let newAnswers = answers
+
+      answers = answers
         .reduce((acc, datum) => {
           if (!acc.some(accDatum => accDatum.answer === datum.answer)) {
             acc.push(datum);
@@ -37,27 +49,62 @@ export class BoardResults extends Component {
           }
           return acc;
         }, [])
-        .sort((a, b) => b.votes - a.votes);
-      this.setState({ answersOnState: newAnswers });
-      console.log('answersonstate', this.state.answersOnState)
+        .sort((a, b) => {
+          if (!b.correctAnswer && (a.correctAnswer || a.votes > b.votes)) {
+            return 1;
+          } else if (b.correctAnswer || a.votes < b.votes) {
+            return -1;
+          }
+          return 0;
+        });
+      this.setState({ answers });
     };
     this.answersRef.get().then(this.callback);
 
-    setTimeout(() => this.setState({ showingAnswer: true }), 3000);
-    setTimeout(() => this.props.updateStage(), 8000);
+    this.flipTimer = setInterval(() => {
+      if (this.state.currentIdx === this.state.answers.length - 1) {
+        setTimeout(() => this.props.updateStage(), 5000);
+        clearInterval(this.flipTimer);
+      } else {
+        if (this.state.intervalCounter % 4 === 0) {
+          this.setState({
+            currentIdx: this.state.currentIdx + 1,
+            isFlipped: true,
+            intervalCounter: this.state.intervalCounter + 1,
+          });
+        } else if (this.state.intervalCounter % 4 === 3) {
+          const newAnswers = [...this.state.answers];
+          newAnswers[this.state.currentIdx].hasBeenShown = true;
+
+          this.setState({
+            isFlipped: false,
+            answers: newAnswers,
+            intervalCounter: this.state.intervalCounter + 1,
+          });
+        } else {
+          this.setState({ intervalCounter: this.state.intervalCounter + 1 });
+        }
+      }
+    }, 2500);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.flipTimer);
   }
 
   render() {
-
-
     return (
-      <Container textAlign="center" className="centered-child">
-        <Header className="title">Votes</Header>
-        {ResultsCards(this.state.answersOnState,this.state.showingAnswer )}
-        {/* <ResultsCards
-          answers={this.state.answersOnState}
-          showingAnswer={this.state.showingAnswer}
-        /> */}
+      <Container className="centered-child">
+        <Header className="question" style={{ fontSize: '5em' }}>
+          {this.props.currentQuestion}
+        </Header>
+        {this.state.answers.length && (
+          <ResultsCardFlip
+            isFlipped={this.state.isFlipped}
+            answers={this.state.answers}
+            idx={this.state.currentIdx === -1 ? 0 : this.state.currentIdx}
+          />
+        )}
       </Container>
     );
   }

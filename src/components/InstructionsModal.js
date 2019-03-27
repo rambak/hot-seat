@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Header, Image, Container } from 'semantic-ui-react';
+import { Modal, Header, Image } from 'semantic-ui-react';
 
 export const InstructionsModal = ({ modalOpen, handleClose }) => {
   return (

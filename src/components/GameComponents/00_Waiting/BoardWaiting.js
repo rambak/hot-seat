@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Button, Container} from 'semantic-ui-react';
+import { Header, Button, Container } from 'semantic-ui-react';
 import { db } from '../../../config/fbConfig';
 import { GridRow } from './GridRow';
 
@@ -46,22 +46,62 @@ export const BoardWaiting = ({
 
     updateStage();
   };
-  const padding = players.length > 7 ? { paddingTop: '1vh' } : { paddingTop: '7vh' }
+  const padding =
+    players.length > 7 ? { paddingTop: '1vh' } : { paddingTop: '7vh' };
 
   return (
     <Container textAlign="center" style={padding}>
-      <Header style={{ fontSize: '9vh', color: 'rgb(14, 60, 97)', textShadow: '1px 1px white'}} >Game pin: <span className="pin">{pin}</span></Header>
-      {players.length === 0 ? <><br/><br/></> : ''}
-      <Header style={{ fontSize: '3vh', margin: '-2vh' }} className="question">
-        Go to {window.location.hostname}/login to join!
+      <Header
+        style={{
+          fontSize: '9vh',
+          color: 'rgb(14, 60, 97)',
+          textShadow: '1px 1px white',
+        }}
+      >
+        Game pin: <span className="pin">{pin}</span>
       </Header>
-      <Header style={{ fontSize: '7vh', color: 'rgb(14, 60, 97)', marginTop: '-3vh', textShadow: '1px 1px white' }}>Players</Header>
+      {players.length === 0 ? (
+        <>
+          <br />
+          <br />
+        </>
+      ) : (
+        ''
+      )}
+      <Header
+        style={{
+          fontSize: '6vh',
+          margin: '-2vh',
+          color: 'rgb(14, 60, 97)',
+          textShadow: '1px 1px white',
+        }}
+      >
+        Go to <span className="question">{window.location.hostname}/login</span>{' '}
+        to join!
+      </Header>
+      <Header
+        style={{
+          fontSize: '7vh',
+          color: 'rgb(14, 60, 97)',
+          marginTop: '-3vh',
+          textShadow: '1px 1px white',
+        }}
+      >
+        Players
+      </Header>
       {GridRow(players)}
-      {players.length === 0 ? <><br/><br/></> : ''}
+      {players.length === 0 ? (
+        <>
+          <br />
+          <br />
+        </>
+      ) : (
+        ''
+      )}
       <Button
         color="blue"
-        size='massive'
-        style={{margin: '25px' }}
+        size="massive"
+        style={{ margin: '25px' }}
         onClick={() => startGame(gameRef)}
         // disabled={players.length === 0}
         // disabled={players.length < 3}
