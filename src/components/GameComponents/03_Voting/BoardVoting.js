@@ -49,7 +49,7 @@ export const BoardVoting = ({
   return (
     <Container textAlign="center" style={padding}>
       <Header style={{ fontSize: '3em'}} className="questionNoPadding">
-        {currentQuestion}wjjwjwjjwjjwjwjjwjjwjjjjjjjjjj sjkdnkjn jkncncjks nckjnncjksjncnjejjejejejejejejejej
+        {currentQuestion}
       </Header>
       {answers.length < 5 ? <><br/><br/></> : ''}
       <Header style={{ fontSize: '3em', textShadow: '1px 1px white', color: "#fe4902", paddingBottom: '1vh' }}>
