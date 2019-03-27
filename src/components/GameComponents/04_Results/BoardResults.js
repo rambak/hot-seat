@@ -63,7 +63,7 @@ export class BoardResults extends Component {
 
     this.flipTimer = setInterval(() => {
       if (this.state.currentIdx === this.state.answers.length - 1) {
-        //setTimeout(() => this.props.updateStage(), 5000);
+        setTimeout(() => this.props.updateStage(), 5000);
         clearInterval(this.flipTimer);
       } else {
         if (this.state.intervalCounter % 4 === 0) {
