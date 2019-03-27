@@ -39,7 +39,7 @@ export const ResultCard = props => {
         <Divider />
         <Segment basic size="huge">
           <h2 className="card-title">Voters</h2>
-          {props.answer.correctAnswer && !props.answer.voters.length ? (
+          {props.answer.correctAnswer && props.answer.voters.length === 0 ? (
             <p>No one figured it out!</p>
           ) : (
             <ul>

@@ -135,13 +135,60 @@ instructions-label {
   padding-top: 5vh;
 }
 
-.ui.table.scores th,
 .ui.table.scores td,
 .ui.table.scores tr,
-.ui.table.scores :last-child th,
 .ui.table.scores :last-child td {
-  border-color: black;
+  border-color: white;
   border-width: 2px;
+}
+
+tr.high-score {
+  background-color: #fe4902;
+  height: 104px;
+}
+
+tr.score {
+  background-color: rgb(14, 112, 168);
+  height: 104px;
+}
+
+tr.score .label {
+  font-size: 2rem;
+  background-color: white;
+  color: rgb(14, 112, 168);
+}
+
+tr.high-score .label {
+  font-size: 2rem;
+  background-color: white;
+  color: #fe4902;
+}
+
+tr.score > td,
+tr.high-score > td {
+  color: white;
+  font-size: 2 rem;
+}
+
+.ui.table.scores :last-child th,
+.ui.table.scores th {
+  border-color: #fe4902;
+  border-width: 2px;
+  padding: 0px;
+}
+
+.ui.table.scores th .label {
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  background: white;
+  color: black;
+}
+
+.ui.table.scores .label {
+  height: 90%;
+  width: 90%;
+  background: white;
 }
 
 p {
