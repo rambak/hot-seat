@@ -11,16 +11,18 @@ const AllResultsCard = ({ answers }) => {
         <Table.Body>
           {orderedAnswers.map(answer => (
             <Table.Row key={answer.id}>
-              <Table.Cell>
+              <Table.Cell width="12">
                 <Label
                   circular
                   size="massive"
-                  className={answer.hasBeenShown ? 'strikethrough' : ''}
+                  className={
+                    answer.hasBeenShown ? 'strikethrough answer' : 'answer'
+                  }
                 >
                   {answer.answer}
                 </Label>
               </Table.Cell>
-              <Table.Cell>
+              <Table.Cell width="4">
                 {answer.hasBeenShown && (
                   <Label circular size="massive" className="name">
                     {answer.id}

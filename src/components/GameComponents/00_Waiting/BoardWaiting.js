@@ -67,7 +67,7 @@ export const BoardWaiting = ({
       <Button
         style={{ margin: '25px' }}
         onClick={() => startGame(gameRef)}
-        disabled={players.length === 0}
+        // disabled={players.length === 0}
         // disabled={players.length < 3}
       >
         Start!
