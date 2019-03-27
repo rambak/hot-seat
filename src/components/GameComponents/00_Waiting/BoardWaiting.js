@@ -46,14 +46,15 @@ export const BoardWaiting = ({
 
     updateStage();
   };
+  const padding = players.length > 7 ? { paddingTop: '1vh' } : { paddingTop: '7vh' }
 
   return (
-    <Container className="centered-child">
+    <Container textAlign="center" style={padding}>
       <Header style={{ fontSize: '9vh', color: 'rgb(14, 60, 97)', textShadow: '1px 1px white'}} >Game pin: <span className="pin">{pin}</span></Header>
+      {players.length === 0 ? <><br/><br/></> : ''}
       <Header style={{ fontSize: '3vh', margin: '-2vh' }} className="question">
         Go to {window.location.hostname}/login to join!
       </Header>
-      {players.length === 0 ? <><br/><br/></> : ''}
       <Header style={{ fontSize: '7vh', color: 'rgb(14, 60, 97)', marginTop: '-3vh', textShadow: '1px 1px white' }}>Players</Header>
       {GridRow(players)}
       {players.length === 0 ? <><br/><br/></> : ''}
