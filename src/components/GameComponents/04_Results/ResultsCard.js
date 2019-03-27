@@ -32,15 +32,15 @@ class ResultsCard extends React.Component {
   }
 
   render() {
-    console.log('CARD', this.props.answer.id);
-    console.log('Voters Visible?', this.state.votersVisible);
-    console.log('Name Visible?', this.state.nameVisible);
-
     return (
       <Card fluid style={{ height: '80vh' }} className="results-card">
-        {this.props.answer.correctAnswer && <Confetti />}
+        {this.props.answer.correctAnswer && this.state.nameVisible && (
+          <Confetti />
+        )}
         <Card.Content style={{ height: '20vh' }} className="answer">
-          <Header size="huge">{this.props.answer.answer}</Header>
+          <Header size="huge" style={{ fontSize: '4em' }}>
+            {this.props.answer.answer}
+          </Header>
         </Card.Content>
         <Card.Content style={{ height: '40vh' }}>
           <Header size="huge">Who Guessed This? </Header>
@@ -71,21 +71,23 @@ class ResultsCard extends React.Component {
           className={this.state.nameVisible ? 'name-visible' : 'name'}
           style={{ height: '20vh' }}
         >
-          {/* {this.state.nameVisible && this.props.answer.correctAnswer ? ( */}
-          <Container>
-            <Image src="/hotseat.png" />
-            {/* ) : ( */}
-            {/* '' */}
-            {/* )} */}
-            <Transition
-              animation="browse"
-              duration={1000}
-              visible={this.state.nameVisible}
-              unmountOnHide
-            >
-              <Header size="huge">{this.props.answer.id}</Header>
-            </Transition>
-          </Container>
+          {/* {this.state.nameVisible && this.props.answer.correctAnswer ? ( <Image
+                float="left"
+                src="/hotseat.png"
+                style={{ height: '15vh' }}
+              />) : (
+          ''
+          )} */}
+          <Transition
+            animation="browse"
+            duration={1000}
+            visible={this.state.nameVisible}
+            unmountOnHide
+          >
+            <Header size="huge" style={{ fontSize: '5em' }}>
+              {this.props.answer.id}
+            </Header>
+          </Transition>
         </Card.Content>
       </Card>
     );

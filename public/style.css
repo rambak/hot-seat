@@ -223,8 +223,25 @@ instructions-label {
   border-width: 2px;
 }
 
-.card .strikethrough {
-  text-decoration: #fe4902 line-through;
+.card .label.strikethrough {
+  text-decoration: black line-through;
+}
+
+.ui.card.all-results-card td {
+  border-color: white;
+  border-width: 2px;
+  background-color: rgb(14, 112, 168);
+}
+
+.ui.card.all-results-card .label {
+  color: #fe4902;
+  background-color: white;
+  width: 100%;
+  margin-left: 4px;
+}
+
+.ui.card.all-results-card .label.name {
+  color: rgb(14, 112, 168);
 }
 
 p {

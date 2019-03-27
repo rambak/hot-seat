@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, List } from 'semantic-ui-react';
+import { Card, List, Table, Label } from 'semantic-ui-react';
 
 const AllResultsCard = ({ answers }) => {
   const orderedAnswers = [...answers].sort((a, b) => {
@@ -7,22 +7,30 @@ const AllResultsCard = ({ answers }) => {
   });
   return (
     <Card fluid style={{ height: '80vh' }} className="all-results-card">
-      <List size="massive">
-        {orderedAnswers.map(answer => (
-          <List.Item key={answer.id}>
-            <List.Content floated="left">
-              <List.Header
-                className={answer.hasBeenShown ? 'strikethrough' : ''}
-              >
-                {answer.answer}
-              </List.Header>
-            </List.Content>
-            {answer.hasBeenShown && (
-              <List.Content floated="right">{answer.id}</List.Content>
-            )}
-          </List.Item>
-        ))}
-      </List>
+      <Table basic="very">
+        <Table.Body>
+          {orderedAnswers.map(answer => (
+            <Table.Row key={answer.id}>
+              <Table.Cell>
+                <Label
+                  circular
+                  size="massive"
+                  className={answer.hasBeenShown ? 'strikethrough' : ''}
+                >
+                  {answer.answer}
+                </Label>
+              </Table.Cell>
+              <Table.Cell>
+                {answer.hasBeenShown && (
+                  <Label circular size="massive" className="name">
+                    {answer.id}
+                  </Label>
+                )}
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
     </Card>
   );
 };
