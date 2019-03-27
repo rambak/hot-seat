@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Label, Image } from 'semantic-ui-react';
 
-export const GridRow = (players, renderSeat) => {
+export const GridRow = (players, renderSeat = true, showPoints = false) => {
   let firstRow = 3;
   let secondRow = 4;
   let toggle = false;
@@ -36,8 +36,13 @@ export const GridRow = (players, renderSeat) => {
               return (
                 <Grid.Column key={idx2}>
                   <Label as="a" color={colors[colorIndx]} size="massive">
-                    <Image avatar spaced="right" src="/hotseat.png" />
-                    <div>{player.name}</div>
+                    {renderSeat && (
+                      <Image avatar spaced="right" src="/hotseat.png" />
+                    )}
+                    <div>
+                      {player.name}
+                      {showPoints && <span className="points"> +2 points</span>}
+                    </div>
                   </Label>
                 </Grid.Column>
               );

@@ -35,7 +35,9 @@ class ResultsCard extends React.Component {
           </Header>
         </Card.Content>
         <Card.Content style={{ height: '40vh' }}>
-          <Header size="huge">Who Guessed This? </Header>
+          <Header size="huge" style={{ fontSize: '3em' }}>
+            Who Guessed This?{' '}
+          </Header>
           <Divider />
           <Transition
             animation="jiggle"
@@ -51,7 +53,8 @@ class ResultsCard extends React.Component {
                       name: player,
                     };
                   }),
-                  false
+                  false,
+                  this.props.answer.correctAnswer
                 )
               ) : (
                 <Header size="huge">No one!</Header>
@@ -63,6 +66,11 @@ class ResultsCard extends React.Component {
           className={this.state.nameVisible ? 'name-visible' : 'name'}
           style={{ height: '20vh' }}
         >
+          <Card.Description>
+            <Header style={{ fontSize: '3em' }}>Submitted by:</Header>
+          </Card.Description>
+          <Divider />
+
           {/* {this.state.nameVisible && this.props.answer.correctAnswer ? ( <Image
                 float="left"
                 src="/hotseat.png"
@@ -70,16 +78,18 @@ class ResultsCard extends React.Component {
               />) : (
           ''
           )} */}
-          <Transition
-            animation="browse"
-            duration={1000}
-            visible={this.state.nameVisible}
-            unmountOnHide
-          >
-            <Header size="huge" style={{ fontSize: '5em' }}>
-              {this.props.answer.id}
-            </Header>
-          </Transition>
+          <Card.Description className="name-visible">
+            <Transition
+              animation="browse"
+              duration={1000}
+              visible={this.state.nameVisible}
+              unmountOnHide
+            >
+              <Header size="huge" style={{ fontSize: '5em' }}>
+                {this.props.answer.id}
+              </Header>
+            </Transition>
+          </Card.Description>
         </Card.Content>
       </Card>
     );
