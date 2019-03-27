@@ -3,7 +3,6 @@ import { Card } from 'semantic-ui-react';
 import ResultsCardFlip from './ResultsCardFlip';
 
 export const ResultsCards = (answers, showingAnswer) => {
-  console.log('222answers', answers)
   return (
   <Card.Group centered>
     {answers.map(answer => (
