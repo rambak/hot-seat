@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Form, Button, Message } from 'semantic-ui-react';
+import { Container, Form, Button, Message, Header } from 'semantic-ui-react';
 import { setUser } from '../store/reducers/user';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -109,7 +109,7 @@ class PlayerLogin extends React.Component {
 
   render() {
     return (
-      <Container textAlign="center" style={{ paddingTop: '5vh' }}>
+      <Container className="centered-child">
         {this.state.errors.length > 0 && (
           <Message negative>
             <Message.Header>We encountered an error</Message.Header>
@@ -122,14 +122,14 @@ class PlayerLogin extends React.Component {
         )}
         <Form onSubmit={this.onSubmit}>
           <Form.Field>
-            <label>PIN:</label>
+            <Header>PIN:</Header>
             <input name="pin" />
           </Form.Field>
           <Form.Field>
-            <label>Name:</label>
+            <Header>Name:</Header>
             <input name="name" />
           </Form.Field>
-          <Button type="submit">Join!</Button>
+          <Button type="submit" color="blue" size="huge">Join!</Button>
         </Form>
       </Container>
     );

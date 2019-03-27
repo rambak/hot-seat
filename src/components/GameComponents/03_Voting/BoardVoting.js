@@ -36,23 +36,22 @@ export const BoardVoting = ({
     'yellow',
     'olive',
     'green',
-    'blue',
     'violet',
     'purple',
     'red',
     'orange',
     'pink',
+    'yellow'
   ]
 
   return (
     <Container className="centered-child">
-      <Header className="question" style={{ fontSize: '5em' }}>
+      <Header className="question" style={{ fontSize: '5em', color: "rgb(14, 60, 97)" }}>
         {currentQuestion}
       </Header>
-      <Header style={{ fontSize: '4em' }}>
+      <Header style={{ fontSize: '4em', textShadow: '1px 1px white', color: "#fe4902" }}>
         Guess {inHotSeatName}'s answer:
       </Header>
-
       {answers.sort().map((answer,idx) => {
         return <Segment key={idx} inverted color={colors[idx]} className="answers">{answer}</Segment>;
       })}

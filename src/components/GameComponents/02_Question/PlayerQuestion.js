@@ -61,7 +61,7 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
             onChange={handleChange}
           />
         </Form.Field>
-        <Button type="submit" disabled={disabled}>
+        <Button color="blue" size="huge" type="submit" disabled={disabled}>
           Submit
         </Button>
       </Form>
