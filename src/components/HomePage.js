@@ -9,7 +9,7 @@ import {
   Segment,
   Grid,
   Label,
-  Transition
+  Transition,
 } from 'semantic-ui-react';
 import { db } from '../config/fbConfig';
 import InstructionsModal from './InstructionsModal';
@@ -89,7 +89,7 @@ const HomePage = props => {
   };
 
   const [animation, toggle] = useState(false);
-  setTimeout(() => toggle(true), 500)
+  setTimeout(() => toggle(true), 500);
 
   return (
     <>
@@ -116,9 +116,7 @@ const HomePage = props => {
                     <Image centered src="/images/monitor-100.png" />
                   </Segment>
                 </Card.Content>
-                <Button onClick={generatePin}>
-                  Host a game
-                </Button>
+                <Button onClick={generatePin}>Host a game</Button>
               </Card>
             </Grid.Column>
             <Grid.Column>
@@ -142,12 +140,12 @@ const HomePage = props => {
           </Grid>
         </Card.Group>
         <Transition
-            animation="tada"
-            duration={1000}
-            visible={animation}
-            unmountOnHide={true}
-          >
-           <Image src="/hotseat.png" className="hotseat" />
+          animation="tada"
+          duration={1000}
+          visible={animation}
+          unmountOnHide={true}
+        >
+          <Image src="/hotseat.png" className="hotseat" />
         </Transition>
       </Container>
     </>
