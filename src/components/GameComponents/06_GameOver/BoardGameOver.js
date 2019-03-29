@@ -41,7 +41,7 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
   const winnerText =
     winner.playerName.length > 1 ? (
       <>
-        <Header className="question" style={{ padding: '0' }}>
+        <Header className="question" style={{ margin: '0', padding: '0' }}>
           It's a Tie!
         </Header>
         <Header className="question" style={{ padding: '0' }}>
@@ -70,22 +70,25 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
       <Header className="question" style={{ padding: '0' }}>
         {winnerText}
       </Header>
-      <Transition
-        className="centered-parent"
-        animation="browse"
-        duration={250}
-        visible={!showConfetti}
-        unmountOnHide
-      >
-        <Button
-          color="blue"
-          size="massive"
-          onClick={playAgain}
-          className="centered-child"
+      <div>
+        <Transition
+          className="centered-parent"
+          animation="browse"
+          duration={250}
+          visible={!showConfetti}
+          unmountOnHide
         >
-          Play Again
-        </Button>
-      </Transition>
+          <Button
+            color="blue"
+            size="massive"
+            onClick={playAgain}
+            className="game-over"
+            style={{ margin: 'auto' }}
+          >
+            Play Again
+          </Button>
+        </Transition>
+      </div>
     </Container>
   );
 };

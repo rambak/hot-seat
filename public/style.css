@@ -258,7 +258,7 @@ tr.high-score > td {
   background: white;
 }
 
-.card .label.strikethrough {
+.card span.strikethrough {
   text-decoration: red line-through;
 }
 

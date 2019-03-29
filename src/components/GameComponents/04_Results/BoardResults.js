@@ -18,14 +18,12 @@ export class BoardResults extends Component {
     this.answersRef = this.props.gameRef.collection('answers');
     this.callback = querySnapshot => {
       let answers = [];
+      let maxIdxs = [];
+      let maxVotes = 0;
+      let correctAnswerIdx = -1;
+      let currentIdx = 0;
+
       querySnapshot.forEach(doc => {
-        console.log('playersVote', doc.data().playersVote);
-        console.log('id', doc.id);
-        console.log(
-          'doc.id === this.props.inHotSeat',
-          doc.id,
-          this.props.inHotSeat
-        );
         answers.push({
           id: doc.id,
           answer: doc.data().answer,
@@ -35,9 +33,30 @@ export class BoardResults extends Component {
               ? 0
               : doc.data().playersVote.length,
           correctAnswer: doc.id === this.props.inHotSeat,
+          mostVotedFor: false,
           hasBeenShown: false,
         });
+
+        if (doc.data().playersVote.length > maxVotes) {
+          maxIdxs = [];
+          maxIdxs.push(currentIdx);
+          maxVotes = doc.data().playersVote.length;
+        } else if (doc.data().playersVote.length === maxVotes) {
+          maxIdxs.push(currentIdx);
+        }
+
+        if (doc.id === this.props.inHotSeat) {
+          correctAnswerIdx = currentIdx;
+        }
+
+        currentIdx++;
       });
+
+      if (!maxIdxs.includes(correctAnswerIdx)) {
+        maxIdxs.forEach(idx => {
+          answers[idx].mostVotedFor = true;
+        });
+      }
 
       answers = answers
         .reduce((acc, datum) => {
@@ -57,13 +76,14 @@ export class BoardResults extends Component {
           }
           return 0;
         });
+
       this.setState({ answers });
     };
     this.answersRef.get().then(this.callback);
 
     this.flipTimer = setInterval(() => {
       if (this.state.currentIdx === this.state.answers.length - 1) {
-        // setTimeout(() => this.props.updateStage(), 5000);
+        //setTimeout(() => this.props.updateStage(), 5000);
         clearInterval(this.flipTimer);
       } else {
         if (this.state.intervalCounter % 4 === 0) {

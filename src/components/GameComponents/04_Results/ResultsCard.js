@@ -25,7 +25,10 @@ class ResultsCard extends React.Component {
         setTimeout(() => this.setState({ votersVisible: true }), 1500);
         setTimeout(() => {
           this.setState({ nameVisible: true });
-          if (this.props.answer.correctAnswer) {
+          if (
+            this.props.answer.correctAnswer &&
+            this.props.answer.votes !== 0
+          ) {
             this.setState({ votersVisible: false });
             this.setState({ votersVisible: true });
           }
@@ -111,10 +114,42 @@ class ResultsCard extends React.Component {
                   />
                 )}
                 <Header size="huge" style={{ fontSize: '5em' }}>
-                  {this.props.answer.id}
+                  {this.props.answer.id}{' '}
                 </Header>
+                {this.props.answer.mostVotedFor && (
+                  <>
+                    <Image
+                      src="/images/award-100.png"
+                      style={{
+                        height: '8vh',
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                        marginRight: '10px',
+                      }}
+                    />
+                    <div
+                      style={{
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                        fontSize: '3rem',
+                        color: '#fe4902',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      +1 point
+                    </div>
+                  </>
+                )}
               </div>
             </Transition>
+            {/* {this.props.answer.mostVotedFor && (
+              <Transition
+                animation="jiggle"
+                duration={1000}
+                visible={this.state.nameVisible}
+                unmountOnHide={true}
+              />
+            )} */}
           </Card.Description>
         </Card.Content>
       </Card>
