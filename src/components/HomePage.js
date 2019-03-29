@@ -10,10 +10,6 @@ import {
   Grid,
   Label,
   Transition,
-<<<<<<< HEAD
-  Message,
-=======
->>>>>>> f8cdcdec45255b87db6880cff9b121f8949b7d45
 } from 'semantic-ui-react';
 import { db } from '../config/fbConfig';
 import InstructionsModal from './InstructionsModal';
