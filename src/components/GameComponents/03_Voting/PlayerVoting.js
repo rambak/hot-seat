@@ -79,7 +79,7 @@ export const PlayerVoting = ({ gameRef, selfName, inHotSeatName }) => {
       </Container>
     );
   }
-    //  const answers1 = [{answer:'23'}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '}, {answer:'14444 '},]
+
     const colors = [
       'teal',
       'yellow',
