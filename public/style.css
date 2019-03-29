@@ -124,9 +124,8 @@ instructions-label {
 .ui.cards > .card.homepage > .ui.button {
   box-shadow: none;
   background-color: #fe4902;
-  border-color: #fe4902;
   color: white;
-  border-width: 1px;
+  border: none;
   font-size: 1.28571429rem;
 }
 
@@ -135,7 +134,8 @@ instructions-label {
   background-color: white;
   color: #fe4902;
   border-color: #fe4902;
-  border-top-width: 2px;
+  border-top: 1px;
+  border-top: solid;
 }
 .ui.card.homepage > :last-child.button {
   border-radius: 0px 0px 50px 50px !important;
@@ -164,15 +164,16 @@ instructions-label {
 
 .ui.card.results-card > .content.name,
 .ui.card.results-card > .content.name-visible {
-  display: table;
   background-color: white;
   border-top: rgb(14, 112, 168);
 }
 
-.ui.card.results-card > .content.name-visible > .header {
-  color: white;
+.ui.card.results-card > .content.name .header,
+.ui.card.results-card > .content.name-visible .header {
+  color: black;
   vertical-align: middle;
-  display: table-cell !important;
+  margin: 0px;
+  display: inline-block !important;
 }
 
 .ui.card.results-card > .content.answer {
@@ -189,6 +190,11 @@ instructions-label {
 .ui.card.results-card > .content > .divider {
   border-color: #fe4902;
 }
+
+/* .ui.card.results-card > .content.name > .divider, */
+/* .ui.card.results-card > .content.name-visible .divider { */
+/* margin-bottom: 0px; */
+/* } */
 
 .ui.table.scores {
   width: 100%;

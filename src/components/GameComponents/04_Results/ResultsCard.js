@@ -1,5 +1,12 @@
 import React from 'react';
-import { Card, Transition, Header, Divider } from 'semantic-ui-react';
+import {
+  Card,
+  Transition,
+  Header,
+  Divider,
+  Container,
+  Image,
+} from 'semantic-ui-react';
 import { GridRow } from '../00_Waiting/GridRow';
 import Confetti from 'reactfitti';
 
@@ -16,7 +23,13 @@ class ResultsCard extends React.Component {
     if (prevProps.isFlipped !== this.props.isFlipped) {
       if (this.props.isFlipped) {
         setTimeout(() => this.setState({ votersVisible: true }), 1500);
-        setTimeout(() => this.setState({ nameVisible: true }), 3500);
+        setTimeout(() => {
+          this.setState({ nameVisible: true });
+          if (this.props.answer.correctAnswer) {
+            this.setState({ votersVisible: false });
+            this.setState({ votersVisible: true });
+          }
+        }, 3500);
       } else {
         await this.setState({ votersVisible: false, nameVisible: false });
       }
@@ -25,18 +38,22 @@ class ResultsCard extends React.Component {
 
   render() {
     return (
-      <Card fluid style={{ height: '80vh' }} className="results-card">
+      <Card
+        fluid
+        style={{ height: '80vh', width: '90vw' }}
+        className="results-card"
+      >
         {this.props.answer.correctAnswer && this.state.nameVisible && (
-          <Confetti />
+          <Confetti numberOfElements={1500} />
         )}
         <Card.Content style={{ height: '20vh' }} className="answer">
           <Header size="huge" style={{ fontSize: '4em' }}>
             {this.props.answer.answer}
           </Header>
         </Card.Content>
-        <Card.Content style={{ height: '40vh' }}>
+        <Card.Content style={{ height: '35vh' }}>
           <Header size="huge" style={{ fontSize: '3em' }}>
-            Who Guessed This?{' '}
+            Who Guessed This?
           </Header>
           <Divider />
           <Transition
@@ -54,7 +71,7 @@ class ResultsCard extends React.Component {
                     };
                   }),
                   false,
-                  this.props.answer.correctAnswer
+                  this.props.answer.correctAnswer && this.state.nameVisible
                 )
               ) : (
                 <Header size="huge">No one!</Header>
@@ -64,30 +81,39 @@ class ResultsCard extends React.Component {
         </Card.Content>
         <Card.Content
           className={this.state.nameVisible ? 'name-visible' : 'name'}
-          style={{ height: '20vh' }}
+          style={{ height: '25vh' }}
         >
           <Card.Description>
-            <Header style={{ fontSize: '3em' }}>Submitted by:</Header>
+            <Container>
+              <Header style={{ fontSize: '3em' }}>Submitted by:</Header>
+            </Container>
           </Card.Description>
           <Divider />
 
-          {/* {this.state.nameVisible && this.props.answer.correctAnswer ? ( <Image
-                float="left"
-                src="/hotseat.png"
-                style={{ height: '15vh' }}
-              />) : (
-          ''
-          )} */}
           <Card.Description className="name-visible">
             <Transition
               animation="browse"
               duration={1000}
               visible={this.state.nameVisible}
-              unmountOnHide
+              unmountOnHide={true}
             >
-              <Header size="huge" style={{ fontSize: '5em' }}>
-                {this.props.answer.id}
-              </Header>
+              <div>
+                {this.props.answer.correctAnswer && (
+                  <Image
+                    float="left"
+                    src="/hotseat.png"
+                    style={{
+                      height: '8vh',
+                      display: 'inline-block',
+                      verticalAlign: 'middle',
+                      marginRight: '10px',
+                    }}
+                  />
+                )}
+                <Header size="huge" style={{ fontSize: '5em' }}>
+                  {this.props.answer.id}
+                </Header>
+              </div>
             </Transition>
           </Card.Description>
         </Card.Content>

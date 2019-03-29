@@ -6,7 +6,11 @@ const AllResultsCard = ({ answers }) => {
     return b.answer < a.answer ? 1 : -1;
   });
   return (
-    <Card fluid style={{ height: '80vh' }} className="all-results-card">
+    <Card
+      fluid
+      style={{ height: '80vh', width: '90vw' }}
+      className="all-results-card"
+    >
       <Table basic="very">
         <Table.Body>
           {orderedAnswers.map(answer => (
