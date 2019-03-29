@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Table, Container, Header, Label, Image } from 'semantic-ui-react';
-import { Timer } from '../../../utils/timer';
+// import { Timer } from '../../../utils/timer';
 
 export const BoardScores = ({
   players,
@@ -29,6 +29,10 @@ export const BoardScores = ({
         });
       });
   }, []);
+
+  setTimeout(() => {
+    updateStage();
+  }, 10000);
 
   return (
     <Container className="centered-child">
