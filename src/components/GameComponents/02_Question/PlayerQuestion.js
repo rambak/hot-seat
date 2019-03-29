@@ -62,7 +62,7 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
             maxLength="23"
           />
         </Form.Field>
-        <Button color="blue" size="huge" type="submit" disabled={disabled}>
+        <Button color="blue" className="border" size="huge" type="submit" disabled={disabled}>
           Submit
         </Button>
       </Form>

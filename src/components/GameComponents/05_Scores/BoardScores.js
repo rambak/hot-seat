@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Table, Container, Header, Label, Image } from 'semantic-ui-react';
-import { Timer } from '../../../utils/timer';
+// import { Timer } from '../../../utils/timer';
 
 export const BoardScores = ({
   players,
@@ -30,14 +30,18 @@ export const BoardScores = ({
       });
   }, []);
 
+  setTimeout(() => {
+    updateStage();
+  }, 10000);
+
   return (
-    <Container>
+    <Container className="centered-child">
       <Header className="title">Scores</Header>
       <Table
         basic="very"
         celled
         collapsing
-        padded="very"
+        compact
         size="large"
         className="scores"
       >
@@ -84,7 +88,7 @@ export const BoardScores = ({
             ))}
         </Table.Body>
       </Table>
-      <Timer updateStage={updateStage} time={10} />
+      {/* <Timer updateStage={updateStage} time={10} /> */}
     </Container>
   );
 };
