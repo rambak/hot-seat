@@ -31,13 +31,13 @@ export const BoardScores = ({
   }, []);
 
   return (
-    <Container>
+    <Container className="centered-child">
       <Header className="title">Scores</Header>
       <Table
         basic="very"
         celled
         collapsing
-        padded="very"
+        compact
         size="large"
         className="scores"
       >
@@ -84,7 +84,7 @@ export const BoardScores = ({
             ))}
         </Table.Body>
       </Table>
-      <Timer updateStage={updateStage} time={10} />
+      {/* <Timer updateStage={updateStage} time={10} /> */}
     </Container>
   );
 };

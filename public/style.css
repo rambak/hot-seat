@@ -200,7 +200,10 @@ instructions-label {
   width: 100%;
   padding-left: 5vw;
   padding-right: 5vw;
-  padding-top: 5vh;
+}
+
+.ui.table.scores tr {
+  height: 7vh;
 }
 
 .ui.table.scores td,
@@ -208,6 +211,9 @@ instructions-label {
 .ui.table.scores :last-child td {
   border-color: white;
   border-width: 2px;
+  padding-left: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 tr.high-score {
   background-color: #fe4902;
@@ -250,6 +256,14 @@ tr.high-score > td {
   border-radius: 0;
   background: white;
   color: black;
+}
+
+.ui.table.scores th {
+  background: white;
+}
+
+.ui.table.scores > thead tr th:first-child {
+  background: none;
 }
 
 .ui.table.scores .label {
