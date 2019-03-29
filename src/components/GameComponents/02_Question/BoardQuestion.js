@@ -13,20 +13,23 @@ export class BoardQuestion extends React.Component {
 
   async componentDidMount() {
     if (this.state.question === '') {
-      const lastQuestion = await db
-        .collection('questions')
-        .orderBy('id', 'desc')
-        .limit(1)
-        .get();
-
-      console.log('Last Question', lastQuestion);
-
-      const numQuestions = lastQuestion.docs[0].data().id;
-
       let randomIdx;
-      do {
-        randomIdx = Math.floor(Math.random() * numQuestions).toString();
-      } while (this.props.questions.prevQuestions[randomIdx]);
+
+      if (Object.keys(this.props.questions.prevQuestions).length === 0) {
+        randomIdx = '26';
+      } else {
+        const lastQuestion = await db
+          .collection('questions')
+          .orderBy('id', 'desc')
+          .limit(1)
+          .get();
+
+        const numQuestions = lastQuestion.docs[0].data().id;
+
+        do {
+          randomIdx = Math.floor(Math.random() * numQuestions).toString();
+        } while (this.props.questions.prevQuestions[randomIdx]);
+      }
       const curQuestion = await db
         .collection('questions')
         .doc(randomIdx)
