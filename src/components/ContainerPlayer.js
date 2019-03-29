@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { db, auth } from '../config/fbConfig';
+import { db } from '../config/fbConfig';
+import { connect } from 'react-redux';
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
 import {
   PlayerWaiting,
@@ -13,14 +14,14 @@ import {
 import PlayerPlayAgainLogin from './GameComponents/00_Waiting/PlayerPlayAgainLogin';
 
 export const ContainerPlayer = props => {
-  const [self, setSelf] = useState('');
-  let user = auth.currentUser;
-  useEffect(() => {
-    if (user) {
-      setSelf(user.displayName);
-    }
-  }, [user]);
-
+  const { self } = props;
+  // const [self, setSelf] = useState('');
+  // let user = auth.currentUser;
+  // useEffect(() => {
+  //   if (user) {
+  //     setSelf(user.displayName);
+  //   }
+  // }, [user]);
   const pin = props.match.params.pin;
 
   //Game Information
@@ -127,4 +128,8 @@ export const ContainerPlayer = props => {
   );
 };
 
-export default ContainerPlayer;
+const mapState = state => ({
+  self: state.user.name,
+});
+
+export default connect(mapState)(ContainerPlayer);
