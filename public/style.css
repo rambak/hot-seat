@@ -71,6 +71,10 @@ span.question {
   width: 20vw;
 }
 
+.button.border {
+  border: 1px solid rgb(177, 210, 229);
+}
+
 .header.questionNoPadding {
   color: rgb(14, 60, 97);
   font: bold 52px Helvetica, Arial, Sans-Serif;
