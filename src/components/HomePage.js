@@ -107,7 +107,7 @@ const HomePage = props => {
         <br />
         <Card.Group centered>
           <Grid stackable reversed="mobile" columns="equal">
-            <Grid.Column>
+            <Grid.Column only="tablet computer">
               <Card className="homepage">
                 <Card.Content>
                   <Card.Header>Hosts</Card.Header>
