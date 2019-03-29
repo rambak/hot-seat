@@ -75,15 +75,20 @@ export class BoardResults extends Component {
             return -1;
           }
           return 0;
-        });
+        })
+        .map(answer =>
+          answer.votes === 0 ? { ...answer, hasBeenShown: true } : answer
+        );
 
-      this.setState({ answers });
+      const firstIdx = answers.findIndex(answer => answer.votes > 0) - 1;
+
+      this.setState({ answers, currentIdx: firstIdx });
     };
     this.answersRef.get().then(this.callback);
 
     this.flipTimer = setInterval(() => {
       if (this.state.currentIdx === this.state.answers.length - 1) {
-        setTimeout(() => this.props.updateStage(), 5000);
+        // setTimeout(() => this.props.updateStage(), 5000);
         clearInterval(this.flipTimer);
       } else {
         if (this.state.intervalCounter % 4 === 0) {

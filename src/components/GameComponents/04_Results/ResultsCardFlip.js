@@ -11,6 +11,7 @@ const ResultsCardFlip = ({ answers, idx, isFlipped }) => {
         answers={answers}
         currentAnswerId={answers[idx].id}
         isFlipped={isFlipped}
+        idx={idx}
       />
       <ResultsCard key="back" answer={answers[idx]} isFlipped={isFlipped} />
     </ReactCardFlip>

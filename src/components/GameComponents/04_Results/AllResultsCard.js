@@ -1,8 +1,9 @@
-import React from 'react';
-import { Card, Table, Label } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Card, Table, Label, Header } from 'semantic-ui-react';
 import Strikethrough from './Strikethrough';
 
-const AllResultsCard = ({ answers, isFlipped, currentAnswerId }) => {
+const AllResultsCard = ({ answers, isFlipped, currentAnswerId, idx }) => {
+  const [firstIdx] = useState(idx);
   const orderedAnswers = [...answers].sort((a, b) => {
     return b.answer < a.answer ? 1 : -1;
   });
@@ -19,7 +20,7 @@ const AllResultsCard = ({ answers, isFlipped, currentAnswerId }) => {
               <Table.Cell width="12">
                 <Label circular size="massive" className="answer">
                   {answer.hasBeenShown && !isFlipped ? (
-                    answer.id === currentAnswerId ? (
+                    answer.id === currentAnswerId || firstIdx === idx ? (
                       <Strikethrough str={answer.answer} />
                     ) : (
                       <span className="strikethrough">{answer.answer}</span>
@@ -40,6 +41,11 @@ const AllResultsCard = ({ answers, isFlipped, currentAnswerId }) => {
           ))}
         </Table.Body>
       </Table>
+      {firstIdx === idx && (
+        <Header style={{ margin: '0px' }} className="question">
+          NOBODY GUESSED THESE ANSWERS
+        </Header>
+      )}
     </Card>
   );
 };
