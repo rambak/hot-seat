@@ -41,27 +41,45 @@ export const BoardVoting = ({
     'red',
     'orange',
     'pink',
-    'yellow'
-  ]
+    'yellow',
+  ];
 
-  const padding = answers.length > 5 ? { paddingTop: '2vh' } : { paddingTop: '8vh' }
+  const padding =
+    answers.length > 5 ? { paddingTop: '2vh' } : { paddingTop: '8vh' };
 
   return (
     <Container textAlign="center" style={padding}>
-      <Header style={{ fontSize: '3em'}} className="questionNoPadding">
+      <Header style={{ fontSize: '3em' }} className="questionNoPadding">
         {currentQuestion}
       </Header>
-      {answers.length < 5 ? <><br/><br/></> : ''}
-      <Header style={{ fontSize: '3em', textShadow: '1px 1px white', color: "#fe4902", paddingBottom: '1vh' }}>
+      {answers.length < 5 ? (
+        <>
+          <br />
+          <br />
+        </>
+      ) : (
+        ''
+      )}
+      <Header
+        style={{
+          fontSize: '3em',
+          textShadow: '1px 1px white',
+          color: '#fe4902',
+          paddingBottom: '1vh',
+        }}
+      >
         Guess {inHotSeatName}'s answer:
       </Header>
-      {answers.sort().map((answer,idx) => {
-        return <Segment  key={idx} inverted color={colors[idx]} className="answers">{answer}</Segment>;
+      {answers.sort().map((answer, idx) => {
+        return (
+          <Segment key={idx} inverted color={colors[idx]} className="answers">
+            {answer}
+          </Segment>
+        );
       })}
-      <Timer updateStage={updateStage} time={600} />
+      <Timer updateStage={updateStage} time={60} />
     </Container>
   );
 };
 
 export default BoardVoting;
-
