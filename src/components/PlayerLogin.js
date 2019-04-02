@@ -19,70 +19,27 @@ class PlayerLogin extends React.Component {
     const enteredName = event.target.name.value;
     await this.setState({ errors: [] });
     if (enteredPin === '') {
-      await this.setState({
-        errors: [...this.state.errors, 'Please make sure to enter a pin.'],
-      });
+      this.addError('Please make sure to enter a pin.');
     }
     if (enteredName === '') {
-      await this.setState({
-        errors: [...this.state.errors, 'Please make sure to enter a name.'],
-      });
+      this.addError('Please make sure to enter a name.');
     }
 
     if (this.state.errors.length === 0) {
       //check if the entered pin code exists
       const gameRef = db.collection('games').doc(enteredPin);
-      const playersRef = gameRef.collection('players');
+      // const playersRef = gameRef.collection('players');
 
-      // db.runTransaction(t => {
-      //   return t
-      //    .get(gameRef)
-      //    .collection('players')
-      //    .get().then(function(querySnapshot) {
-      //     let num2 = 0
-      //     querySnapshot.forEach(function(doc) {
-      //       num2++
-      //     })
-      //     console.log('num2', num2)
-      //    })
-      // })
-      // db.runTransaction(function(transaction) {
-      //   return transaction.get(gameRef).then(function(gameDoc) {
-      //     console.log('gameDoc', gameDoc)
-        //   gameDoc.collection('players').get().then(function(querySnapshot) {
-        //     let num2 = 0
-        //     querySnapshot.forEach(function(doc) {
-        //       num2++
-        //     })
-        //     console.log('num2', num2)
-        //   })
-        // });
-      // })
-      //   .then(function() {
-      //     console.log('Transaction successfully committed!');
+      // const num = await playersRef.get().then(function(querySnapshot) {
+      //   let num = 0
+      //   querySnapshot.forEach(function(doc) {
+      //     num++
       //   })
-      //   .catch(function(error) {
-      //     console.log('Transaction failed: ', error);
-      //   });
-
-
-
-
-      const num = await playersRef.get().then(function(querySnapshot) {
-        let num = 0
-        querySnapshot.forEach(function(doc) {
-          num++
-        })
-       return num
-      })
-      if (num === 10) {
-        await this.setState({
-          errors: [
-            ...this.state.errors,
-            `Number of players can't exceed 10`,
-          ],
-        });
-      }
+      //  return num
+      // })
+      // if (num === 10) {
+      //   addError(`Number of players can't exceed 10`)
+      // }
 
       const docExists = await gameRef.get().then(async doc => {
         if (
@@ -92,72 +49,70 @@ class PlayerLogin extends React.Component {
             doc.data().currentStage === 'waitingForPlayersNew'
           )
         ) {
-          await this.setState({
-            errors: [
-              ...this.state.errors,
-              `This game (${enteredPin}) is already in progress.`,
-            ],
-          });
+          this.addError(`This game (${enteredPin}) is already in progress.`);
         }
         return doc.exists;
       });
 
       if (this.state.errors.length === 0) {
         if (docExists) {
-          const playersRef = db
-            .collection('games')
-            .doc(enteredPin)
-            .collection('players');
+          db.runTransaction(async t => {
+            const trans = await t.get(gameRef);
+            if (trans.data().playerCount === 3) {
+              this.addError(`Number of players can't exceed 10`);
+            } else {
+              const playersRef = db
+                .collection('games')
+                .doc(enteredPin)
+                .collection('players');
 
-          const playerNameExists = await playersRef
-            .where('name', '==', enteredName)
-            .get()
-            .then(function(querySnapshot) {
-              return querySnapshot.docs.length > 0;
-            });
-
-          if (playerNameExists) {
-            await this.setState({
-              errors: [
-                ...this.state.errors,
-                `A player with the same name (${enteredName}) already joined. Please choose a different name.`,
-              ],
-            });
-          } else {
-            db.runTransaction(async t => {
-              const trans = await t.get(gameRef)
-              trans.data().playerCount
-              if (trans.data().playerCount === 10) {
-                await this.setState({
-                errors: [
-                  ...this.state.errors,
-                  `Number of players can't exceed 10`,
-                ],
+              const playerNameExists = await playersRef
+                .where('name', '==', enteredName)
+                .get()
+                .then(function(querySnapshot) {
+                  return querySnapshot.docs.length > 0;
                 });
+
+              if (playerNameExists) {
+                this.addError(
+                  `A player with the same name (${enteredName}) already joined. Please choose a different name.`
+                );
+              } else {
+                t.update(
+                  db
+                    .collection('games')
+                    .doc(enteredPin)
+                    .collection('players')
+                    .doc(enteredName),
+                  {
+                    name: enteredName,
+                  }
+                );
+
+                // t.update(db.collection('games').doc(enteredPin), {
+                //   playerCount: trans.data().playerCount
+                //     ? trans.data().playerCount + 1
+                //     : 1,
+                // });
+
+                this.props.setUser(enteredName);
+                this.props.history.push(`/${enteredPin}`);
               }
-              else {
-            await db
-              .collection('games')
-              .doc(enteredPin)
-              .collection('players')
-              .doc(enteredName)
-              .set({
-                name: enteredName,
-              });
-            this.props.setUser(enteredName);
-            this.props.history.push(`/${enteredPin}`);
-          }
-        } else {
-          await this.setState({
-            errors: [
-              ...this.state.errors,
-              `There is no game matching this pin (${enteredPin}). Please enter a different pin.`,
-            ],
+            }
           });
+        } else {
+          this.addError(
+            `There is no game matching this pin (${enteredPin}). Please enter a different pin.`
+          );
         }
-      } })
       }
     }
+  };
+
+  addError = async message => {
+    await this.setState({
+      errors: [...this.state.errors, message],
+    });
   };
 
   render() {
