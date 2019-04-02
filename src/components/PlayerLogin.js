@@ -29,13 +29,7 @@ class PlayerLogin extends React.Component {
       //check if the entered pin code exists
       const gameRef = db.collection('games').doc(enteredPin);
       const docExists = await gameRef.get().then(async doc => {
-        if (
-          doc.exists &&
-          !(
-            doc.data().currentStage === 'waitingForPlayers' ||
-            doc.data().currentStage === 'waitingForPlayersNew'
-          )
-        ) {
+        if (doc.exists && !(doc.data().currentStage === 'waitingForPlayers')) {
           this.addError(`This game (${enteredPin}) is already in progress.`);
         }
         return doc.exists;
@@ -73,7 +67,7 @@ class PlayerLogin extends React.Component {
                     ? trans.data().playerCount + 1
                     : 1,
                 });
-                this.props.setUser(enteredName);
+                this.props.setUser(enteredName, enteredPin);
                 this.props.history.push(`/${enteredPin}`);
               }
             }
@@ -127,7 +121,7 @@ class PlayerLogin extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  setUser: name => dispatch(setUser(name)),
+  setUser: (name, gamePin) => dispatch(setUser(name, gamePin)),
 });
 
 export default connect(

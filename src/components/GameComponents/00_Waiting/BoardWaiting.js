@@ -17,16 +17,26 @@ export const BoardWaiting = ({
       .then(async function(players) {
         const batch = db.batch();
 
-        for (let i = 0; i < players.docs.length; i++) {
-          const player = players.docs[i];
+        const randomizedPlayers = Array(players.docs.length).fill(null);
+
+        players.forEach(player => {
+          let playerIdx;
+          do {
+            playerIdx = Math.floor(Math.random() * players.docs.length);
+          } while (randomizedPlayers[playerIdx]);
+          randomizedPlayers[playerIdx] = player.data().name;
+        });
+
+        for (let i = 0; i < randomizedPlayers.length; i++) {
+          const player = randomizedPlayers[i];
           let nextPlayerName;
-          if (i + 1 < players.docs.length) {
-            nextPlayerName = players.docs[i + 1].data().name;
+          if (i + 1 < randomizedPlayers.length) {
+            nextPlayerName = randomizedPlayers[i + 1];
           } else {
             nextPlayerName = null;
           }
 
-          batch.update(player.ref, {
+          batch.update(gameRef.collection('players').doc(player), {
             score: 0,
             nextPlayer: nextPlayerName,
           });
@@ -34,7 +44,7 @@ export const BoardWaiting = ({
           if (i === 0) {
             batch.update(gameRef, {
               inHotSeat: {
-                name: player.data().name,
+                name: player,
                 nextPlayer: nextPlayerName,
                 isAnswered: false,
               },
@@ -103,8 +113,8 @@ export const BoardWaiting = ({
         size="massive"
         style={{ margin: '25px' }}
         onClick={() => startGame(gameRef)}
-        //disabled={players.length === 0}
-        //disabled={players.length < 3}
+        // disabled={players.length === 0)}
+        disabled={players.length < 3}
       >
         Start!
       </Button>
