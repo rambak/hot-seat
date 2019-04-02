@@ -28,19 +28,6 @@ class PlayerLogin extends React.Component {
     if (this.state.errors.length === 0) {
       //check if the entered pin code exists
       const gameRef = db.collection('games').doc(enteredPin);
-      // const playersRef = gameRef.collection('players');
-
-      // const num = await playersRef.get().then(function(querySnapshot) {
-      //   let num = 0
-      //   querySnapshot.forEach(function(doc) {
-      //     num++
-      //   })
-      //  return num
-      // })
-      // if (num === 10) {
-      //   addError(`Number of players can't exceed 10`)
-      // }
-
       const docExists = await gameRef.get().then(async doc => {
         if (
           doc.exists &&
@@ -58,27 +45,20 @@ class PlayerLogin extends React.Component {
         if (docExists) {
           db.runTransaction(async t => {
             const trans = await t.get(gameRef);
-            if (trans.data().playerCount === 3) {
+            if (trans.data().playerCount === 10) {
               this.addError(`Number of players can't exceed 10`);
             } else {
               const playersRef = db
                 .collection('games')
                 .doc(enteredPin)
                 .collection('players');
-
-              const playerNameExists = await playersRef
-                .where('name', '==', enteredName)
-                .get()
-                .then(function(querySnapshot) {
-                  return querySnapshot.docs.length > 0;
-                });
-
-              if (playerNameExists) {
+              const player = (await t.get(playersRef.doc(enteredName))).data()
+              if (player) {
                 this.addError(
                   `A player with the same name (${enteredName}) already joined. Please choose a different name.`
                 );
               } else {
-                t.update(
+                 t.set(
                   db
                     .collection('games')
                     .doc(enteredPin)
@@ -88,13 +68,11 @@ class PlayerLogin extends React.Component {
                     name: enteredName,
                   }
                 );
-
-                // t.update(db.collection('games').doc(enteredPin), {
-                //   playerCount: trans.data().playerCount
-                //     ? trans.data().playerCount + 1
-                //     : 1,
-                // });
-
+                t.update(gameRef, {
+                  playerCount: trans.data().playerCount
+                    ? trans.data().playerCount + 1
+                    : 1,
+                });
                 this.props.setUser(enteredName);
                 this.props.history.push(`/${enteredPin}`);
               }
@@ -110,9 +88,11 @@ class PlayerLogin extends React.Component {
   };
 
   addError = async message => {
-    await this.setState({
-      errors: [...this.state.errors, message],
-    });
+    if (!this.state.errors.includes(message)) {
+      await this.setState({
+        errors: [...this.state.errors, message],
+      });
+    }
   };
 
   render() {
