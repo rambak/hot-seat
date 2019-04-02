@@ -34,13 +34,7 @@ class PlayerLogin extends React.Component {
       const gameRef = db.collection('games').doc(enteredPin);
 
       const docExists = await gameRef.get().then(async doc => {
-        if (
-          doc.exists &&
-          !(
-            doc.data().currentStage === 'waitingForPlayers' ||
-            doc.data().currentStage === 'waitingForPlayersNew'
-          )
-        ) {
+        if (doc.exists && !(doc.data().currentStage === 'waitingForPlayers')) {
           await this.setState({
             errors: [
               ...this.state.errors,
@@ -81,7 +75,8 @@ class PlayerLogin extends React.Component {
               .set({
                 name: enteredName,
               });
-            this.props.setUser(enteredName);
+            console.log(enteredPin);
+            this.props.setUser(enteredName, enteredPin);
             this.props.history.push(`/${enteredPin}`);
           }
         } else {
@@ -128,7 +123,7 @@ class PlayerLogin extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  setUser: name => dispatch(setUser(name)),
+  setUser: (name, gamePin) => dispatch(setUser(name, gamePin)),
 });
 
 export default connect(

@@ -1,15 +1,11 @@
 import React from 'react';
 import { Header, Container } from 'semantic-ui-react';
-import { auth } from '../../../config/fbConfig';
+import { logOutUser } from '../../../store/reducers/user';
+import { connect } from 'react-redux';
 
 export const PlayerGameOver = props => {
-  const user = auth.currentUser;
-  if (user) {
-    auth.signOut();
-    user.delete().catch(function(error) {
-      console.log(error.message);
-    });
-  }
+  props.logOutUser();
+
   return (
     <Container className="centered-child">
       <Header className="title" textAlign="center">
@@ -19,4 +15,11 @@ export const PlayerGameOver = props => {
   );
 };
 
-export default PlayerGameOver;
+const mapDispatch = dispatch => ({
+  logOutUser: () => dispatch(logOutUser()),
+});
+
+export default connect(
+  null,
+  mapDispatch
+)(PlayerGameOver);

@@ -29,11 +29,10 @@ export const BoardGameOver = ({
     });
 
     gameRef.set({
-      currentStage: 'waitingForPlayersNew',
+      currentStage: 'waitingForPlayers',
     });
 
     const playersRef = gameRef.collection('players');
-
     players.forEach(player => {
       playersRef.doc(player.name).delete();
     });
@@ -61,11 +60,7 @@ export const BoardGameOver = ({
   setTimeout(() => setShowConfetti(false), 3000);
 
   return (
-    <Container
-      className="game-over"
-      textAlign="center"
-      // style={{ paddingTop: '20vh' }}
-    >
+    <Container className="game-over" textAlign="center">
       {showConfetti && <Confetti numberOfElements={1500} />}
       <Header className="title">GAME IS OVER</Header>
       <Header className="question" style={{ padding: '0' }}>
