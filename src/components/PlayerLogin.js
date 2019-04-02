@@ -32,6 +32,57 @@ class PlayerLogin extends React.Component {
     if (this.state.errors.length === 0) {
       //check if the entered pin code exists
       const gameRef = db.collection('games').doc(enteredPin);
+      const playersRef = gameRef.collection('players');
+
+      // db.runTransaction(t => {
+      //   return t
+      //    .get(gameRef)
+      //    .collection('players')
+      //    .get().then(function(querySnapshot) {
+      //     let num2 = 0
+      //     querySnapshot.forEach(function(doc) {
+      //       num2++
+      //     })
+      //     console.log('num2', num2)
+      //    })
+      // })
+      // db.runTransaction(function(transaction) {
+      //   return transaction.get(gameRef).then(function(gameDoc) {
+      //     console.log('gameDoc', gameDoc)
+        //   gameDoc.collection('players').get().then(function(querySnapshot) {
+        //     let num2 = 0
+        //     querySnapshot.forEach(function(doc) {
+        //       num2++
+        //     })
+        //     console.log('num2', num2)
+        //   })
+        // });
+      // })
+      //   .then(function() {
+      //     console.log('Transaction successfully committed!');
+      //   })
+      //   .catch(function(error) {
+      //     console.log('Transaction failed: ', error);
+      //   });
+
+
+
+
+      const num = await playersRef.get().then(function(querySnapshot) {
+        let num = 0
+        querySnapshot.forEach(function(doc) {
+          num++
+        })
+       return num
+      })
+      if (num === 10) {
+        await this.setState({
+          errors: [
+            ...this.state.errors,
+            `Number of players can't exceed 10`,
+          ],
+        });
+      }
 
       const docExists = await gameRef.get().then(async doc => {
         if (
@@ -73,6 +124,18 @@ class PlayerLogin extends React.Component {
               ],
             });
           } else {
+            db.runTransaction(async t => {
+              const trans = await t.get(gameRef)
+              trans.data().playerCount
+              if (trans.data().playerCount === 10) {
+                await this.setState({
+                errors: [
+                  ...this.state.errors,
+                  `Number of players can't exceed 10`,
+                ],
+                });
+              }
+              else {
             await db
               .collection('games')
               .doc(enteredPin)
@@ -92,6 +155,7 @@ class PlayerLogin extends React.Component {
             ],
           });
         }
+      } })
       }
     }
   };
