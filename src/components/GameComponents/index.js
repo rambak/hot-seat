@@ -12,6 +12,7 @@ import BoardScores from './05_Scores/BoardScores';
 import PlayerScores from './05_Scores/PlayerScores';
 import BoardGameOver from './06_GameOver/BoardGameOver';
 import PlayerGameOver from './06_GameOver/PlayerGameOver';
+import Scores from './SharedComponents/Scores';
 
 export {
   BoardWaiting,
@@ -28,4 +29,5 @@ export {
   PlayerResults,
   PlayerScores,
   PlayerGameOver,
+  Scores,
 };
