@@ -2,13 +2,14 @@ import React from 'react';
 import { Grid, Label, Image } from 'semantic-ui-react';
 
 export const GridRow = (players, renderSeat = true, showPoints = false) => {
+  let newPlayers = [...players];
   let firstRow = 3;
   let secondRow = 4;
   let toggle = false;
   let playersForGrid = [];
-  while (players.length) {
+  while (newPlayers.length) {
     const row = toggle ? secondRow : firstRow;
-    const playersForGridRow = players.splice(0, row);
+    const playersForGridRow = newPlayers.splice(0, row);
     playersForGrid.push(playersForGridRow);
     toggle = !toggle;
   }
