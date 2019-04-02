@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { Container, Header, Button, Transition } from 'semantic-ui-react';
 import Confetti from 'reactfitti';
+import { Scores } from '..';
 
-export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
+export const BoardGameOver = ({
+  players,
+  gameRef,
+  setQuestions,
+  inHotSeatName,
+}) => {
   let winner = {
     highScore: 0,
     playerName: [],
@@ -31,11 +37,6 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
     players.forEach(player => {
       playersRef.doc(player.name).delete();
     });
-    // playersRef.get().then(snapchot => {
-    //   snapchot.forEach(doc => {
-    //     playersRef.doc(doc.name).delete();
-    //   })
-    // })
   };
 
   const winnerText =
@@ -63,7 +64,7 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
     <Container
       className="game-over"
       textAlign="center"
-      style={{ paddingTop: '20vh' }}
+      // style={{ paddingTop: '20vh' }}
     >
       {showConfetti && <Confetti numberOfElements={1500} />}
       <Header className="title">GAME IS OVER</Header>
@@ -71,6 +72,11 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
         {winnerText}
       </Header>
       <div>
+        <Scores
+          players={players}
+          inHotSeatName={inHotSeatName}
+          gameRef={gameRef}
+        />
         <Transition
           className="centered-parent"
           animation="browse"

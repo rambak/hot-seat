@@ -54,7 +54,7 @@ export const BoardWaiting = ({
         await batch.commit();
       });
 
-    //updateStage();
+    updateStage();
   };
   const padding =
     players.length > 7 ? { paddingTop: '1vh' } : { paddingTop: '7vh' };
