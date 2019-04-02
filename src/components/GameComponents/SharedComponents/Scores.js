@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Container, Header, Label, Image } from 'semantic-ui-react';
+import { Table, Container, Label, Image } from 'semantic-ui-react';
 
 export const Scores = ({ players, inHotSeatName, updateStage, gameRef }) => {
   let highScore = 0;

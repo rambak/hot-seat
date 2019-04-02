@@ -196,11 +196,6 @@ instructions-label {
   border-color: #fe4902;
 }
 
-/* .ui.card.results-card > .content.name > .divider, */
-/* .ui.card.results-card > .content.name-visible .divider { */
-/* margin-bottom: 0px; */
-/* } */
-
 .ui.table.scores {
   width: 100%;
   padding-left: 5vw;
@@ -291,11 +286,9 @@ tr.high-score > td {
 .ui.card.all-results-card td {
   border-color: white;
   border-width: 2px;
-  /* background-color: rgb(14, 112, 168); */
 }
 
 .ui.card.all-results-card .label.answer {
-  /* width: 80%; */
   margin-left: 4px;
 }
 
@@ -309,6 +302,27 @@ tr.high-score > td {
   width: 90%;
   background-color: #fe4902;
   color: white;
+}
+
+.game-over .header.title {
+  font-size: 6vh !important;
+  color: #fe4902;
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 1px 1px white, 2px 2px #fe4902, 3px 3px white;
+  margin: 0 0 0 0;
+}
+
+.game-over .header.winners {
+  font-size: 9vh !important;
+  color: #fe4902;
+  font: bold 52px Helvetica, Arial, Sans-Serif;
+  text-shadow: 1px 1px white;
+  margin: -10px 0 5px 0;
+  padding: 0 0 0 0;
+}
+
+.game-over .ui.table.scores tr {
+  height: 5vh;
 }
 
 span.points {
