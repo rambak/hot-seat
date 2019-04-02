@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { db } from '../config/fbConfig';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
 import {
   PlayerWaiting,
@@ -12,16 +13,10 @@ import {
   PlayerGameOver,
 } from '../components/GameComponents';
 import PlayerPlayAgainLogin from './GameComponents/00_Waiting/PlayerPlayAgainLogin';
+import { Header, Container, Button } from 'semantic-ui-react';
 
 export const ContainerPlayer = props => {
-  const { self } = props;
-  // const [self, setSelf] = useState('');
-  // let user = auth.currentUser;
-  // useEffect(() => {
-  //   if (user) {
-  //     setSelf(user.displayName);
-  //   }
-  // }, [user]);
+  const { self, isLoggedIn, userCurrentGamePin } = props;
   const pin = props.match.params.pin;
 
   //Game Information
@@ -30,8 +25,12 @@ export const ContainerPlayer = props => {
   const gameRef = db.collection('games').doc(pin);
   const gameDoc = useDocument(gameRef);
   if (gameDoc.value) {
-    currentStage = gameDoc.value.data().currentStage;
-    inHotSeat = gameDoc.value.data().inHotSeat;
+    try {
+      currentStage = gameDoc.value.data().currentStage;
+      inHotSeat = gameDoc.value.data().inHotSeat;
+    } catch (error) {
+      currentStage = '';
+    }
   }
 
   //Player Information
@@ -45,32 +44,28 @@ export const ContainerPlayer = props => {
   }
 
   const determinePlayerComponent = currentStage => {
-    // if (
-    //   !players.find(player => player.name === self) &&
-    //   !(
-    //     currentStage === 'waitingForPlayersNew' ||
-    //     currentStage === 'gameOver' ||
-    //     currentStage === 'waitingForPlayers'
-    //   )
-    // ) {
-    //   return (
-    //     <div>
-    //       Game is currently in session. Please wait for this game to start
-    //       again.
-    //     </div>
-    //   );
-    // }
+    if (
+      (!isLoggedIn || userCurrentGamePin !== pin) &&
+      !['gameOver', 'waitingForPlayers', ''].includes(currentStage)
+    ) {
+      return (
+        <Container textAlign="center" className="centered-child">
+          <Header className="title">Game is currently in session</Header>
+          <Button as={Link} to="/login" size="huge" color="orange">
+            Return to Login Page
+          </Button>
+        </Container>
+      );
+    }
     switch (currentStage) {
-      case 'waitingForPlayersNew':
-        if (!players.find(player => player.name === self)) {
+      case 'waitingForPlayers':
+        if (!isLoggedIn || userCurrentGamePin !== pin) {
           return (
             <PlayerPlayAgainLogin gameRef={gameRef} pin={pin} self={self} />
           );
         } else {
           return <PlayerWaiting />;
         }
-      case 'waitingForPlayers':
-        return <PlayerWaiting />;
       case 'upNow':
         return <PlayerUpNow selfName={self} inHotSeatName={inHotSeat.name} />;
       case 'question':
@@ -96,7 +91,16 @@ export const ContainerPlayer = props => {
       case 'gameOver':
         return <PlayerGameOver />;
       default:
-        return <></>;
+        return (
+          <Container textAlign="center" className="centered-child">
+            <Header className="title">
+              There was a problem joining this game
+            </Header>
+            <Button as={Link} to="/login" size="huge" color="orange">
+              Return to Login Page
+            </Button>
+          </Container>
+        );
     }
   };
 
@@ -105,11 +109,7 @@ export const ContainerPlayer = props => {
   if (
     !gameDoc.loading &&
     !playersCol.loading &&
-    currentStage !== '' &&
-    currentStage !== 'waitingForPlayers' &&
-    currentStage !== 'waitingForPlayersNew' &&
-    currentStage !== 'scores' &&
-    currentStage !== 'gameOver'
+    !['', 'waitingForPlayers', 'scores', 'gameOver'].includes(currentStage)
   ) {
     if (self === inHotSeat.name) {
       document.body.classList.remove('player');
@@ -130,6 +130,8 @@ export const ContainerPlayer = props => {
 
 const mapState = state => ({
   self: state.user.name,
+  isLoggedIn: state.user.isLoggedIn,
+  userCurrentGamePin: state.user.currentGame,
 });
 
 export default connect(mapState)(ContainerPlayer);

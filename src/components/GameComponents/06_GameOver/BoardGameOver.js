@@ -23,19 +23,13 @@ export const BoardGameOver = ({ players, gameRef, setQuestions }) => {
     });
 
     gameRef.set({
-      currentStage: 'waitingForPlayersNew',
+      currentStage: 'waitingForPlayers',
     });
 
     const playersRef = gameRef.collection('players');
-
     players.forEach(player => {
       playersRef.doc(player.name).delete();
     });
-    // playersRef.get().then(snapchot => {
-    //   snapchot.forEach(doc => {
-    //     playersRef.doc(doc.name).delete();
-    //   })
-    // })
   };
 
   const winnerText =

@@ -98,7 +98,6 @@ export const ContainerBoard = props => {
   const determineBoardComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayers':
-      case 'waitingForPlayersNew':
         return (
           <BoardWaiting
             players={players}
