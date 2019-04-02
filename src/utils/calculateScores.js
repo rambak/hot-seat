@@ -54,7 +54,10 @@ export default async function(gameRef, inHotSeat, players) {
             newScore += 2;
           }
 
-          if (scoring.mostVotedFor.includes(playerName)) {
+          if (
+            !scoring.mostVotedFor.includes(inHotSeat) &&
+            scoring.mostVotedFor.includes(playerName)
+          ) {
             newScore += 1;
           }
 

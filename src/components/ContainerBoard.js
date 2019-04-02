@@ -160,6 +160,7 @@ export const ContainerBoard = props => {
             players={players}
             gameRef={gameRef}
             setQuestions={setQuestions}
+            inHotSeatName={inHotSeat.name}
           />
         );
       default:
