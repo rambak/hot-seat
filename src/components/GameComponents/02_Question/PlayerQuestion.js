@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Button, Image, Container } from 'semantic-ui-react';
-import { db } from '../../../config/fbConfig';
 
 export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
   const [answer, setAnswer] = useState('');
@@ -18,24 +17,10 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
     myAnswerRef.set(myAnswer);
 
     if (name === inHotSeatName) {
-      db.runTransaction(function(transaction) {
-        return transaction.get(gameRef).then(function(gameDoc) {
-          if (!gameDoc.exists) {
-            console.error('This game does not exist');
-          }
-          const inHotSeatData = gameDoc.get('inHotSeat');
-          const inHotSeatNewData = { ...inHotSeatData, isAnswered: true };
-          transaction.update(gameRef, {
-            inHotSeat: inHotSeatNewData,
-          });
-        });
-      })
-        .then(function() {
-          console.log('Transaction successfully committed!');
-        })
-        .catch(function(error) {
-          console.log('Transaction failed: ', error);
-        });
+      gameRef.set({
+        inHotSeat: {
+          isAnswered: true,
+        }}, { merge: true})
     }
 
     setAnswer('');
