@@ -1,8 +1,9 @@
 import React from 'react';
+import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../config/fbConfig';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
+import { Header, Container } from 'semantic-ui-react';
+import ReturnToLoginButton from './ReturnToLoginButton';
 import {
   PlayerWaiting,
   PlayerUpNow,
@@ -13,7 +14,6 @@ import {
   PlayerGameOver,
 } from '../components/GameComponents';
 import PlayerPlayAgainLogin from './GameComponents/00_Waiting/PlayerPlayAgainLogin';
-import { Header, Container, Button } from 'semantic-ui-react';
 
 export const ContainerPlayer = props => {
   const { self, isLoggedIn, userCurrentGamePin } = props;
@@ -51,9 +51,7 @@ export const ContainerPlayer = props => {
       return (
         <Container textAlign="center" className="centered-child">
           <Header className="title">Game is currently in session</Header>
-          <Button as={Link} to="/login" size="huge" color="orange">
-            Return to Login Page
-          </Button>
+          <ReturnToLoginButton />
         </Container>
       );
     }
@@ -96,14 +94,13 @@ export const ContainerPlayer = props => {
             <Header className="title">
               There was a problem joining this game
             </Header>
-            <Button as={Link} to="/login" size="huge" color="orange">
-              Return to Login Page
-            </Button>
+            <ReturnToLoginButton />
           </Container>
         );
     }
   };
 
+  //Styling Based on Role in Game
   document.body.classList.add('player');
 
   if (
@@ -121,6 +118,7 @@ export const ContainerPlayer = props => {
     document.body.classList.add('player');
   }
 
+  //Return Statement
   return gameDoc.loading || playersCol.loading ? (
     <div>loading</div>
   ) : (

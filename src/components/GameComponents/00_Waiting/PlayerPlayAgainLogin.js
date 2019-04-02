@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Form, Button, Message, Header } from 'semantic-ui-react';
-import PlayerWaiting from './PlayerWaiting';
 import { setUser } from '../../../store/reducers/user';
 import { connect } from 'react-redux';
 
@@ -59,15 +58,12 @@ class PlayerLogin extends React.Component {
             name: enteredName,
           });
           this.props.setUser(enteredName, this.props.pin);
-          // this.setState({ loggedIn: true });
         }
       }
     }
   };
 
   render() {
-    // if (this.state.loggedIn) return <PlayerWaiting />;
-    // else
     return (
       <Container textAlign="center" style={{ paddingTop: '5vh' }}>
         {this.state.errors.length > 0 && (
