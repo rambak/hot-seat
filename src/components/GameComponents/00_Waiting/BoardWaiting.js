@@ -54,7 +54,7 @@ export const BoardWaiting = ({
         await batch.commit();
       });
 
-    updateStage();
+    //updateStage();
   };
   const padding =
     players.length > 7 ? { paddingTop: '1vh' } : { paddingTop: '7vh' };
@@ -113,8 +113,8 @@ export const BoardWaiting = ({
         size="massive"
         style={{ margin: '25px' }}
         onClick={() => startGame(gameRef)}
-        //disabled={players.length === 0}
-        //disabled={players.length < 3}
+        // disabled={players.length === 0)}
+        disabled={players.length < 3}
       >
         Start!
       </Button>
