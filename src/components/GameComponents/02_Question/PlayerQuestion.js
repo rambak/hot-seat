@@ -3,14 +3,16 @@ import { Form, Button, Image, Container } from 'semantic-ui-react';
 
 export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
   const [answer, setAnswer] = useState('');
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [disabledGif, setDisabledGif] = useState(false)
 
   const handleChange = evt => {
     setAnswer(evt.target.value);
+    if (evt.target.value.length > 0) setDisabled(false);
   };
   const handleSubmit = evt => {
     evt.preventDefault();
-    setDisabled(true);
+    setDisabledGif(true);
 
     const myAnswerRef = gameRef.collection('answers').doc(name);
     const myAnswer = { answer: answer.toUpperCase(), playersVote: [] };
@@ -26,7 +28,7 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
     setAnswer('');
   };
 
-  if (disabled)
+  if (disabledGif)
     return (
       <Container className="centered-child">
         <Image
