@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Container, Header, Label, Image } from 'semantic-ui-react';
+import { Table, Container, Label, Image } from 'semantic-ui-react';
 
 export const Scores = ({ players, inHotSeatName, updateStage, gameRef }) => {
   let highScore = 0;
@@ -25,12 +25,12 @@ export const Scores = ({ players, inHotSeatName, updateStage, gameRef }) => {
   }, []);
 
   return (
-    <Container className="centered-child">
+    <Container>
       <Table
         basic="very"
         celled
         collapsing
-        compact
+        compact="very"
         size="large"
         className="scores"
       >

@@ -41,15 +41,9 @@ export const BoardGameOver = ({
   const winnerText =
     winner.playerName.length > 1 ? (
       <>
-        <Header className="question" style={{ margin: '0', padding: '0' }}>
-          It's a Tie!
-        </Header>
-        <Header className="question" style={{ padding: '0' }}>
-          Winners:
-        </Header>
-        <Header className="question" style={{ padding: '0' }}>
-          {winner.playerName.join(' and ')}
-        </Header>
+        <Header className="title">It's a Tie!</Header>
+        <Header>Winners:</Header>
+        <Header>{winner.playerName.join(' and ')}</Header>
       </>
     ) : (
       `Winner: ${winner.playerName[0]}`
@@ -63,9 +57,12 @@ export const BoardGameOver = ({
     <Container className="game-over" textAlign="center">
       {showConfetti && <Confetti numberOfElements={1500} />}
       <Header className="title">GAME IS OVER</Header>
-      <Header className="question" style={{ padding: '0' }}>
-        {winnerText}
-      </Header>
+      <Header className="winners">{winnerText}</Header>
+      <Scores
+        players={players}
+        inHotSeatName={inHotSeatName}
+        gameRef={gameRef}
+      />
       <div>
         <Scores
           players={players}
