@@ -4,7 +4,7 @@ import { Form, Header } from 'semantic-ui-react';
 export const GamePinInput = ({ pin, handleChange }) => {
   return (
     <Form.Field>
-      <Header>PIN:</Header>
+      <Header as="h1">PIN:</Header>
       <Form.Input
         name="enteredPin"
         maxLength="4"
