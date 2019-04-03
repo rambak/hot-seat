@@ -5,7 +5,12 @@ export const GamePinInput = ({ pin, handleChange }) => {
   return (
     <Form.Field>
       <Header>PIN:</Header>
-      <input name="pin" maxLength="4" value={pin} onChange={handleChange} />
+      <Form.Input
+        name="enteredPin"
+        maxLength="4"
+        value={pin}
+        onChange={handleChange}
+      />
     </Form.Field>
   );
 };

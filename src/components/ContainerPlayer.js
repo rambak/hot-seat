@@ -13,7 +13,7 @@ import {
   PlayerScores,
   PlayerGameOver,
 } from '../components/GameComponents';
-import PlayerPlayAgainLogin from './GameComponents/00_Waiting/PlayerPlayAgainLogin';
+import Login from './LoginComponents/LoginPage';
 
 export const ContainerPlayer = props => {
   const { self, isLoggedIn, userCurrentGamePin } = props;
@@ -58,9 +58,7 @@ export const ContainerPlayer = props => {
     switch (currentStage) {
       case 'waitingForPlayers':
         if (!isLoggedIn || userCurrentGamePin !== pin) {
-          return (
-            <PlayerPlayAgainLogin gameRef={gameRef} pin={pin} self={self} />
-          );
+          return <Login pin={pin} self={self} type="specificGameLogin" />;
         } else {
           return <PlayerWaiting />;
         }

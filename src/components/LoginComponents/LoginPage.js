@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container, Form, Button, Message, Header } from 'semantic-ui-react';
-import { setUser } from '../store/reducers/user';
+import { setUser } from '../../store/reducers/user';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { db } from '../config/fbConfig';
+import { db } from '../../config/fbConfig';
+import GamePinInput from './GamePinInput';
+import NameInput from './NameInput';
 
 class LoginPage extends React.Component {
   constructor() {
@@ -18,9 +20,11 @@ class LoginPage extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ enteredName: this.props.self });
     if (this.props.type === 'specificGameLogin') {
-      this.setState({ enteredPin: this.props.pin });
+      this.setState({
+        enteredPin: this.props.pin,
+        enteredName: this.props.self,
+      });
     }
   }
 
@@ -114,6 +118,41 @@ class LoginPage extends React.Component {
       });
     }
   };
+
+  render() {
+    return (
+      <Container textAlign="center" style={{ paddingTop: '5vh' }}>
+        {this.state.errors.length > 0 && (
+          <Message negative>
+            <Message.Header>We encountered an error</Message.Header>
+            <Message.List>
+              {this.state.errors.map((error, idx) => {
+                return <Message.Item key={idx}>{error}</Message.Item>;
+              })}
+            </Message.List>
+          </Message>
+        )}
+        {this.props.type === 'specificGameLogin' && (
+          <Header className="title">Join game {this.state.enteredPin}</Header>
+        )}
+        <Form onSubmit={this.onSubmit}>
+          {this.props.type === 'loginPage' && (
+            <GamePinInput
+              pin={this.state.enteredPin}
+              handleChange={this.handleChange}
+            />
+          )}
+          <NameInput
+            name={this.state.enteredName}
+            handleChange={this.handleChange}
+          />
+          <Button type="submit" color="blue" size="huge">
+            Join!
+          </Button>
+        </Form>
+      </Container>
+    );
+  }
 }
 
 const mapDispatch = dispatch => ({
