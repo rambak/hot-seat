@@ -1,6 +1,6 @@
 // import { determineBoardComponent } from '../utils';
 import { db } from '../config/fbConfig';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
 import {
   BoardWaiting,
@@ -167,6 +167,13 @@ export const ContainerBoard = props => {
         return <></>;
     }
   };
+
+  //delete game from db when window is closed
+  useEffect(() => {
+    return () => {
+      console.log('cleaned up');
+    };
+  }, []);
 
   return gameDoc.loading || playersCol.loading ? (
     <div>loading</div>
