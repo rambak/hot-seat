@@ -53,6 +53,25 @@ export const ContainerBoard = props => {
     prevQuestions: {},
   });
 
+  //delete game from db when return to homepage
+  const deleteGame = async () => {
+    if (players.length) {
+      await players.forEach(async player => {
+        await playersRef.doc(player.name).delete();
+      });
+    }
+    if (answerCount) {
+      await answersCol.value.docs.forEach(async answer => {
+        await answersRef.doc(answer.id).delete();
+      });
+    }
+    gameRef.delete();
+  };
+
+  useEffect(() => {
+    return () => deleteGame();
+  }, []);
+
   const updateStage = async () => {
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
     //prettier-ignore
@@ -167,13 +186,6 @@ export const ContainerBoard = props => {
         return <></>;
     }
   };
-
-  //delete game from db when window is closed
-  useEffect(() => {
-    return () => {
-      console.log('cleaned up');
-    };
-  }, []);
 
   return gameDoc.loading || playersCol.loading ? (
     <div>loading</div>
