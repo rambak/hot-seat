@@ -19,7 +19,6 @@ class PlayerLogin extends React.Component {
   }
 
   handleChange(e, { name, value }) {
-    console.log(name, value);
     this.setState({ [name]: value });
   }
 
