@@ -25,7 +25,7 @@ export const Scores = ({ players, inHotSeatName, updateStage, gameRef }) => {
   }, []);
 
   return (
-    <Container className="centered-child">
+    <Container>
       <Table
         basic="very"
         celled
