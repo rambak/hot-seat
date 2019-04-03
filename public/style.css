@@ -267,9 +267,11 @@ tr.high-score > td {
 }
 
 .ui.table.scores .label {
-  height: 90%;
+  /* height: 90%; */
   width: 90%;
   background: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .card span.strikethrough {
@@ -313,7 +315,7 @@ tr.high-score > td {
 }
 
 .game-over .header.winners {
-  font-size: 9vh !important;
+  font-size: 8vh !important;
   color: #fe4902;
   font: bold 52px Helvetica, Arial, Sans-Serif;
   text-shadow: 1px 1px white;
@@ -322,7 +324,11 @@ tr.high-score > td {
 }
 
 .game-over .ui.table.scores tr {
-  height: 5vh;
+  height: 3vh;
+}
+
+.game-over .ui.table {
+  margin-bottom: 10px;
 }
 
 span.points {

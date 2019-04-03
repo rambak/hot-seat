@@ -30,7 +30,7 @@ export const Scores = ({ players, inHotSeatName, updateStage, gameRef }) => {
         basic="very"
         celled
         collapsing
-        compact
+        compact="very"
         size="large"
         className="scores"
       >
