@@ -1,6 +1,6 @@
 // import { determineBoardComponent } from '../utils';
 import { db } from '../config/fbConfig';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
 import {
   BoardWaiting,
@@ -53,6 +53,25 @@ export const ContainerBoard = props => {
     prevQuestions: {},
   });
 
+  //delete game from db when return to homepage
+  const deleteGame = async () => {
+    if (players.length) {
+      await players.forEach(async player => {
+        await playersRef.doc(player.name).delete();
+      });
+    }
+    if (answerCount) {
+      await answersCol.value.docs.forEach(async answer => {
+        await answersRef.doc(answer.id).delete();
+      });
+    }
+    gameRef.delete();
+  };
+
+  useEffect(() => {
+    return () => deleteGame();
+  }, []);
+
   const updateStage = async () => {
     const stages = ['upNow', 'question', 'voting', 'results', 'scores'];
     //prettier-ignore
@@ -98,7 +117,6 @@ export const ContainerBoard = props => {
   const determineBoardComponent = currentStage => {
     switch (currentStage) {
       case 'waitingForPlayers':
-      case 'waitingForPlayersNew':
         return (
           <BoardWaiting
             players={players}

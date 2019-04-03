@@ -30,8 +30,8 @@ export const InstructionsModal = ({ modalOpen, handleClose }) => {
           <br />
           <Image
             wrapped
-            size="medium"
-            src="https://im.ezgif.com/tmp/ezgif-1-6c0d99b4712a.gif"
+            size="large"
+            src="https://media.giphy.com/media/3d76PXXY8Dyr15lqRc/giphy.gif"
             alt="Host Start GIF"
           />
           <br />
@@ -40,6 +40,13 @@ export const InstructionsModal = ({ modalOpen, handleClose }) => {
           pin that is displayed on the host screen and your name. You will know
           you have successfully joined the game when your name appears on the
           host screen.
+          <br />
+          <Image
+            wrapped
+            size="medium"
+            src="https://media.giphy.com/media/2SYbYzKGgjt72J8tPW/giphy.gif"
+            alt="Player Start GIF"
+          />
         </Modal.Description>
 
         <Header>GAMEPLAY</Header>

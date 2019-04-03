@@ -29,11 +29,10 @@ export const BoardGameOver = ({
     });
 
     gameRef.set({
-      currentStage: 'waitingForPlayersNew',
+      currentStage: 'waitingForPlayers',
     });
 
     const playersRef = gameRef.collection('players');
-
     players.forEach(player => {
       playersRef.doc(player.name).delete();
     });
@@ -65,6 +64,11 @@ export const BoardGameOver = ({
         gameRef={gameRef}
       />
       <div>
+        <Scores
+          players={players}
+          inHotSeatName={inHotSeatName}
+          gameRef={gameRef}
+        />
         <Transition
           className="centered-parent"
           animation="browse"

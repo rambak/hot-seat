@@ -19,80 +19,73 @@ class PlayerLogin extends React.Component {
     const enteredName = event.target.name.value;
     await this.setState({ errors: [] });
     if (enteredPin === '') {
-      await this.setState({
-        errors: [...this.state.errors, 'Please make sure to enter a pin.'],
-      });
+      this.addError('Please make sure to enter a pin.');
     }
     if (enteredName === '') {
-      await this.setState({
-        errors: [...this.state.errors, 'Please make sure to enter a name.'],
-      });
+      this.addError('Please make sure to enter a name.');
     }
 
     if (this.state.errors.length === 0) {
       //check if the entered pin code exists
       const gameRef = db.collection('games').doc(enteredPin);
-
       const docExists = await gameRef.get().then(async doc => {
-        if (
-          doc.exists &&
-          !(
-            doc.data().currentStage === 'waitingForPlayers' ||
-            doc.data().currentStage === 'waitingForPlayersNew'
-          )
-        ) {
-          await this.setState({
-            errors: [
-              ...this.state.errors,
-              `This game (${enteredPin}) is already in progress.`,
-            ],
-          });
+        if (doc.exists && !(doc.data().currentStage === 'waitingForPlayers')) {
+          this.addError(`This game (${enteredPin}) is already in progress.`);
         }
         return doc.exists;
       });
 
       if (this.state.errors.length === 0) {
         if (docExists) {
-          const playersRef = db
-            .collection('games')
-            .doc(enteredPin)
-            .collection('players');
-
-          const playerNameExists = await playersRef
-            .where('name', '==', enteredName)
-            .get()
-            .then(function(querySnapshot) {
-              return querySnapshot.docs.length > 0;
-            });
-
-          if (playerNameExists) {
-            await this.setState({
-              errors: [
-                ...this.state.errors,
-                `A player with the same name (${enteredName}) already joined. Please choose a different name.`,
-              ],
-            });
-          } else {
-            await db
-              .collection('games')
-              .doc(enteredPin)
-              .collection('players')
-              .doc(enteredName)
-              .set({
-                name: enteredName,
-              });
-            this.props.setUser(enteredName);
-            this.props.history.push(`/${enteredPin}`);
-          }
-        } else {
-          await this.setState({
-            errors: [
-              ...this.state.errors,
-              `There is no game matching this pin (${enteredPin}). Please enter a different pin.`,
-            ],
+          db.runTransaction(async t => {
+            const trans = await t.get(gameRef);
+            if (trans.data().playerCount === 10) {
+              this.addError(`Number of players can't exceed 10`);
+            } else {
+              const playersRef = db
+                .collection('games')
+                .doc(enteredPin)
+                .collection('players');
+              const player = (await t.get(playersRef.doc(enteredName))).data()
+              if (player) {
+                this.addError(
+                  `A player with the same name (${enteredName}) already joined. Please choose a different name.`
+                );
+              } else {
+                 t.set(
+                  db
+                    .collection('games')
+                    .doc(enteredPin)
+                    .collection('players')
+                    .doc(enteredName),
+                  {
+                    name: enteredName,
+                  }
+                );
+                t.update(gameRef, {
+                  playerCount: trans.data().playerCount
+                    ? trans.data().playerCount + 1
+                    : 1,
+                });
+                this.props.setUser(enteredName, enteredPin);
+                this.props.history.push(`/${enteredPin}`);
+              }
+            }
           });
+        } else {
+          this.addError(
+            `There is no game matching this pin (${enteredPin}). Please enter a different pin.`
+          );
         }
       }
+    }
+  };
+
+  addError = async message => {
+    if (!this.state.errors.includes(message)) {
+      await this.setState({
+        errors: [...this.state.errors, message],
+      });
     }
   };
 
@@ -128,7 +121,7 @@ class PlayerLogin extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  setUser: name => dispatch(setUser(name)),
+  setUser: (name, gamePin) => dispatch(setUser(name, gamePin)),
 });
 
 export default connect(
