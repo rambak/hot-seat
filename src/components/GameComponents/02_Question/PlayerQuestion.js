@@ -17,10 +17,14 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
     myAnswerRef.set(myAnswer);
 
     if (name === inHotSeatName) {
-      gameRef.set({
-        inHotSeat: {
-          isAnswered: true,
-        }}, { merge: true})
+      gameRef.set(
+        {
+          inHotSeat: {
+            isAnswered: true,
+          },
+        },
+        { merge: true }
+      );
     }
 
     setAnswer('');
@@ -45,9 +49,16 @@ export const PlayerQuestion = ({ name, inHotSeatName, gameRef }) => {
             value={answer}
             onChange={handleChange}
             maxLength="23"
+            required
           />
         </Form.Field>
-        <Button color="blue" className="border" size="huge" type="submit" disabled={disabled}>
+        <Button
+          color="blue"
+          className="border"
+          size="huge"
+          type="submit"
+          disabled={disabled}
+        >
           Submit
         </Button>
       </Form>
